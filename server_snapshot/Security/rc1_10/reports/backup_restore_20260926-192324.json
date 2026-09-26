@@ -1,0 +1,78 @@
+﻿{
+    "version":  "1.0.0",
+    "generated_utc":  "2026-09-26T19:23:53.1044739Z",
+    "backup_root":  "C:\\Abutron\\Security\\rc1_10\\backups\\20260926-192324",
+    "item_count":  9,
+    "failure_count":  0,
+    "local_machine_dpapi":  true,
+    "note":  "Local rollback set is DPAPI-protected to this Windows server. Provider/off-host snapshot is separately required by release attestation.",
+    "result":  "PASS",
+    "items":  [
+                  {
+                      "source":  "C:\\caddy\\Caddyfile",
+                      "backup":  "C:\\Abutron\\Security\\rc1_10\\backups\\20260926-192324\\Caddyfile_eb80061755.dpapi",
+                      "type":  "DPAPI_FILE",
+                      "sha256":  "dd7f7d6c9ad2fb2ca971539369f53a7b87669a56e53c69d7de9f9c07a61c93f5",
+                      "restore_test":  "PASS"
+                  },
+                  {
+                      "source":  "C:\\Abutron\\TradingPlatformV4\\.env",
+                      "backup":  "C:\\Abutron\\Security\\rc1_10\\backups\\20260926-192324\\.env_d029284e38.dpapi",
+                      "type":  "DPAPI_FILE",
+                      "sha256":  "63c38e31e09f2ceb869a47a23bc68a0755d81aa7f34e00d575bcf6d2c4a9c1f3",
+                      "restore_test":  "PASS"
+                  },
+                  {
+                      "source":  "C:\\Abutron\\Jarvis\\.env",
+                      "backup":  "C:\\Abutron\\Security\\rc1_10\\backups\\20260926-192324\\.env_c71ecab0e5.dpapi",
+                      "type":  "DPAPI_FILE",
+                      "sha256":  "e3cf9753b2b8ecea7383bb9a8bf04d4ab54f31143d68e654c940fb7824c313c0",
+                      "restore_test":  "PASS"
+                  },
+                  {
+                      "source":  "C:\\Abutron\\Jarvis\\rc1_09\\.env",
+                      "backup":  "C:\\Abutron\\Security\\rc1_10\\backups\\20260926-192324\\.env_362b5e7e26.dpapi",
+                      "type":  "DPAPI_FILE",
+                      "sha256":  "7bda892ef77638a82c3c019a48d23d1d64768cc53f8582fe3b604b890d27cfff",
+                      "restore_test":  "PASS"
+                  },
+                  {
+                      "source":  "C:\\Abutron\\Jarvis\\data\\jarvis.db",
+                      "backup":  "C:\\Abutron\\Security\\rc1_10\\backups\\20260926-192324\\db_8b6fd81147c8.sqlite.dpapi",
+                      "type":  "DPAPI_SQLITE",
+                      "sha256":  "16bfaf90c866e8ebb2d88ce139a675215cff9130c0d212bbf44f9962b0a4437c",
+                      "restore_test":  "PASS"
+                  },
+                  {
+                      "source":  "C:\\Abutron\\Jarvis\\data\\rc1_08_incidents.db",
+                      "backup":  "C:\\Abutron\\Security\\rc1_10\\backups\\20260926-192324\\db_cc2aab9a7243.sqlite.dpapi",
+                      "type":  "DPAPI_SQLITE",
+                      "sha256":  "197b4b2834fe33ed80a8a3f5a24f61de653667a7313abf2abfb72a738892d0d6",
+                      "restore_test":  "PASS"
+                  },
+                  {
+                      "source":  "C:\\Abutron\\Jarvis\\data\\rc1_09_notifications.db",
+                      "backup":  "C:\\Abutron\\Security\\rc1_10\\backups\\20260926-192324\\db_571996111348.sqlite.dpapi",
+                      "type":  "DPAPI_SQLITE",
+                      "sha256":  "4e1c78277ba34d879361758e1bc9d9dbc8aa0b28f57f8ef7e28fefab62c4ac7d",
+                      "restore_test":  "PASS"
+                  },
+                  {
+                      "source":  "C:\\Abutron\\TradingPlatformV4\\data\\abutron_decisions.db",
+                      "backup":  "C:\\Abutron\\Security\\rc1_10\\backups\\20260926-192324\\db_98a1bbb1abee.sqlite.dpapi",
+                      "type":  "DPAPI_SQLITE",
+                      "sha256":  "961b9eebad1fbee97f7f879b14129098c9b71e9d9b555edc2d20775686f4f553",
+                      "restore_test":  "PASS"
+                  },
+                  {
+                      "source":  "C:\\Abutron\\TradingPlatformV4\\data\\mt5_idempotency.db",
+                      "backup":  "C:\\Abutron\\Security\\rc1_10\\backups\\20260926-192324\\db_da3f7b965bd4.sqlite.dpapi",
+                      "type":  "DPAPI_SQLITE",
+                      "sha256":  "f908213416152447d574a47b39328f68ff986d8694b369a5e3450790248609bc",
+                      "restore_test":  "PASS"
+                  }
+              ],
+    "failures":  [
+
+                 ]
+}

@@ -1,0 +1,155 @@
+{
+  "build": "ABUTRON_STEP21A_ICMARKETS_CTRADER_CLOUD_V1_0_0",
+  "version": "1.0.0",
+  "date": "2026-09-25",
+  "files": [
+    {
+      "path": ".env.example",
+      "sha256": "CE01263382B61B16955C74A9F5387CF179D7D5814F417EABD89498E07EDE792C",
+      "bytes": 976
+    },
+    {
+      "path": "README.md",
+      "sha256": "F58093F54E7A39E7FB57F7FBAE1BF219B0B7243731FE5F05A92375F753A5A434",
+      "bytes": 1456
+    },
+    {
+      "path": "STEP21A_BUILD_REPORT.json",
+      "sha256": "9271FD26F512C3F0D4075C5FDEC74A4C377D866E51E153FD57D5A1210B7C85EC",
+      "bytes": 731
+    },
+    {
+      "path": "core_integration/ctrader_cloud.py",
+      "sha256": "AD49B7C6182F7B5A1745A73870CDC19E1E2098FE215F889536F5503AD50DBD8E",
+      "bytes": 3417
+    },
+    {
+      "path": "core_integration/volume.py",
+      "sha256": "B43C4E1EC0441D891007DEF4712EA68E473C23B5C92DAC035DCCEFB6A1D0CD3A",
+      "bytes": 980
+    },
+    {
+      "path": "ctrader_gateway/__init__.py",
+      "sha256": "05F9AA607B022813F4AE021AD2E4F9F4BB21D775E17C83023CC5CA823D948ADD",
+      "bytes": 20
+    },
+    {
+      "path": "ctrader_gateway/app.py",
+      "sha256": "0A9B5F97F501A9B52D0E628F1E4CE72067B48B192A6243403AB6810879EBB0F5",
+      "bytes": 13664
+    },
+    {
+      "path": "ctrader_gateway/config.py",
+      "sha256": "9AFDECA90C1080BBB52685A7A5EF03BB72A66D0EB2E4D5BCE7EAB975EB5C3D34",
+      "bytes": 1584
+    },
+    {
+      "path": "ctrader_gateway/crypto.py",
+      "sha256": "EA45746B9BF45FE813936B87B20247060F9F49F8F54EE102745B16305A56DA37",
+      "bytes": 600
+    },
+    {
+      "path": "ctrader_gateway/models.py",
+      "sha256": "9BBBD8B841AA8BC2E50489DB0E183E11159B0E36639D2CA38A029E169301C5ED",
+      "bytes": 1172
+    },
+    {
+      "path": "ctrader_gateway/oauth.py",
+      "sha256": "83A080C9BADDC83CD421061C18BC3ED784D477633476EFCA67F681255D41D17F",
+      "bytes": 2864
+    },
+    {
+      "path": "ctrader_gateway/persistent_worker.py",
+      "sha256": "7C8FB44E94E040A9951B45774018B49B6723DCEA04F6FE6702165A9A58F51205",
+      "bytes": 7827
+    },
+    {
+      "path": "ctrader_gateway/service.py",
+      "sha256": "872918B2F8BF531D2EE6AC0DCF7BD3735ED196E4A1FF1AB033412898DAF5ABD2",
+      "bytes": 384
+    },
+    {
+      "path": "ctrader_gateway/store.py",
+      "sha256": "EFF0B2F53AC88567FD643387538AF9C93645CCEDBC1D86B3613E3C1602E84D1E",
+      "bytes": 6636
+    },
+    {
+      "path": "ctrader_gateway/worker_manager.py",
+      "sha256": "5B2CF9515D479AD88C3D406A42F93C4A582D0FA7A77B1D8DAA00CBA9BEFC79BB",
+      "bytes": 4906
+    },
+    {
+      "path": "deployment/caddy/Caddyfile.snippet",
+      "sha256": "D011FA624770AB6976ED79573B5AFE52B368520599B190CB77F848AF78848D65",
+      "bytes": 430
+    },
+    {
+      "path": "docs/ARCHITECTURE_DECISION.md",
+      "sha256": "8404E323DAED3C5172E84034BD19E232606338FD7090BCF36888F6026A3EBAA0",
+      "bytes": 1486
+    },
+    {
+      "path": "docs/CTRADER_APP_REGISTRATION.md",
+      "sha256": "743DC76FCA3A6190E7B84A4A036D6BCB739CEBE4CB16F3577B0E79A9C3A5D56D",
+      "bytes": 1076
+    },
+    {
+      "path": "docs/INSTALLATION_STEP_BY_STEP.md",
+      "sha256": "C53C3C93B4DAAD9DA44BBB44CE3FB70FD7B994BAC46E1C07BCE1BA372EA7AB71",
+      "bytes": 2895
+    },
+    {
+      "path": "docs/ROADMAP_TRUTH_2026-09-25.md",
+      "sha256": "37648EE879FB97073FA039DEEBB6413C36030F070124A17CED9D47478C8F061D",
+      "bytes": 1847
+    },
+    {
+      "path": "requirements.txt",
+      "sha256": "7F28A6501B345B4C9D59F746A8246442DB8A465E7D8216DC2A883482A8F32101",
+      "bytes": 268
+    },
+    {
+      "path": "scripts/install_windows.ps1",
+      "sha256": "6662134AA4D482F14A420AC3EB0231D2D92C4F13E0E34BD46719E3EAC6760F6E",
+      "bytes": 3110
+    },
+    {
+      "path": "scripts/preapproval_check.ps1",
+      "sha256": "44CDEAE0497A3969ED1725DA104A78033C8664EC051CD872646CAD17A3719CA6",
+      "bytes": 1309
+    },
+    {
+      "path": "scripts/readiness_after_credentials.ps1",
+      "sha256": "5AF0309ECE81070C0593C6D9B9B610105A8814C434C51EBD162CD8D19FF23664",
+      "bytes": 1283
+    },
+    {
+      "path": "scripts/start_gateway.ps1",
+      "sha256": "B5F36C37552CC4CA646CE5A919E582998273E85A3652B9845D6E672F4FC06CF7",
+      "bytes": 918
+    },
+    {
+      "path": "scripts/stop_gateway.ps1",
+      "sha256": "DBC5BA21EB53B9688C6DCE477C45D1D0EEDC4B07BDE7E3273D12DCF450A10A23",
+      "bytes": 427
+    },
+    {
+      "path": "tests/test_static.py",
+      "sha256": "D07CA41262AE6D4D8FB198BB777D97E5ED046B95037F4B1C394C045E3D085117",
+      "bytes": 2699
+    }
+  ],
+  "safety_defaults": {
+    "CTRADER_ENABLE_LIVE_CONNECTION": false,
+    "CTRADER_DEMO_EXECUTION_ENABLED": false,
+    "CTRADER_LIVE_MONEY_AUTHORIZED": false,
+    "CTRADER_KILL_SWITCH": true
+  },
+  "validation": {
+    "static_tests": "10/10 PASS",
+    "python_compile": "PASS",
+    "local_no_credential_startup": "PASS",
+    "server_install": "PENDING",
+    "broker_certification": "PENDING"
+  }
+}

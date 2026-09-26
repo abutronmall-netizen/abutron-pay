@@ -1,0 +1,109 @@
+﻿{
+    "version":  "1.0.0",
+    "generated_utc":  "2026-09-26T19:28:37.5032318Z",
+    "evaluated_since_utc":  "2026-09-23T19:28:37.5032318Z",
+    "result":  "PASS",
+    "fail_count":  0,
+    "warn_count":  2,
+    "rdp_port":  3389,
+    "active_rdp_session":  true,
+    "findings":  [
+                     {
+                         "control":  "RDP_ENABLED",
+                         "status":  "PASS",
+                         "message":  "Remote Desktop connections are enabled.",
+                         "evidence":  null
+                     },
+                     {
+                         "control":  "RDP_NLA",
+                         "status":  "PASS",
+                         "message":  "Network Level Authentication is required.",
+                         "evidence":  {
+                                          "UserAuthentication":  1
+                                      }
+                     },
+                     {
+                         "control":  "RDP_SECURITY_LAYER",
+                         "status":  "PASS",
+                         "message":  "RDP is not forced to the legacy RDP Security Layer.",
+                         "evidence":  {
+                                          "SecurityLayer":  2
+                                      }
+                     },
+                     {
+                         "control":  "RDP_SERVICE",
+                         "status":  "PASS",
+                         "message":  "Remote Desktop Services is running.",
+                         "evidence":  {
+                                          "start_type":  "Manual"
+                                      }
+                     },
+                     {
+                         "control":  "RDP_LISTENER",
+                         "status":  "PASS",
+                         "message":  "RDP TCP listener is present.",
+                         "evidence":  {
+                                          "addresses":  [
+                                                            "::",
+                                                            "0.0.0.0"
+                                                        ],
+                                          "port":  3389
+                                      }
+                     },
+                     {
+                         "control":  "RDP_ACTIVE_SESSION",
+                         "status":  "PASS",
+                         "message":  "An active RDP session is visible.",
+                         "evidence":  null
+                     },
+                     {
+                         "control":  "UNEXPECTED_SHUTDOWN_HISTORY",
+                         "status":  "WARN",
+                         "message":  "Historical unexpected shutdown events exist and require a clean post-RC1-10 reboot gate.",
+                         "evidence":  {
+                                          "events":  [
+                                                         {
+                                                             "TimeCreated":  "\/Date(1790407690678)\/",
+                                                             "Id":  41,
+                                                             "ProviderName":  "Microsoft-Windows-Kernel-Power"
+                                                         },
+                                                         {
+                                                             "TimeCreated":  "\/Date(1790407699693)\/",
+                                                             "Id":  6008,
+                                                             "ProviderName":  "EventLog"
+                                                         },
+                                                         {
+                                                             "TimeCreated":  "\/Date(1790321280098)\/",
+                                                             "Id":  41,
+                                                             "ProviderName":  "Microsoft-Windows-Kernel-Power"
+                                                         },
+                                                         {
+                                                             "TimeCreated":  "\/Date(1790321288907)\/",
+                                                             "Id":  6008,
+                                                             "ProviderName":  "EventLog"
+                                                         },
+                                                         {
+                                                             "TimeCreated":  "\/Date(1790196764092)\/",
+                                                             "Id":  41,
+                                                             "ProviderName":  "Microsoft-Windows-Kernel-Power"
+                                                         },
+                                                         {
+                                                             "TimeCreated":  "\/Date(1790196772696)\/",
+                                                             "Id":  6008,
+                                                             "ProviderName":  "EventLog"
+                                                         }
+                                                     ],
+                                          "since_utc":  "2026-09-23T19:28:37.5032318Z",
+                                          "count":  6
+                                      }
+                     },
+                     {
+                         "control":  "RDP_SCHANNEL_HISTORY",
+                         "status":  "WARN",
+                         "message":  "Recent Schannel handshake failures were recorded. Do not weaken TLS/NLA to accommodate unknown clients.",
+                         "evidence":  {
+                                          "count":  4
+                                      }
+                     }
+                 ]
+}

@@ -1,0 +1,15 @@
+{
+  "bundle": "Abutron-Step20-Soak-Endurance-Cert-v1.3-Bundle.zip",
+  "build_marker": "STEP20_SOAK_ENDURANCE_CERT_V1_3",
+  "files": {
+    "step20_soak_probe_v1_3.py": "442C5F46A400E3AF7A3E5BE4D7534F72A97B2745D6955308E04CE5517A6CE9A2",
+    "Abutron-Step20-Soak-Endurance-Cert-v1.3.ps1": "3ED6E024FC2FBBEE2CA3625052F40CBF551CA6D764BD783F37F74410A0C69F76",
+    "Abutron-Step20-Install-Validate-Preflight-v1.3.ps1": "142BC36DBA689CA6CD6F6F6BFDC4517AED3D5B8F8F50500AA8FC2B299EBFF1BE",
+    "STEP20-V1.3-INSTALLATION.md": "3E2765F77A870AF47ECC40AFCD27C0F9365246796FBFF4CCF073C0CB32D4B142"
+  },
+  "fixes": [
+    "strategy-package-topology",
+    "authenticated-bridge-read-probes",
+    "preflight-strategy-import"
+  ]
+}

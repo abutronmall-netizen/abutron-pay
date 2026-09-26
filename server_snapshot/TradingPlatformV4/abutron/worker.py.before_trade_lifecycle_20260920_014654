@@ -1,0 +1,62 @@
+from __future__ import annotations
+import asyncio,logging,json,time
+from sqlalchemy import select
+from abutron.config import settings
+from abutron.service import TradingService
+from abutron.platform_db import session_scope,TradingAccount,TradeRecord,AuditEvent
+logging.basicConfig(level=logging.INFO,format="%(asctime)s %(levelname)s %(message)s")
+
+def sync_deals(deals):
+    if not deals: return
+    with session_scope() as s:
+        account=s.scalar(select(TradingAccount).where(TradingAccount.active==True).order_by(TradingAccount.id.asc()))
+        account_id=account.id if account else None
+        for d in deals:
+            ticket=str(d.get("ticket",0))
+            state="CLOSED" if int(d.get("entry",0)) in (1,3) else "OPENED"
+            exists=s.scalar(select(TradeRecord).where(TradeRecord.ticket==ticket,TradeRecord.state==state))
+            if exists: continue
+            side="BUY" if int(d.get("type",0)) in (0,2,4) else "SELL"
+            s.add(TradeRecord(account_id=account_id,symbol=str(d.get("symbol","")),side=side,tier="",
+                              state=state,ticket=ticket,volume=float(d.get("volume",0)),entry=float(d.get("price",0)),
+                              profit=float(d.get("profit",0))+float(d.get("commission",0))+float(d.get("swap",0)),
+                              opened_ts=int(d.get("time",0)) if state=="OPENED" else None,
+                              closed_ts=int(d.get("time",0)) if state=="CLOSED" else None,
+                              payload=json.dumps(d,default=str)))
+
+def persist_execution(result):
+    if not result.execution or not result.execution.get("accepted") or not result.plan: return
+    with session_scope() as s:
+        account=s.scalar(select(TradingAccount).where(TradingAccount.active==True).order_by(TradingAccount.id.asc()))
+        account_id=account.id if account else None
+        ticket=str(result.execution.get("order") or result.execution.get("deal") or "")
+        exists=s.scalar(select(TradeRecord).where(TradeRecord.signal_id==result.plan.idempotency_key))
+        if not exists:
+            s.add(TradeRecord(account_id=account_id,symbol=result.symbol,side=result.plan.direction.value,tier=result.route.selected.value,
+                              state="EXECUTED",ticket=ticket,volume=result.plan.volume,entry=result.plan.entry,sl=result.plan.sl,tp=result.plan.tp,
+                              signal_id=result.plan.idempotency_key,opened_ts=int(time.time()),payload=json.dumps(result.model_dump(mode="json"),default=str)))
+        if account and not result.route.locked:
+            account.current_tier=result.route.selected.value
+
+async def main():
+    svc=TradingService()
+    logging.info("ABUTRON v4 worker starting; execution_enabled=%s",settings.execution_enabled)
+    while True:
+        for symbol in settings.symbol_list:
+            try:
+                r=await svc.evaluate_live(symbol,execute=True)
+                persist_execution(r)
+                logging.info("%s %s confidence=%.1f risk=%s route=%s execution=%s",
+                    symbol,r.thesis.direction.value,r.thesis.confidence,r.risk.reason,r.route.selected.value,r.execution)
+            except Exception:
+                logging.exception("Evaluation failed for %s",symbol)
+        try:
+            await svc.gateway.manage()
+            deals=await svc.gateway.history(days=7)
+            sync_deals(deals)
+        except Exception:
+            logging.exception("Trade management/history sync failed")
+        await asyncio.sleep(max(10,settings.worker_interval_seconds))
+
+if __name__=="__main__":
+    asyncio.run(main())

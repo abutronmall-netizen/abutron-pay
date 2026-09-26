@@ -1,0 +1,342 @@
+{
+  "platform": "ABUTRON TRADING PLATFORM",
+  "version": "4.0.0",
+  "generated_utc": "2026-09-19T18:47:04.745194+00:00",
+  "files": [
+    {
+      "path": ".env.example",
+      "size": 1659,
+      "sha256": "87d915067bacb3c2cec5b5431d15f3011839275d9b4274903054aaf94cef2c1e"
+    },
+    {
+      "path": "README.md",
+      "size": 2817,
+      "sha256": "3ee017620f39b261ff4f4249f9a2925cd8356b016755ff45c9fa062ef7c54492"
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.md",
+      "size": 441,
+      "sha256": "d837fc3102b1ff20831288794efe8d9d545f96eb9f63da06dc27509564f85686"
+    },
+    {
+      "path": "abutron/__init__.py",
+      "size": 134,
+      "sha256": "53d035764b7c164171e39be15c933e1ac07af50f299b7338644074aa6de0fda3"
+    },
+    {
+      "path": "abutron/api.py",
+      "size": 10670,
+      "sha256": "d935c24dedde3d33cc4a0c0913308028481149c752cf3d45665331a06671dba4"
+    },
+    {
+      "path": "abutron/capital.py",
+      "size": 1789,
+      "sha256": "9ad76838bbd8ed7f362b71b251cd03cc688266b178d9fd28df8ee85bfe05e8a3"
+    },
+    {
+      "path": "abutron/config.py",
+      "size": 1858,
+      "sha256": "75031097f04fc03a4c0347a50b500fc6abae3465f4fc99acfd37b4ddf9688210"
+    },
+    {
+      "path": "abutron/features/__init__.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "abutron/features/institutional.py",
+      "size": 1894,
+      "sha256": "1d6a4559a3736073abbbfd102bf9836f3118f358007296ee0bee3357d01d584b"
+    },
+    {
+      "path": "abutron/features/regime.py",
+      "size": 838,
+      "sha256": "31292d24420487432a3a6948aa26b139d230ca10f3da91b5d7992a08ff5ab071"
+    },
+    {
+      "path": "abutron/features/technical.py",
+      "size": 1499,
+      "sha256": "fa54f6afd7585072096e3b90e227ed93fe0811f12c29b51c08226efaa28a3f24"
+    },
+    {
+      "path": "abutron/features/vector.py",
+      "size": 1096,
+      "sha256": "9ea5a72ad9e5a6a85d432852ded13906ef65764ee44786a705d0e947881fe62c"
+    },
+    {
+      "path": "abutron/fusion.py",
+      "size": 2446,
+      "sha256": "6e8ed10202d3e041b561cab74544b0a6bfe4db672c0cc2d0ebae34bc195c386e"
+    },
+    {
+      "path": "abutron/gateways/__init__.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "abutron/gateways/mt5.py",
+      "size": 2354,
+      "sha256": "2b7a02961613d0f23f1e6d489f3446c672cf82ec53258b0bf46b1b71b6f265c5"
+    },
+    {
+      "path": "abutron/kronos_runtime.py",
+      "size": 2918,
+      "sha256": "73942b818d01456ca921d3c4e029ffb484608916097b1da1c52f132c74e86e24"
+    },
+    {
+      "path": "abutron/models.py",
+      "size": 3719,
+      "sha256": "46317e4968a1780cd4659609881744f44029caa334661e850c3ef7e15da4cbed"
+    },
+    {
+      "path": "abutron/platform_db.py",
+      "size": 5420,
+      "sha256": "5afbf0561789890ede04e0005647840858bcaacc6d64d6bc1f81cec3cac26ec4"
+    },
+    {
+      "path": "abutron/profiles.py",
+      "size": 1529,
+      "sha256": "8fd8a2855a12fdc5fcf2d21b1d0aaf7efd67dc547c860e4ef583ac453618202c"
+    },
+    {
+      "path": "abutron/risk.py",
+      "size": 2197,
+      "sha256": "fd681254cb1953d4ddd986380b247c8fe4a635e05b9edba1e33ed93a0339595d"
+    },
+    {
+      "path": "abutron/router.py",
+      "size": 1102,
+      "sha256": "d1a13e142240059c54327f402f5c475f949eafe0b3999a8e54aaf6a0848ae825"
+    },
+    {
+      "path": "abutron/security.py",
+      "size": 1890,
+      "sha256": "1272d0e2ab1fa1e68b059c55b16e8958cfed45e0e4eaef4252aa3f162096fb91"
+    },
+    {
+      "path": "abutron/service.py",
+      "size": 8409,
+      "sha256": "ded6bf26ec0676906362a6fc2f580ed36fed3365ac71d860bec6bb707f7f0d87"
+    },
+    {
+      "path": "abutron/storage/__init__.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "abutron/storage/decisions.py",
+      "size": 1742,
+      "sha256": "6f3977dee0cafbcdf25dc3dbc42ec67755a05035f0b2db94940499e471c3998d"
+    },
+    {
+      "path": "abutron/strategies/__init__.py",
+      "size": 462,
+      "sha256": "beda5c67a582571185978475f720b3af363fb5c6222ee71df4a9f4979f4954f9"
+    },
+    {
+      "path": "abutron/strategies/base.py",
+      "size": 601,
+      "sha256": "3ff9360b5b92285a3802567629137fc3b3915b7ba7fe0f6165e8d88b8728b7d1"
+    },
+    {
+      "path": "abutron/strategies/flipper.py",
+      "size": 656,
+      "sha256": "5c2f382ec7d8b8f0d273ba5ed7d72f7d2ccfdedb4491ecccb64ba27063eb6403"
+    },
+    {
+      "path": "abutron/strategies/master.py",
+      "size": 618,
+      "sha256": "07d70814d0d86ad7370aa1d78b96f43555a53f26bd968f8c3019db6eff8b19ca"
+    },
+    {
+      "path": "abutron/strategies/scalper.py",
+      "size": 626,
+      "sha256": "51f8580a7c5df7a1b130b392bb757e93633d1f1ea538e66e2008c5633a3e38ee"
+    },
+    {
+      "path": "abutron/symbols.py",
+      "size": 913,
+      "sha256": "1ed27bdf2aa27f24c72afa6a5c343e67d5b942a0aba3666d612baacfff012dcd"
+    },
+    {
+      "path": "abutron/worker.py",
+      "size": 3602,
+      "sha256": "e06b1113e582dab58407dab24769c2450f770e6a19bc1f5724625300542ec4b9"
+    },
+    {
+      "path": "admin/index.html",
+      "size": 5050,
+      "sha256": "aedcc0e5914e56e3ecf3505832adaddd284659088dcee0821f390caf41b39aaf"
+    },
+    {
+      "path": "backtest/README.md",
+      "size": 474,
+      "sha256": "d42b577720fde91bc0f5b9623ccb3584cfc4ff0334a0d4608f2fcc76cc79ebca"
+    },
+    {
+      "path": "deployment/caddy/Caddyfile",
+      "size": 303,
+      "sha256": "69c1336e925441bf12576fc1d3d228f5254b3b1baae264451b4cde10b9b7c534"
+    },
+    {
+      "path": "deployment/windows/start_core_legacy.ps1",
+      "size": 165,
+      "sha256": "a2ad6a18b19a52e4eb8e7a4326301c521c93fb10bd0acb818dc15a5beb9d53ca"
+    },
+    {
+      "path": "docker-compose.yml",
+      "size": 699,
+      "sha256": "8198216b3a42b0db68107f0a5a276317c1523f4793a6ba3ea5e2ab87dbcabf81"
+    },
+    {
+      "path": "docs/100_PERCENT_ACCEPTANCE_GATES.md",
+      "size": 2979,
+      "sha256": "03a1f94e8c7edd892d072f5a93e44c49061955a44c8966503713ee8ebec3d093"
+    },
+    {
+      "path": "docs/ARCHITECTURE.md",
+      "size": 1818,
+      "sha256": "ae12bdd81c4a441ff5addbca0fa5273330a4a9ba6fa236c6705bc01bd922ca28"
+    },
+    {
+      "path": "docs/PRODUCTION_CHECKLIST.md",
+      "size": 673,
+      "sha256": "b504b0caff23fe957693d3b7b980c2acaf5bde06187b0147b205a5a35f807f5b"
+    },
+    {
+      "path": "docs/WINDOWS_FRESH_INSTALL.md",
+      "size": 2735,
+      "sha256": "a013ef8811ed65282e760915aa719262432cc9a9b9d9c8d696998418a086187c"
+    },
+    {
+      "path": "mobile/App.tsx",
+      "size": 2745,
+      "sha256": "2f4c94f6e42f0b3b9441fefd5710b4bc3363a7e44912b8d968b73e2e156c9137"
+    },
+    {
+      "path": "mobile/app.json",
+      "size": 201,
+      "sha256": "0a5b8341a8ec47e8b0979ad48aab5f230821123a14e128a6951e31f0f190ccee"
+    },
+    {
+      "path": "mobile/package.json",
+      "size": 369,
+      "sha256": "9b3e8bb715426efd966010e1dec149940680fb0af76071672357adabce354b36"
+    },
+    {
+      "path": "mt5_bridge/__init__.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "mt5_bridge/app.py",
+      "size": 12816,
+      "sha256": "a36005cdf67066ce58a99a017a98b49cd701f2b720daf325bf5d476dad6394c9"
+    },
+    {
+      "path": "mt5_bridge/settings.py",
+      "size": 645,
+      "sha256": "e89a48e3dc66665f28902a2c2752e1399f5a4be753a4cc0ca46a3e88dd4c16a9"
+    },
+    {
+      "path": "mt5_bridge/store.py",
+      "size": 2047,
+      "sha256": "e279225fd9039782ef468a6b67b3556a83e1c7ba18a6e8f8c4b617f8e15a7e22"
+    },
+    {
+      "path": "requirements-core.txt",
+      "size": 347,
+      "sha256": "82adf6b9285c54e0cb4369bc93fda3af3a1539f7a37df89d658044e7b8c5c073"
+    },
+    {
+      "path": "requirements-mt5.txt",
+      "size": 123,
+      "sha256": "b7594701608b0175e38fa3b7bde7d870d4286707c0a0b40d88d5403d7df0dd18"
+    },
+    {
+      "path": "scripts/certify_live.ps1",
+      "size": 1033,
+      "sha256": "2fc622fec58d8bfda1637a307687384ec99ec27905df07a1c96845fd6e65e673"
+    },
+    {
+      "path": "scripts/download_models.py",
+      "size": 486,
+      "sha256": "8a6e101415f1209e8267ab767401c9db22779eb8678a1c1944daa413f807a796"
+    },
+    {
+      "path": "scripts/fetch_kronos.ps1",
+      "size": 450,
+      "sha256": "98e846f775fd2fb479a5b4f7a0ed33a18885c484becdef78504e96f89ee9595c"
+    },
+    {
+      "path": "scripts/install_windows.ps1",
+      "size": 2395,
+      "sha256": "a4dfb8e0af124563782270a01afb14c5ceea87cd2c5361e4fcce191026014767"
+    },
+    {
+      "path": "scripts/smoke_test.ps1",
+      "size": 315,
+      "sha256": "4e73f9c0b5581cb78928756f263345d44499e35f81c8c299a3c16f02eedfeb2f"
+    },
+    {
+      "path": "scripts/start_core.ps1",
+      "size": 165,
+      "sha256": "a2ad6a18b19a52e4eb8e7a4326301c521c93fb10bd0acb818dc15a5beb9d53ca"
+    },
+    {
+      "path": "scripts/start_mt5_bridge.ps1",
+      "size": 168,
+      "sha256": "a462532c0b53243c1f95b2b0eef80e5b4b07d62cbc4cf41bc39829af97305204"
+    },
+    {
+      "path": "scripts/start_platform.ps1",
+      "size": 1260,
+      "sha256": "b40df3a289443b171c34452f5781412caecea7ba180d4577fed1ba31dc22c8a0"
+    },
+    {
+      "path": "scripts/start_worker.ps1",
+      "size": 127,
+      "sha256": "83825e66f643285e1b7331898cce8dd9239b19bf93ce1ad166f7252418e42452"
+    },
+    {
+      "path": "scripts/stop_platform.ps1",
+      "size": 357,
+      "sha256": "bc1a258342fdba2eeb019efd39a4f7cca2a96c5719ec43186d7852c03d4f69b5"
+    },
+    {
+      "path": "tests/test_features.py",
+      "size": 513,
+      "sha256": "41cfb17854a0e0ce9e1b34984ec57589f21d45d4b72e2339a49d909f915a447c"
+    },
+    {
+      "path": "tests/test_risk.py",
+      "size": 830,
+      "sha256": "fc3e0137d11eb0d139527ce78ce563b02a6c37320223861c6f8a7032aa524afa"
+    },
+    {
+      "path": "tests/test_routing.py",
+      "size": 497,
+      "sha256": "7703634b40bd4f05c2da8f2c86ab40e5aa599ac2cc038365899f2d47a0323831"
+    },
+    {
+      "path": "tests/test_symbols.py",
+      "size": 306,
+      "sha256": "7b10fe800d3aa05b15489057a46bacc51e27105cbd31ad7849613a2521d97370"
+    },
+    {
+      "path": "tests/test_v4_capital.py",
+      "size": 908,
+      "sha256": "b6f2a4ff51a3b391f1f20b058c14821d0f81fba3546973c4489a435d6957fc0d"
+    },
+    {
+      "path": "tests/test_v4_router.py",
+      "size": 946,
+      "sha256": "2ca737081c57c46c9a7e0e2bb420b711d614deae8e52da200543b397b2392bae"
+    },
+    {
+      "path": "tests/test_v4_security.py",
+      "size": 268,
+      "sha256": "b61129cb456543c0621e582df94d5186107ef463e8a53ec8a01f3409aafde88e"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "build": "ABUTRON_STEP21A_ICMARKETS_CTRADER_CLOUD_V1_0_0",
+  "date": "2026-09-25",
+  "status": "STATIC_PASS_SERVER_CERTIFICATION_PENDING",
+  "static_tests": {"passed": 10, "failed": 0},
+  "python_compile": true,
+  "local_no_credential_startup": true,
+  "secret_account_scan": "PASS",
+  "safety_true_scan": "PASS",
+  "kronos_venv_isolation": true,
+  "broker_order_sent": false,
+  "live_money_authorized": false,
+  "pending": [
+    "Windows VPS installation evidence",
+    "Spotware Open API application approval/client credentials",
+    "IC Markets cTrader DEMO OAuth/account discovery",
+    "XAUUSD symbol and protocol-volume certification",
+    "Step 21B read-only integration",
+    "Step 21C controlled DEMO lifecycle"
+  ]
+}

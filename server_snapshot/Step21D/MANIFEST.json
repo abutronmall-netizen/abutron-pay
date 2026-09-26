@@ -1,0 +1,256 @@
+{
+  "release": "v1.3.0",
+  "generated": "2026-09-25",
+  "files": [
+    {
+      "path": ".env.example",
+      "size": 1454,
+      "sha256": "33016b18090ab9d3d98b9b9d1b940f0d26cf552a994404edb3d9de9e7fc25961"
+    },
+    {
+      "path": "README.md",
+      "size": 579,
+      "sha256": "0afb09de494d82576aa9a52e0a651dacb1b5b34c5bb8e5fe8f5a9087817b32e9"
+    },
+    {
+      "path": "STEP21C_BUILD_REPORT.json",
+      "size": 852,
+      "sha256": "d85d3415abc1f5f3ed14bc0f6e89547f75aaaeacfc093e6c66f33e19bdc4a9c3"
+    },
+    {
+      "path": "STEP21D_BUILD_REPORT.json",
+      "size": 762,
+      "sha256": "7e522eef59adcabf0381720f0c3fc59d3df05231cef89785d5a019dec2faa1b2"
+    },
+    {
+      "path": "core_integration/ctrader_cloud.py",
+      "size": 4502,
+      "sha256": "ae523ea2434f10f8ef06a357313fa9ebe1188db056ad44e285d05d72c529c53b"
+    },
+    {
+      "path": "core_integration/ctrader_customer_pipeline.py",
+      "size": 7402,
+      "sha256": "e014fd06fbab1f33a1eec0e5b2b43a5a2d737183ace30a0c49a75d99d3a16dfe"
+    },
+    {
+      "path": "core_integration/ctrader_routes.py",
+      "size": 1606,
+      "sha256": "22956c70efab16a4ae0ec5c6511e1866ff96ce008aa3a09ec0575d59249ff686"
+    },
+    {
+      "path": "core_integration/volume.py",
+      "size": 980,
+      "sha256": "b43c4e1ec0441d891007def4712ea68e473c23b5c92dac035dccefb6a1d0cd3a"
+    },
+    {
+      "path": "ctrader_gateway/__init__.py",
+      "size": 22,
+      "sha256": "ce2fcb6944ff3ac0a102db0f5db39e4694240a8852b0ec9e5df6af40f3341a81"
+    },
+    {
+      "path": "ctrader_gateway/app.py",
+      "size": 38342,
+      "sha256": "02aecf13257a3246aea129e429bb5e1de704ae03f7c7b53dcd34d766f68d3fa5"
+    },
+    {
+      "path": "ctrader_gateway/config.py",
+      "size": 1965,
+      "sha256": "bf03fe2f9b452cc2f141c843014b7a8a072767396164a66d0e53361b359f4222"
+    },
+    {
+      "path": "ctrader_gateway/crypto.py",
+      "size": 600,
+      "sha256": "ea45746b9bf45fe813936b87b20247060f9f49f8f54ee102745b16305a56da37"
+    },
+    {
+      "path": "ctrader_gateway/models.py",
+      "size": 2385,
+      "sha256": "1c48dde2d9cf2d7e8e674af560f3dcc699644dae2e7672168cf39b003ab254f7"
+    },
+    {
+      "path": "ctrader_gateway/oauth.py",
+      "size": 3260,
+      "sha256": "b93a730be0d6e6415206984da71d68b6dd7bc28c58e7a8f9eccafbd48482c700"
+    },
+    {
+      "path": "ctrader_gateway/persistent_worker.py",
+      "size": 10026,
+      "sha256": "404c5bed89a831a1b8f2d86c20f9d1784c03800f6b1642e737c5d2d0ce81d2ff"
+    },
+    {
+      "path": "ctrader_gateway/service.py",
+      "size": 384,
+      "sha256": "872918b2f8bf531d2ee6ac0dcf7bd3735ed196e4a1ff1ab033412898daf5abd2"
+    },
+    {
+      "path": "ctrader_gateway/store.py",
+      "size": 8483,
+      "sha256": "43c3f2551660add0b6099244fb06aba6dcd3e4d7bbf6db4601aed4d1cf08caf9"
+    },
+    {
+      "path": "ctrader_gateway/worker_manager.py",
+      "size": 5909,
+      "sha256": "dfb3e93b004294f90ed36e7e38b2fa77a86c453fd3db7a8b8b929236bc67f9cd"
+    },
+    {
+      "path": "deployment/caddy/Caddyfile.snippet",
+      "size": 430,
+      "sha256": "d011fa624770ab6976ed79573b5afe52b368520599b190cb77f848af78848d65"
+    },
+    {
+      "path": "docs/ARCHITECTURE_DECISION.md",
+      "size": 1486,
+      "sha256": "8404e323daed3c5172e84034bd19e232606338fd7090bcf36888f6026a3ebaa0"
+    },
+    {
+      "path": "docs/CTRADER_APP_REGISTRATION.md",
+      "size": 1076,
+      "sha256": "743dc76fca3a6190e7b84a4a036d6bcb739cebe4cb16f3577b0e79a9c3a5d56d"
+    },
+    {
+      "path": "docs/INSTALLATION_STEP_BY_STEP.md",
+      "size": 3176,
+      "sha256": "20eb42309500178dd677152b3723f686a0fa42a3ce42527b1156596dfd70d9a0"
+    },
+    {
+      "path": "docs/INSTALL_STEP21B.md",
+      "size": 1382,
+      "sha256": "8f9e5109c420e4e557a60220e9b9325588040ed7ea99f024ce521f35af19238f"
+    },
+    {
+      "path": "docs/INSTALL_STEP21C.md",
+      "size": 500,
+      "sha256": "20432aba80b380a33a6f5c4515cb8c96117d2463971855ece09bacded625f77d"
+    },
+    {
+      "path": "docs/INSTALL_STEP21D.md",
+      "size": 1558,
+      "sha256": "cc60a0ebeec5e5e4f6c4c4440466d548c1639992048299ada07ef5a3dd47f395"
+    },
+    {
+      "path": "docs/REPAIR_V1_0_0_TO_V1_0_1.md",
+      "size": 1520,
+      "sha256": "9551254ef7b068ded0dbb494bebbbaec5df004cdf5e6a83bff037546de1b6ea7"
+    },
+    {
+      "path": "docs/REPAIR_V1_1_0_TO_V1_1_1.md",
+      "size": 1060,
+      "sha256": "c83a8bd929462d3075de1da1f44bc9aa02d0a4de739aec970d6ad0f68a6bf97f"
+    },
+    {
+      "path": "docs/REPAIR_V1_1_1_TO_V1_1_2.md",
+      "size": 722,
+      "sha256": "68e854894893c5130ce6081a58bcf8547e26b4fbb79632bdbdfb910d1d9b72a6"
+    },
+    {
+      "path": "docs/ROADMAP_TRUTH_2026-09-25.md",
+      "size": 1847,
+      "sha256": "37648ee879fb97073fa039deebb6413c36030f070124a17ced9d47478c8f061d"
+    },
+    {
+      "path": "docs/STEP21C_ARCHITECTURE.md",
+      "size": 836,
+      "sha256": "52010dc53fce801217cb038cc6251eb3e3b3f521d596b5c0b4b85e0dd1c6b50f"
+    },
+    {
+      "path": "docs/STEP21D_ARCHITECTURE.md",
+      "size": 1348,
+      "sha256": "edc903c0e662176aafea0a10980012d55c6856f356723d7eddaa84cf99a8c9b9"
+    },
+    {
+      "path": "requirements.txt",
+      "size": 275,
+      "sha256": "a8ef63a3428d8a6ebb0c9bd2feb51a6e800f9bc00a9606c2ea9511cef41775ee"
+    },
+    {
+      "path": "scripts/install_step21b.ps1",
+      "size": 8667,
+      "sha256": "0f21d3b283a60b2a96d5fa8097e5e82784061435b05dbc036f60f88519781531"
+    },
+    {
+      "path": "scripts/install_step21c.ps1",
+      "size": 4899,
+      "sha256": "dc66291bdb9a5130670e170f706f41d7fa9a058840ca99b65074e55944aa0b9f"
+    },
+    {
+      "path": "scripts/install_step21d.ps1",
+      "size": 2956,
+      "sha256": "d69ec9fd7f5db735221c1a93492e44a55a410c721002f4e0213ba332ab942641"
+    },
+    {
+      "path": "scripts/install_windows.ps1",
+      "size": 4430,
+      "sha256": "d77f9af24bc481090282839e16ea1d5f99666e210a613f1f1392cb9639f39d56"
+    },
+    {
+      "path": "scripts/preapproval_check.ps1",
+      "size": 1309,
+      "sha256": "44cdeae0497a3969ed1725da104a78033c8664ec051cd872646cad17a3719ca6"
+    },
+    {
+      "path": "scripts/readiness_after_credentials.ps1",
+      "size": 1283,
+      "sha256": "5af0309ece81070c0593c6d9b9b610105a8814c434c51ebd162cd8d19ff23664"
+    },
+    {
+      "path": "scripts/start_gateway.ps1",
+      "size": 918,
+      "sha256": "b5f36c37552cc4ca646ce5a919e582998273e85a3652b9845d6e672f4fc06cf7"
+    },
+    {
+      "path": "scripts/step21b_certify.ps1",
+      "size": 3070,
+      "sha256": "e11826468ee70c8d8071d69940bb9115f93f98fabe80567048e1ad9f567a6053"
+    },
+    {
+      "path": "scripts/step21b_precredential.ps1",
+      "size": 1032,
+      "sha256": "1a48b518146b474770d8c5988151e42fe2f627cbb019c9a80ffeb6020e1219d3"
+    },
+    {
+      "path": "scripts/step21c_certify.ps1",
+      "size": 1754,
+      "sha256": "fb937c6205ff556bdf6fc927548c851afc500044adb95bd4f9c65de00cac02d8"
+    },
+    {
+      "path": "scripts/step21c_precheck.ps1",
+      "size": 888,
+      "sha256": "da91ce94bbd9e6d4297c5b1070fa84f0676d5f6a88766fc1d81d8c2c79233dca"
+    },
+    {
+      "path": "scripts/step21c_real_demo_cert.py",
+      "size": 1992,
+      "sha256": "db3dcc8ce7b489a85c67fe6d152a911d3d92f872e3e68be43ab6b64db5b55c24"
+    },
+    {
+      "path": "scripts/step21d_certify.ps1",
+      "size": 942,
+      "sha256": "c21f799a96104f7bf737adcda33a5282148aec5bb5a43a196c0fe18b48249e0c"
+    },
+    {
+      "path": "scripts/step21d_precheck.ps1",
+      "size": 1186,
+      "sha256": "e8934ced21de8133501ba3f5c2b94ce0b751c2757c546a0b41b8a0a3b9dfa0db"
+    },
+    {
+      "path": "scripts/step21d_real_recovery_cert.py",
+      "size": 2388,
+      "sha256": "f72d22a31921c559a3d8e569eefd4d77e5aeeb25dd9683ab42f3cadfb5846703"
+    },
+    {
+      "path": "scripts/stop_gateway.ps1",
+      "size": 427,
+      "sha256": "dbc5ba21eb53b9688c6dce477c45d1d0eedc4b07bde7e3273d12dcf450a10a23"
+    },
+    {
+      "path": "tests/test_static.py",
+      "size": 9656,
+      "sha256": "2e65db63940e43de8006ceb3eb45c7f884f2b8da10701cef3bbef65a339eaa58"
+    },
+    {
+      "path": "tests/test_step21d.py",
+      "size": 5152,
+      "sha256": "5bdddcbff6791bad665997fee2c02b81778683de188e45d0bea19cf94acb8255"
+    }
+  ]
+}

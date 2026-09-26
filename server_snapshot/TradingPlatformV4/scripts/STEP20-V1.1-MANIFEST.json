@@ -1,0 +1,18 @@
+{
+  "build_marker": "STEP20_SOAK_ENDURANCE_CERT_V1_1",
+  "helper": {
+    "name": "step20_soak_probe_v1_1.py",
+    "sha256": "012A0929E0438F086502D793200779ADC3F5C1478FDAB0214CA59F617FFCAEED"
+  },
+  "runner": {
+    "name": "Abutron-Step20-Soak-Endurance-Cert-v1.1.ps1",
+    "sha256": "ED4067A4CB63B72D16FDA520C337F3988E6773E9D7F9483CD158C4B96FBC9B24"
+  },
+  "installer": {
+    "name": "Abutron-Step20-Install-Validate-Preflight-v1.1.ps1",
+    "sha256": "AE94236D387ED61DD05F580A2EC8137E111885CE134A0A8ED98D979F620AFCFF"
+  },
+  "certification_duration_minutes": 120,
+  "diagnostic_duration_minutes": 15,
+  "live_money_authorized": false
+}

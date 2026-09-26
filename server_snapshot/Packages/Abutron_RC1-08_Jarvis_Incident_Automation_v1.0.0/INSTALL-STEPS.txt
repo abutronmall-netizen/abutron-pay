@@ -1,0 +1,12 @@
+ABUTRON RC1-08 INSTALL SUMMARY
+1. Verify current Jarvis health, Hermes version, MT5 process, and Kronos health endpoint.
+2. Inspect config.example.json and correct the Kronos URL if the server uses a port other than 8001.
+3. Run PowerShell as Administrator.
+4. Set-ExecutionPolicy -Scope Process Bypass -Force
+5. Run .\scripts\Install-RC1-08.ps1
+6. Run .\scripts\Test-RC1-08.ps1
+7. Add prometheus-snippet.yml to the existing Prometheus scrape_configs and validate/restart Prometheus.
+8. Copy observability\grafana\abutron-jarvis-rc1-08.json into the existing Abutron Grafana provisioned dashboard directory.
+9. Perform controlled failure tests one component at a time. Keep trading/demo execution disabled while testing failures.
+10. Reboot Windows and repeat Test-RC1-08.ps1.
+11. Sign RELEASE-CHECKLIST.md only after all gates pass.

@@ -1,0 +1,15 @@
+ABUTRON RC1-08 v1.0.2 INSTALL / REPAIR SUMMARY
+1. Verify current Jarvis health, Hermes, MT5 terminal, Abutron Core on 127.0.0.1:8088, and MT5 Bridge on 127.0.0.1:8090.
+2. Run PowerShell as Administrator.
+3. Set-ExecutionPolicy -Scope Process Bypass -Force
+4. New installation: run .\scripts\Install-RC1-08.ps1, then .\scripts\Test-RC1-08.ps1.
+5. Existing v1.0.0/v1.0.1 installation: run .\scripts\Repair-RC1-08-v1.0.2.ps1.
+6. The v1.0.2 repair validates Prometheus config, performs a clean scheduled-task restart, verifies the live process config path, and waits up to 90 seconds for the jarvis_rc1_08 target to become UP.
+7. The v1.0.2 service reconciles legacy PENDING approvals whose incidents are already RECOVERED.
+8. The repair then provisions/restarts Grafana and performs final incident/approval gates.
+9. Perform controlled failure tests one component at a time. Keep execution disabled while testing.
+10. Reboot Windows and repeat Test-RC1-08.ps1.
+11. Sign RELEASE-CHECKLIST.md only after every gate passes.
+
+EXISTING INSTALLATION COMMAND
+  .\scripts\Repair-RC1-08-v1.0.2.ps1

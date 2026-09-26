@@ -1,0 +1,21 @@
+from fastapi import FastAPI,Header,HTTPException
+from fastapi.responses import Response
+from prometheus_client import CONTENT_TYPE_LATEST,generate_latest
+from app.core.settings import settings
+from app.core.state import init_db
+from app.agents.guardian import observe
+from app.integrations.whatsapp.webhook import router as whatsapp_router
+app=FastAPI(title="Abutron Jarvis",version="1.1.0")
+app.include_router(whatsapp_router)
+@app.on_event("startup")
+def start():init_db()
+@app.get("/metrics",include_in_schema=False)
+def metrics():
+ return Response(content=generate_latest(),media_type=CONTENT_TYPE_LATEST)
+
+@app.get("/health")
+def health():return {"status":"ok","mode":settings.jarvis_mode}
+@app.get("/observe")
+async def obs(x_jarvis_token:str|None=Header(None)):
+ if x_jarvis_token!=settings.jarvis_api_token:raise HTTPException(401)
+ return await observe()

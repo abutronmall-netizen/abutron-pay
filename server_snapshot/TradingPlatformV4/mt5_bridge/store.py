@@ -1,0 +1,64 @@
+import json,sqlite3,threading,time
+from pathlib import Path
+from mt5_bridge.settings import settings
+class IdempotencyStore:
+    def __init__(self):
+        Path(settings.idempotency_db).parent.mkdir(parents=True,exist_ok=True)
+        self.lock=threading.Lock()
+        with self.db() as db:
+            db.execute("CREATE TABLE IF NOT EXISTS executions(key TEXT PRIMARY KEY,created_ts INTEGER NOT NULL,response TEXT NOT NULL)")
+            db.execute("CREATE TABLE IF NOT EXISTS execution_claims(key TEXT PRIMARY KEY,created_ts INTEGER NOT NULL)")
+            db.execute("CREATE TABLE IF NOT EXISTS position_meta(ticket INTEGER PRIMARY KEY,created_ts INTEGER NOT NULL,initial_r REAL NOT NULL,tier TEXT NOT NULL,signal_key TEXT NOT NULL)")
+            db.commit()
+    def db(self): return sqlite3.connect(settings.idempotency_db,timeout=10)
+    def claim(self,key):
+        """
+        Atomically reserve an idempotency key before broker execution.
+
+        The SQLite PRIMARY KEY provides protection across threads and
+        separate gateway worker processes sharing the same database.
+        """
+        with self.db() as db:
+            cur=db.execute(
+                "INSERT OR IGNORE INTO execution_claims(key,created_ts) VALUES(?,?)",
+                (str(key),int(time.time()))
+            )
+            db.commit()
+            return cur.rowcount==1
+
+    def release_claim(self,key):
+        with self.db() as db:
+            db.execute(
+                "DELETE FROM execution_claims WHERE key=?",
+                (str(key),)
+            )
+            db.commit()
+
+    def claim_exists(self,key):
+        with self.db() as db:
+            row=db.execute(
+                "SELECT created_ts FROM execution_claims WHERE key=?",
+                (str(key),)
+            ).fetchone()
+            return int(row[0]) if row else None
+
+    def get(self,key):
+        with self.db() as db:
+            row=db.execute("SELECT response FROM executions WHERE key=?",(key,)).fetchone()
+            return json.loads(row[0]) if row else None
+    def put(self,key,response):
+        with self.lock,self.db() as db:
+            db.execute("INSERT OR IGNORE INTO executions(key,created_ts,response) VALUES(?,?,?)",
+                       (key,int(time.time()),json.dumps(response,default=str))); db.commit()
+    def put_position(self,ticket:int,initial_r:float,tier:str,signal_key:str):
+        if not ticket or initial_r<=0: return
+        with self.lock,self.db() as db:
+            db.execute("INSERT OR REPLACE INTO position_meta(ticket,created_ts,initial_r,tier,signal_key) VALUES(?,?,?,?,?)",
+                       (int(ticket),int(time.time()),float(initial_r),str(tier),str(signal_key))); db.commit()
+    def get_position(self,ticket:int):
+        with self.db() as db:
+            row=db.execute("SELECT initial_r,tier,signal_key FROM position_meta WHERE ticket=?",(int(ticket),)).fetchone()
+            return {"initial_r":row[0],"tier":row[1],"signal_key":row[2]} if row else None
+    def delete_position(self,ticket:int):
+        with self.lock,self.db() as db:
+            db.execute("DELETE FROM position_meta WHERE ticket=?",(int(ticket),)); db.commit()

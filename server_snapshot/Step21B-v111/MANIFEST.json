@@ -1,0 +1,215 @@
+{
+  "build": "ABUTRON_STEP21B_ICMARKETS_CTRADER_OAUTH_DISCOVERY_V1_1_1",
+  "files": [
+    {
+      "path": ".env.example",
+      "sha256": "ce01263382b61b16955c74a9f5387cf179d7d5814f417eabd89498e07ede792c",
+      "bytes": 976
+    },
+    {
+      "path": ".pytest_cache/.gitignore",
+      "sha256": "3ed731b65d06150c138e2dadb0be0697550888a6b47eb8c45ecc9adba8b8e9bd",
+      "bytes": 37
+    },
+    {
+      "path": ".pytest_cache/CACHEDIR.TAG",
+      "sha256": "37dc88ef9a0abeddbe81053a6dd8fdfb13afb613045ea1eb4a5c815a74a3bde4",
+      "bytes": 191
+    },
+    {
+      "path": ".pytest_cache/README.md",
+      "sha256": "73fd6fccdd802c419a6b2d983d6c3173b7da97558ac4b589edec2dfe443db9ad",
+      "bytes": 302
+    },
+    {
+      "path": ".pytest_cache/v/cache/nodeids",
+      "sha256": "b6eda77a7710d4e762fce59b06430db1e5993276f5cf221ca392a8d70f168fe5",
+      "bytes": 1302
+    },
+    {
+      "path": "README.md",
+      "sha256": "8ca8db19410e057b5f5d6d2aafd8c7d21b082544d5dfa8e3d49c36f8bda06785",
+      "bytes": 1388
+    },
+    {
+      "path": "STEP21B_BUILD_REPORT.json",
+      "sha256": "84ba34a5952cf3fbb91f392058df83c9bdff1730cb414c1472c079370af5d35e",
+      "bytes": 698
+    },
+    {
+      "path": "core_integration/ctrader_cloud.py",
+      "sha256": "57649f80f6f8d00fe93d20a923d2e12fb315902b8096bcda4b99ea8b53e8d54d",
+      "bytes": 3879
+    },
+    {
+      "path": "core_integration/ctrader_routes.py",
+      "sha256": "22956c70efab16a4ae0ec5c6511e1866ff96ce008aa3a09ec0575d59249ff686",
+      "bytes": 1606
+    },
+    {
+      "path": "core_integration/volume.py",
+      "sha256": "b43c4e1ec0441d891007def4712ea68e473c23b5c92dac035dccefb6a1d0cd3a",
+      "bytes": 980
+    },
+    {
+      "path": "ctrader_gateway/__init__.py",
+      "sha256": "c23767e0609de1245228f331b05269735174b5079f14e546607169f7612341b4",
+      "bytes": 20
+    },
+    {
+      "path": "ctrader_gateway/app.py",
+      "sha256": "ff92c2f8ffd99320ac90b116d8ed27eb49c95b7ae80174a8495b0b2f552c566f",
+      "bytes": 18655
+    },
+    {
+      "path": "ctrader_gateway/config.py",
+      "sha256": "9afdeca90c1080bbb52685a7a5ef03bb72a66d0eb2e4d5bce7eab975eb5c3d34",
+      "bytes": 1584
+    },
+    {
+      "path": "ctrader_gateway/crypto.py",
+      "sha256": "ea45746b9bf45fe813936b87b20247060f9f49f8f54ee102745b16305a56da37",
+      "bytes": 600
+    },
+    {
+      "path": "ctrader_gateway/models.py",
+      "sha256": "9bbbd8b841aa8bc2e50489db0e183e11159b0e36639d2ca38a029e169301c5ed",
+      "bytes": 1172
+    },
+    {
+      "path": "ctrader_gateway/oauth.py",
+      "sha256": "83a080c9baddc83cd421061c18bc3ed784d477633476efca67f681255d41d17f",
+      "bytes": 2864
+    },
+    {
+      "path": "ctrader_gateway/persistent_worker.py",
+      "sha256": "ac4b911f485f1abc6acc4649e31d86b57ff108300257a6f9e7aa9634472a7700",
+      "bytes": 8054
+    },
+    {
+      "path": "ctrader_gateway/service.py",
+      "sha256": "872918b2f8bf531d2ee6ac0dcf7bd3735ed196e4a1ff1ab033412898daf5abd2",
+      "bytes": 384
+    },
+    {
+      "path": "ctrader_gateway/store.py",
+      "sha256": "eff0b2f53ac88567fd643387538af9c93645ccedbc1d86b3613e3c1602e84d1e",
+      "bytes": 6636
+    },
+    {
+      "path": "ctrader_gateway/worker_manager.py",
+      "sha256": "5b2cf9515d479ad88c3d406a42f93c4a582d0fa7a77b1d8daa00cba9befc79bb",
+      "bytes": 4906
+    },
+    {
+      "path": "deployment/caddy/Caddyfile.snippet",
+      "sha256": "d011fa624770ab6976ed79573b5afe52b368520599b190cb77f848af78848d65",
+      "bytes": 430
+    },
+    {
+      "path": "docs/ARCHITECTURE_DECISION.md",
+      "sha256": "8404e323daed3c5172e84034bd19e232606338fd7090bcf36888f6026a3ebaa0",
+      "bytes": 1486
+    },
+    {
+      "path": "docs/CTRADER_APP_REGISTRATION.md",
+      "sha256": "743dc76fca3a6190e7b84a4a036d6bcb739cebe4cb16f3577b0e79a9c3a5d56d",
+      "bytes": 1076
+    },
+    {
+      "path": "docs/INSTALLATION_STEP_BY_STEP.md",
+      "sha256": "20eb42309500178dd677152b3723f686a0fa42a3ce42527b1156596dfd70d9a0",
+      "bytes": 3176
+    },
+    {
+      "path": "docs/INSTALL_STEP21B.md",
+      "sha256": "8f9e5109c420e4e557a60220e9b9325588040ed7ea99f024ce521f35af19238f",
+      "bytes": 1382
+    },
+    {
+      "path": "docs/REPAIR_V1_0_0_TO_V1_0_1.md",
+      "sha256": "9551254ef7b068ded0dbb494bebbbaec5df004cdf5e6a83bff037546de1b6ea7",
+      "bytes": 1520
+    },
+    {
+      "path": "docs/REPAIR_V1_1_0_TO_V1_1_1.md",
+      "sha256": "c83a8bd929462d3075de1da1f44bc9aa02d0a4de739aec970d6ad0f68a6bf97f",
+      "bytes": 1060
+    },
+    {
+      "path": "docs/ROADMAP_TRUTH_2026-09-25.md",
+      "sha256": "37648ee879fb97073fa039deebb6413c36030f070124a17ced9d47478c8f061d",
+      "bytes": 1847
+    },
+    {
+      "path": "requirements.txt",
+      "sha256": "a8ef63a3428d8a6ebb0c9bd2feb51a6e800f9bc00a9606c2ea9511cef41775ee",
+      "bytes": 275
+    },
+    {
+      "path": "scripts/install_step21b.ps1",
+      "sha256": "0dbc4bb6e54a85da2a5ac7ccf7258fc8cfb6e7dff25c434f43c3d16b44d49f80",
+      "bytes": 8362
+    },
+    {
+      "path": "scripts/install_windows.ps1",
+      "sha256": "d77f9af24bc481090282839e16ea1d5f99666e210a613f1f1392cb9639f39d56",
+      "bytes": 4430
+    },
+    {
+      "path": "scripts/preapproval_check.ps1",
+      "sha256": "44cdeae0497a3969ed1725da104a78033c8664ec051cd872646cad17a3719ca6",
+      "bytes": 1309
+    },
+    {
+      "path": "scripts/readiness_after_credentials.ps1",
+      "sha256": "5af0309ece81070c0593c6d9b9b610105a8814c434c51ebd162cd8d19ff23664",
+      "bytes": 1283
+    },
+    {
+      "path": "scripts/start_gateway.ps1",
+      "sha256": "b5f36c37552cc4ca646ce5a919e582998273e85a3652b9845d6e672f4fc06cf7",
+      "bytes": 918
+    },
+    {
+      "path": "scripts/step21b_certify.ps1",
+      "sha256": "e11826468ee70c8d8071d69940bb9115f93f98fabe80567048e1ad9f567a6053",
+      "bytes": 3070
+    },
+    {
+      "path": "scripts/step21b_precredential.ps1",
+      "sha256": "1a48b518146b474770d8c5988151e42fe2f627cbb019c9a80ffeb6020e1219d3",
+      "bytes": 1032
+    },
+    {
+      "path": "scripts/stop_gateway.ps1",
+      "sha256": "dbc5ba21eb53b9688c6dce477c45d1d0eedc4b07bde7e3273d12dcf450a10a23",
+      "bytes": 427
+    },
+    {
+      "path": "tests/.pytest_cache/.gitignore",
+      "sha256": "3ed731b65d06150c138e2dadb0be0697550888a6b47eb8c45ecc9adba8b8e9bd",
+      "bytes": 37
+    },
+    {
+      "path": "tests/.pytest_cache/CACHEDIR.TAG",
+      "sha256": "37dc88ef9a0abeddbe81053a6dd8fdfb13afb613045ea1eb4a5c815a74a3bde4",
+      "bytes": 191
+    },
+    {
+      "path": "tests/.pytest_cache/README.md",
+      "sha256": "73fd6fccdd802c419a6b2d983d6c3173b7da97558ac4b589edec2dfe443db9ad",
+      "bytes": 302
+    },
+    {
+      "path": "tests/.pytest_cache/v/cache/nodeids",
+      "sha256": "1ec53341cb6b068e21708e41b226ed3bf7da134866229db937330a36564c4782",
+      "bytes": 1035
+    },
+    {
+      "path": "tests/test_static.py",
+      "sha256": "ed493cd7dd164fbe3985cf5802c0f7318e05212312b827802041b6ee7be2e264",
+      "bytes": 5368
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+ABUTRON RC1-10 SECURITY / RELEASE AUDIT v1.0.0
+
+BUILD VERIFICATION
+==================
+Python/static package tests: 11 PASS / 0 FAIL
+PowerShell delimiter/here-string structure check: PASS
+Forbidden trade-enable command scan: PASS
+Forbidden firewall-disable command scan: PASS
+Forbidden RDP-disable/port-change scan: PASS
+Caddy auto-modification scan: PASS
+Secret-print scan: PASS
+ZIP integrity: tested after packaging
+
+IMPORTANT
+=========
+The build container does not provide Windows PowerShell, so Windows-runtime certification is deliberately deferred to the VPS installation gates.
+The package must not be called live-certified until the pre-reboot, clean post-reboot, and RDP stability certificates pass on ABUTRON-PROD-01.

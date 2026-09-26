@@ -1,0 +1,21 @@
+from pydantic_settings import BaseSettings,SettingsConfigDict
+class MT5Settings(BaseSettings):
+    host:str="127.0.0.1"
+    port:int=8090
+    api_token:str="CHANGE_ME_DIFFERENT_LONG_RANDOM_TOKEN"
+    live_trading:bool=False
+    demo_only:bool=True
+    expected_login:int|None=None
+    expected_server:str|None=None
+    management_enabled:bool=False
+    trailing_enabled:bool=True
+    break_even_enabled:bool=True
+    magic:int=400040
+    deviation_points:int=50
+    filling_mode:str="IOC"
+    idempotency_db:str="./data/mt5_idempotency.db"
+    break_even_r:float=1.0
+    trail_start_r:float=1.5
+    trail_distance_r:float=0.75
+    model_config=SettingsConfigDict(env_file=".env",env_prefix="MT5_",extra="ignore")
+settings=MT5Settings()

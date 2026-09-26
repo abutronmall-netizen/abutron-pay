@@ -1,0 +1,12 @@
+﻿{
+    "version":  "1.0.0",
+    "result":  "PASS",
+    "certified_utc":  "2026-09-26T17:08:32.6817612Z",
+    "boot_utc":  "2026-09-26T17:05:56.5000000Z",
+    "mode":  "NOTIFY_ONLY",
+    "actions_enabled":  false,
+    "telegram":  true,
+    "whatsapp":  false,
+    "rc1_08_healthy":  true,
+    "live_money_authorized":  false
+}

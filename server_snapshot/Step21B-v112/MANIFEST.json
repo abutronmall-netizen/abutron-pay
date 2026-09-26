@@ -1,0 +1,186 @@
+{
+  "package": "Abutron-Step21B-ICMarkets-OAuth-Discovery",
+  "version": "1.1.2",
+  "files": [
+    {
+      "path": ".env.example",
+      "size": 976,
+      "sha256": "CE01263382B61B16955C74A9F5387CF179D7D5814F417EABD89498E07EDE792C"
+    },
+    {
+      "path": "MANIFEST.json",
+      "size": 6889,
+      "sha256": "18386CA4618C4C57794246A8FD21D5376E3D08F5CC8C5429EB598B7B69A0812C"
+    },
+    {
+      "path": "README.md",
+      "size": 1567,
+      "sha256": "EB971ECAE3A53561A9F131AEA167EC8651589683DFD528373C59595AE5921889"
+    },
+    {
+      "path": "STEP21B_BUILD_REPORT.json",
+      "size": 349,
+      "sha256": "9EDA0A946F7441578BF2DB78651DBFFC405881515268EB0FC1DD00D3F2E1CBB8"
+    },
+    {
+      "path": "core_integration/ctrader_cloud.py",
+      "size": 3879,
+      "sha256": "57649F80F6F8D00FE93D20A923D2E12FB315902B8096BCDA4B99EA8B53E8D54D"
+    },
+    {
+      "path": "core_integration/ctrader_routes.py",
+      "size": 1606,
+      "sha256": "22956C70EFAB16A4AE0EC5C6511E1866FF96CE008AA3A09EC0575D59249FF686"
+    },
+    {
+      "path": "core_integration/volume.py",
+      "size": 980,
+      "sha256": "B43C4E1EC0441D891007DEF4712EA68E473C23B5C92DAC035DCCEFB6A1D0CD3A"
+    },
+    {
+      "path": "ctrader_gateway/__init__.py",
+      "size": 20,
+      "sha256": "C23767E0609DE1245228F331B05269735174B5079F14E546607169F7612341B4"
+    },
+    {
+      "path": "ctrader_gateway/app.py",
+      "size": 18655,
+      "sha256": "FF92C2F8FFD99320AC90B116D8ED27EB49C95B7AE80174A8495B0B2F552C566F"
+    },
+    {
+      "path": "ctrader_gateway/config.py",
+      "size": 1584,
+      "sha256": "9AFDECA90C1080BBB52685A7A5EF03BB72A66D0EB2E4D5BCE7EAB975EB5C3D34"
+    },
+    {
+      "path": "ctrader_gateway/crypto.py",
+      "size": 600,
+      "sha256": "EA45746B9BF45FE813936B87B20247060F9F49F8F54EE102745B16305A56DA37"
+    },
+    {
+      "path": "ctrader_gateway/models.py",
+      "size": 1172,
+      "sha256": "9BBBD8B841AA8BC2E50489DB0E183E11159B0E36639D2CA38A029E169301C5ED"
+    },
+    {
+      "path": "ctrader_gateway/oauth.py",
+      "size": 2864,
+      "sha256": "83A080C9BADDC83CD421061C18BC3ED784D477633476EFCA67F681255D41D17F"
+    },
+    {
+      "path": "ctrader_gateway/persistent_worker.py",
+      "size": 8054,
+      "sha256": "AC4B911F485F1ABC6ACC4649E31D86B57FF108300257A6F9E7AA9634472A7700"
+    },
+    {
+      "path": "ctrader_gateway/service.py",
+      "size": 384,
+      "sha256": "872918B2F8BF531D2EE6AC0DCF7BD3735ED196E4A1FF1AB033412898DAF5ABD2"
+    },
+    {
+      "path": "ctrader_gateway/store.py",
+      "size": 6636,
+      "sha256": "EFF0B2F53AC88567FD643387538AF9C93645CCEDBC1D86B3613E3C1602E84D1E"
+    },
+    {
+      "path": "ctrader_gateway/worker_manager.py",
+      "size": 4906,
+      "sha256": "5B2CF9515D479AD88C3D406A42F93C4A582D0FA7A77B1D8DAA00CBA9BEFC79BB"
+    },
+    {
+      "path": "deployment/caddy/Caddyfile.snippet",
+      "size": 430,
+      "sha256": "D011FA624770AB6976ED79573B5AFE52B368520599B190CB77F848AF78848D65"
+    },
+    {
+      "path": "docs/ARCHITECTURE_DECISION.md",
+      "size": 1486,
+      "sha256": "8404E323DAED3C5172E84034BD19E232606338FD7090BCF36888F6026A3EBAA0"
+    },
+    {
+      "path": "docs/CTRADER_APP_REGISTRATION.md",
+      "size": 1076,
+      "sha256": "743DC76FCA3A6190E7B84A4A036D6BCB739CEBE4CB16F3577B0E79A9C3A5D56D"
+    },
+    {
+      "path": "docs/INSTALLATION_STEP_BY_STEP.md",
+      "size": 3176,
+      "sha256": "20EB42309500178DD677152B3723F686A0FA42A3CE42527B1156596DFD70D9A0"
+    },
+    {
+      "path": "docs/INSTALL_STEP21B.md",
+      "size": 1382,
+      "sha256": "8F9E5109C420E4E557A60220E9B9325588040ED7EA99F024CE521F35AF19238F"
+    },
+    {
+      "path": "docs/REPAIR_V1_0_0_TO_V1_0_1.md",
+      "size": 1520,
+      "sha256": "9551254EF7B068DED0DBB494BEBBBAEC5DF004CDF5E6A83BFF037546DE1B6EA7"
+    },
+    {
+      "path": "docs/REPAIR_V1_1_0_TO_V1_1_1.md",
+      "size": 1060,
+      "sha256": "C83A8BD929462D3075DE1DA1F44BC9AA02D0A4DE739AEC970D6AD0F68A6BF97F"
+    },
+    {
+      "path": "docs/REPAIR_V1_1_1_TO_V1_1_2.md",
+      "size": 722,
+      "sha256": "68E854894893C5130CE6081A58BCF8547E26B4FBB79632BDBDFB910D1D9B72A6"
+    },
+    {
+      "path": "docs/ROADMAP_TRUTH_2026-09-25.md",
+      "size": 1847,
+      "sha256": "37648EE879FB97073FA039DEEBB6413C36030F070124A17CED9D47478C8F061D"
+    },
+    {
+      "path": "requirements.txt",
+      "size": 275,
+      "sha256": "A8EF63A3428D8A6EBB0C9BD2FEB51A6E800F9BC00A9606C2EA9511CEF41775EE"
+    },
+    {
+      "path": "scripts/install_step21b.ps1",
+      "size": 8667,
+      "sha256": "0F21D3B283A60B2A96D5FA8097E5E82784061435B05DBC036F60F88519781531"
+    },
+    {
+      "path": "scripts/install_windows.ps1",
+      "size": 4430,
+      "sha256": "D77F9AF24BC481090282839E16EA1D5F99666E210A613F1F1392CB9639F39D56"
+    },
+    {
+      "path": "scripts/preapproval_check.ps1",
+      "size": 1309,
+      "sha256": "44CDEAE0497A3969ED1725DA104A78033C8664EC051CD872646CAD17A3719CA6"
+    },
+    {
+      "path": "scripts/readiness_after_credentials.ps1",
+      "size": 1283,
+      "sha256": "5AF0309ECE81070C0593C6D9B9B610105A8814C434C51EBD162CD8D19FF23664"
+    },
+    {
+      "path": "scripts/start_gateway.ps1",
+      "size": 918,
+      "sha256": "B5F36C37552CC4CA646CE5A919E582998273E85A3652B9845D6E672F4FC06CF7"
+    },
+    {
+      "path": "scripts/step21b_certify.ps1",
+      "size": 3070,
+      "sha256": "E11826468EE70C8D8071D69940BB9115F93F98FABE80567048E1AD9F567A6053"
+    },
+    {
+      "path": "scripts/step21b_precredential.ps1",
+      "size": 1032,
+      "sha256": "1A48B518146B474770D8C5988151E42FE2F627CBB019C9A80FFEB6020E1219D3"
+    },
+    {
+      "path": "scripts/stop_gateway.ps1",
+      "size": 427,
+      "sha256": "DBC5BA21EB53B9688C6DCE477C45D1D0EEDC4B07BDE7E3273D12DCF450A10A23"
+    },
+    {
+      "path": "tests/test_static.py",
+      "size": 5797,
+      "sha256": "AA110293D4D1E4D52AE86DCA7312BE7BBDF71CA4B09901159A92E183719E9A77"
+    }
+  ]
+}

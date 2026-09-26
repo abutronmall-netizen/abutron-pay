@@ -1,0 +1,132 @@
+{
+  "version": "1.0.0",
+  "release_mode": "FAIL_CLOSED",
+  "sensitive_loopback_ports": [
+    2019,
+    3000,
+    8088,
+    8090,
+    8788,
+    8789,
+    9090
+  ],
+  "public_https_host": "api.abutronfx.online",
+  "public_health_path": "/healthz",
+  "public_blocked": [
+    {
+      "method": "POST",
+      "path": "/v1/evaluate"
+    },
+    {
+      "method": "POST",
+      "path": "/v1/live/XAUUSD"
+    },
+    {
+      "method": "GET",
+      "path": "/v1/positions"
+    },
+    {
+      "method": "POST",
+      "path": "/v1/manage"
+    },
+    {
+      "method": "GET",
+      "path": "/v1/admin/summary"
+    },
+    {
+      "method": "GET",
+      "path": "/openapi.json"
+    },
+    {
+      "method": "GET",
+      "path": "/docs"
+    },
+    {
+      "method": "GET",
+      "path": "/health"
+    }
+  ],
+  "minimum_tls_certificate_days_remaining": 14,
+  "require_firewall_profiles_enabled": true,
+  "require_firewall_default_inbound_not_allow": true,
+  "require_rdp_nla": true,
+  "require_rdp_listener": true,
+  "require_clean_reboot": true,
+  "rdp_stability_hours": 8,
+  "required_health": {
+    "core": "http://127.0.0.1:8088/health",
+    "rc1_08": "http://127.0.0.1:8788/health",
+    "rc1_09": "http://127.0.0.1:8789/health"
+  },
+  "critical_tasks": [
+    "Abutron-Core",
+    "Abutron-Jarvis",
+    "Abutron-Jarvis-RC1-08",
+    "Abutron-Jarvis-RC1-09",
+    "Abutron-Prometheus"
+  ],
+  "secret_env_candidates": [
+    "C:\\Abutron\\TradingPlatformV4\\.env",
+    "C:\\Abutron\\Jarvis\\.env",
+    "C:\\Abutron\\Jarvis\\rc1_09\\.env",
+    "C:\\Abutron\\TradingPlatformV4\\ctrader_cloud_gateway\\.env"
+  ],
+  "integrity_file_candidates": [
+    "C:\\caddy\\Caddyfile",
+    "C:\\Abutron\\TradingPlatformV4\\.env",
+    "C:\\Abutron\\Jarvis\\.env",
+    "C:\\Abutron\\Jarvis\\rc1_09\\.env",
+    "C:\\Abutron\\TradingPlatformV4\\ctrader_cloud_gateway\\.env",
+    "C:\\Abutron\\Security\\rc1_10\\release_attestation.json",
+    "C:\\Abutron\\Security\\rc1_10\\config\\rc1_10_policy.json"
+  ],
+  "integrity_roots": [
+    {
+      "path": "C:\\Abutron\\TradingPlatformV4\\abutron",
+      "patterns": [
+        "*.py"
+      ]
+    },
+    {
+      "path": "C:\\Abutron\\TradingPlatformV4\\mt5_bridge",
+      "patterns": [
+        "*.py"
+      ]
+    },
+    {
+      "path": "C:\\Abutron\\TradingPlatformV4\\ctrader_cloud_gateway",
+      "patterns": [
+        "*.py"
+      ]
+    },
+    {
+      "path": "C:\\Abutron\\Jarvis\\rc1_08",
+      "patterns": [
+        "*.py"
+      ]
+    },
+    {
+      "path": "C:\\Abutron\\Jarvis\\rc1_09",
+      "patterns": [
+        "*.py"
+      ]
+    },
+    {
+      "path": "C:\\Abutron\\Security\\rc1_10\\scripts",
+      "patterns": [
+        "*.ps1"
+      ]
+    },
+    {
+      "path": "C:\\Abutron\\Security\\rc1_10\\lib",
+      "patterns": [
+        "*.ps1"
+      ]
+    }
+  ],
+  "sqlite_roots": [
+    "C:\\Abutron\\TradingPlatformV4\\data",
+    "C:\\Abutron\\TradingPlatformV4\\mt5_bridge\\data",
+    "C:\\Abutron\\Jarvis\\data"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "name": "Abutron Step 23Q Quantitative Mathematics Engine",
+  "version": "1.0.0",
+  "mode": "SHADOW_ONLY",
+  "features": [
+    "returns",
+    "variance",
+    "volatility",
+    "EWMA",
+    "semivariance",
+    "zscore",
+    "robust_zscore",
+    "skewness",
+    "kurtosis",
+    "autocorrelation",
+    "entropy",
+    "variance_ratio",
+    "trend_persistence",
+    "forecast_normalization",
+    "transaction_costs",
+    "net_expected_edge",
+    "VaR95 telemetry",
+    "expected_shortfall95 telemetry"
+  ],
+  "invariants": {
+    "can_create_signal": false,
+    "can_place_order": false,
+    "can_override_thesis": false,
+    "can_override_risk": false,
+    "can_override_capital": false,
+    "can_override_router": false
+  }
+}

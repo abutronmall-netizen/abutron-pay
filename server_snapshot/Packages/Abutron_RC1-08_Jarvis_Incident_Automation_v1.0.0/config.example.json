@@ -1,0 +1,25 @@
+{
+  "mode": "OBSERVE_ONLY",
+  "interval_seconds": 30,
+  "recovery_confirmations": 2,
+  "database_path": "C:\\Abutron\\Jarvis\\data\\rc1_08_incidents.db",
+  "audit_log_path": "C:\\Abutron\\Jarvis\\logs\\rc1_08_incidents.jsonl",
+  "http": {"host": "127.0.0.1", "port": 8788},
+  "hermes": {
+    "enabled": true,
+    "exe": "C:\\Users\\Administrator\\AppData\\Local\\hermes\\bin\\hermes.exe",
+    "home": "C:\\Users\\Administrator\\AppData\\Local\\hermes",
+    "timeout_seconds": 120,
+    "minimum_severity": "HIGH",
+    "sandbox_dir": "C:\\Abutron\\Jarvis\\diagnostics\\sandbox"
+  },
+  "approval_action_allowlist": ["COLLECT_MORE_EVIDENCE","RESTART_ABUTRON_WORKER","RESTART_MT5_BRIDGE","RUN_HEALTH_CHECK","RUN_RECONCILIATION"],
+  "checks": [
+    {"type": "url", "name": "jarvis_api", "url": "http://127.0.0.1:8787/health", "timeout": 5, "severity": "CRITICAL"},
+    {"type": "url", "name": "kronos_health", "url": "http://127.0.0.1:8001/health", "timeout": 8, "severity": "CRITICAL"},
+    {"type": "process", "name": "mt5_terminal", "process_name": "terminal64.exe", "severity": "CRITICAL"},
+    {"type": "disk", "name": "system_disk_free", "path": "C:\\", "minimum_free_percent": 10, "severity": "HIGH"},
+    {"type": "file", "name": "jarvis_state_db", "path": "C:\\Abutron\\Jarvis\\data\\jarvis.db", "severity": "HIGH"},
+    {"type": "command", "name": "hermes_cli", "command": ["C:\\Users\\Administrator\\AppData\\Local\\hermes\\bin\\hermes.exe", "--version"], "timeout": 15, "severity": "HIGH"}
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "build": "ABUTRON_STEP21B_ICMARKETS_CTRADER_OAUTH_DISCOVERY_V1_1_0",
+  "date": "2026-09-25",
+  "purpose": "OAuth/account discovery; zero-order",
+  "prerequisite": "Step21A v1.0.1 PASS",
+  "broker_order_sent": false,
+  "live_money_authorized": false,
+  "live_connection_enabled": false,
+  "demo_execution_enabled": false,
+  "kill_switch": true,
+  "features": [
+    "customer-auth core routes",
+    "OAuth binding",
+    "IC broker allowlist",
+    "DEMO account discovery",
+    "assets/currency",
+    "unrealized PnL equity",
+    "XAUUSD symbol discovery",
+    "USD router currency gate"
+  ]
+}

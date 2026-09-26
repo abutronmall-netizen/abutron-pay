@@ -1,0 +1,360 @@
+﻿from __future__ import annotations
+import json,time
+from pathlib import Path
+from contextlib import asynccontextmanager
+from fastapi import FastAPI,Header,HTTPException,Depends
+from fastapi.responses import HTMLResponse
+from pydantic import BaseModel,EmailStr,Field
+from sqlalchemy import select,func
+from abutron import __version__
+from abutron.config import settings
+from abutron.models import MarketBundle,AccountState,BrokerContext,CoreMode
+from abutron.service import TradingService
+from abutron.platform_db import init_db,session_scope,User,TradingAccount,License,Subscription,TradeRecord,Notification,AuditEvent,audit
+from abutron.security import hash_password,verify_password,issue_token,current_user,require_admin
+from abutron.ctrader_routes import router as ctrader_router
+
+svc=TradingService()
+
+class RegisterBody(BaseModel):
+    email:EmailStr
+    password:str=Field(min_length=10,max_length=128)
+    full_name:str=Field(min_length=2,max_length=255)
+    phone:str=""
+    terms_accepted:bool
+    risk_accepted:bool
+
+class LoginBody(BaseModel):
+    email:EmailStr
+    password:str
+
+class TradingAccountBody(BaseModel):
+    broker:str="IC Markets"
+    login:str=""
+    server:str=""
+    symbol:str="XAUUSD"
+
+class LicenseStateBody(BaseModel):
+    status:str
+    expires_ts:int|None=None
+
+class SubscriptionBody(BaseModel):
+    plan:str
+    status:str="pending"
+    external_ref:str=""
+
+@asynccontextmanager
+async def lifespan(app:FastAPI):
+    init_db()
+
+    # ABUTRON_KRONOS_WARMLOAD_V1
+    #
+    # Production readiness invariant:
+    # FUSION / KRONOS mode must have the Kronos
+    # predictor loaded before the API advertises
+    # readiness.
+    if str(settings.core_mode).upper() in {
+        "FUSION",
+        "KRONOS",
+    }:
+        svc.kronos._load()
+    if not settings.admin_bootstrap_password.startswith("CHANGE_ME") and not settings.jwt_secret.startswith("CHANGE_ME"):
+        with session_scope() as s:
+            u=s.scalar(select(User).where(User.email==settings.admin_bootstrap_email.lower()))
+            if not u:
+                s.add(User(email=settings.admin_bootstrap_email.lower(),full_name="Abutron Administrator",
+                           password_hash=hash_password(settings.admin_bootstrap_password),role="superadmin",active=True))
+    yield
+
+app=FastAPI(title="ABUTRON TRADING PLATFORM",version=__version__,lifespan=lifespan)
+
+def internal_auth(authorization):
+    if settings.api_token.startswith("CHANGE_ME"): raise HTTPException(503,"Configure ABUTRON_API_TOKEN")
+    if authorization!=f"Bearer {settings.api_token}": raise HTTPException(401,"Unauthorized")
+
+def serial(x):
+    if hasattr(x,"model_dump"): return x.model_dump(mode="json")
+    if isinstance(x,dict): return {k:serial(v) for k,v in x.items()}
+    if isinstance(x,list): return [serial(v) for v in x]
+    return x
+
+@app.get("/health")
+async def health():
+    mt5={"status":"unknown"}
+    try: mt5=await svc.gateway.health()
+    except Exception as e: mt5={"status":"degraded","error":str(e)}
+    db_ok=True
+    try:
+        with session_scope() as s: s.scalar(select(func.count()).select_from(User))
+    except Exception: db_ok=False
+    return {"status":"ok" if db_ok else "degraded","version":__version__,"mode":settings.core_mode,
+            "execution_enabled":settings.execution_enabled,"symbols":settings.symbol_list,
+            "kronos_loaded":svc.kronos.predictor is not None,"database":db_ok,"mt5":mt5}
+
+@app.get("/admin",response_class=HTMLResponse)
+async def admin_page():
+    return (Path(__file__).resolve().parent.parent/"admin"/"index.html").read_text(encoding="utf-8")
+
+@app.post("/v1/auth/register")
+def register(body:RegisterBody):
+    if not body.terms_accepted or not body.risk_accepted:
+        raise HTTPException(400,"Terms and trading-risk acceptance are required")
+    email=str(body.email).lower()
+    with session_scope() as s:
+        if s.scalar(select(User).where(User.email==email)): raise HTTPException(409,"Email already registered")
+        u=User(email=email,full_name=body.full_name.strip(),phone=body.phone.strip(),password_hash=hash_password(body.password),role="customer",active=True)
+        s.add(u); s.flush()
+        s.add(License(user_id=u.id,product="ABUTRON_V4",status="pending"))
+        uid=u.id
+    audit("USER_REGISTERED",str(uid),actor=email)
+    return {"registered":True,"user_id":uid,"license_status":"pending"}
+
+@app.post("/v1/auth/login")
+def login(body:LoginBody):
+    with session_scope() as s:
+        u=s.scalar(select(User).where(User.email==str(body.email).lower()))
+        if not u or not u.active or not verify_password(body.password,u.password_hash): raise HTTPException(401,"Invalid credentials")
+        token=issue_token(u)
+        return {"access_token":token,"token_type":"bearer","expires_in":3600,"role":u.role,"user_id":u.id}
+
+@app.get("/v1/me")
+def me(user=Depends(current_user)):
+    return {"id":user.id,"email":user.email,"full_name":user.full_name,"phone":user.phone,"role":user.role,"active":user.active}
+
+@app.post("/v1/accounts")
+def add_account(body:TradingAccountBody,user=Depends(current_user)):
+    with session_scope() as s:
+        a=TradingAccount(user_id=user.id,broker=body.broker,login=body.login,server=body.server,symbol=body.symbol.upper())
+        s.add(a); s.flush(); aid=a.id
+    audit("TRADING_ACCOUNT_ADDED",str(aid),actor=user.email)
+    return {"id":aid,"created":True}
+
+@app.get("/v1/mobile/dashboard")
+def mobile_dashboard(user=Depends(current_user)):
+    with session_scope() as s:
+        accounts=s.scalars(select(TradingAccount).where(TradingAccount.user_id==user.id)).all()
+        licenses=s.scalars(select(License).where(License.user_id==user.id)).all()
+        subs=s.scalars(select(Subscription).where(Subscription.user_id==user.id)).all()
+        notes=s.scalars(select(Notification).where(Notification.user_id==user.id).order_by(Notification.id.desc()).limit(20)).all()
+    return {"user":{"id":user.id,"name":user.full_name},
+            "accounts":[{"id":a.id,"broker":a.broker,"login":a.login,"server":a.server,"symbol":a.symbol,"current_tier":a.current_tier,"active":a.active} for a in accounts],
+            "licenses":[{"product":x.product,"status":x.status,"expires_ts":x.expires_ts} for x in licenses],
+            "subscriptions":[{"plan":x.plan,"status":x.status,"external_ref":x.external_ref} for x in subs],
+            "notifications":[{"id":n.id,"title":n.title,"body":n.body,"channel":n.channel,"state":n.state,"created_ts":n.created_ts} for n in notes]}
+
+def _trade_dict(x):
+    return {
+        "id":
+            x.id,
+
+        "account_id":
+            x.account_id,
+
+        "symbol":
+            x.symbol,
+
+        "side":
+            x.side,
+
+        "tier":
+            x.tier,
+
+        "state":
+            x.state,
+
+        "ticket":
+            x.ticket,
+
+        "volume":
+            x.volume,
+
+        "entry":
+            x.entry,
+
+        "sl":
+            x.sl,
+
+        "tp":
+            x.tp,
+
+        "profit":
+            x.profit,
+
+        "signal_id":
+            x.signal_id,
+
+        "opened_ts":
+            x.opened_ts,
+
+        "closed_ts":
+            x.closed_ts,
+
+        "created_ts":
+            x.created_ts,
+    }
+
+
+@app.get("/v1/mobile/trades")
+def mobile_trades(
+    limit:int=100,
+    user=Depends(current_user),
+):
+    limit=max(
+        1,
+        min(
+            limit,
+            500,
+        ),
+    )
+
+    with session_scope() as s:
+        ids=[
+            x.id
+            for x in s.scalars(
+                select(TradingAccount)
+                .where(
+                    TradingAccount.user_id
+                    == user.id
+                )
+            ).all()
+        ]
+
+        if not ids:
+            return []
+
+        rows=s.scalars(
+            select(TradeRecord)
+            .where(
+                TradeRecord.account_id.in_(
+                    ids
+                )
+            )
+            .order_by(
+                TradeRecord.id.desc()
+            )
+            .limit(limit)
+        ).all()
+
+        return [
+            _trade_dict(x)
+            for x in rows
+        ]
+
+
+@app.get("/v1/admin/trades")
+def admin_trades(
+    limit:int=200,
+    state:str|None=None,
+    account_id:int|None=None,
+    admin=Depends(require_admin),
+):
+    limit=max(
+        1,
+        min(
+            limit,
+            1000,
+        ),
+    )
+
+    with session_scope() as s:
+        stmt=select(
+            TradeRecord
+        )
+
+        if state:
+            stmt=stmt.where(
+                TradeRecord.state
+                == state.upper()
+            )
+
+        if account_id is not None:
+            stmt=stmt.where(
+                TradeRecord.account_id
+                == account_id
+            )
+
+        rows=s.scalars(
+            stmt
+            .order_by(
+                TradeRecord.id.desc()
+            )
+            .limit(limit)
+        ).all()
+
+        return [
+            _trade_dict(x)
+            for x in rows
+        ]
+
+
+@app.get("/v1/decisions")
+async def decisions(limit:int=50,authorization:str|None=Header(default=None)):
+    internal_auth(authorization); return svc.store.list(limit)
+
+@app.post("/v1/evaluate")
+async def evaluate(bundle:MarketBundle,account:AccountState,broker:BrokerContext,
+                   mode:CoreMode|None=None,authorization:str|None=Header(default=None)):
+    internal_auth(authorization); return serial(svc.evaluate(bundle,account,broker,mode))
+
+@app.post("/v1/live/{symbol}")
+async def live(symbol:str,execute:bool=False,authorization:str|None=Header(default=None)):
+    internal_auth(authorization); return serial(await svc.evaluate_live(symbol,execute=execute))
+
+@app.get("/v1/positions")
+async def positions(authorization:str|None=Header(default=None)):
+    internal_auth(authorization); return await svc.gateway.positions()
+
+@app.post("/v1/manage")
+async def manage(authorization:str|None=Header(default=None)):
+    internal_auth(authorization); return await svc.gateway.manage()
+
+@app.post("/v1/close/{ticket}")
+async def close(ticket:int,authorization:str|None=Header(default=None)):
+    internal_auth(authorization); return await svc.gateway.close(ticket)
+
+@app.get("/v1/admin/summary")
+def admin_summary(admin=Depends(require_admin)):
+    with session_scope() as s:
+        users=s.scalar(select(func.count()).select_from(User)) or 0
+        accounts=s.scalar(select(func.count()).select_from(TradingAccount)) or 0
+        licenses=s.scalar(select(func.count()).select_from(License).where(License.status=="active")) or 0
+        trades=s.scalar(select(func.count()).select_from(TradeRecord)) or 0
+        subs=s.scalar(select(func.count()).select_from(Subscription).where(Subscription.status=="active")) or 0
+    return {"users":users,"accounts":accounts,"active_licenses":licenses,"trades":trades,"active_subscriptions":subs,
+            "version":__version__,"execution_enabled":settings.execution_enabled}
+
+@app.get("/v1/admin/users")
+def admin_users(limit:int=200,admin=Depends(require_admin)):
+    with session_scope() as s: rows=s.scalars(select(User).order_by(User.id.desc()).limit(max(1,min(limit,1000)))).all()
+    return [{"id":x.id,"email":x.email,"full_name":x.full_name,"phone":x.phone,"role":x.role,"active":x.active,"created_ts":x.created_ts} for x in rows]
+
+@app.put("/v1/admin/licenses/{user_id}")
+def set_license(user_id:int,body:LicenseStateBody,admin=Depends(require_admin)):
+    allowed={"pending","active","suspended","expired","revoked"}
+    if body.status not in allowed: raise HTTPException(400,"Invalid license status")
+    with session_scope() as s:
+        lic=s.scalar(select(License).where(License.user_id==user_id).order_by(License.id.desc()))
+        if not lic:
+            lic=License(user_id=user_id,product="ABUTRON_V4",status=body.status,expires_ts=body.expires_ts); s.add(lic)
+        else:
+            lic.status=body.status; lic.expires_ts=body.expires_ts
+    audit("LICENSE_STATE_CHANGED",str(user_id),body.status,admin.email)
+    return {"updated":True,"user_id":user_id,"status":body.status}
+
+@app.post("/v1/admin/subscriptions/{user_id}")
+def set_subscription(user_id:int,body:SubscriptionBody,admin=Depends(require_admin)):
+    with session_scope() as s:
+        sub=Subscription(user_id=user_id,plan=body.plan,status=body.status,external_ref=body.external_ref,updated_ts=int(time.time()))
+        s.add(sub); s.flush(); sid=sub.id
+    audit("SUBSCRIPTION_CREATED",str(sid),body.status,admin.email)
+    return {"id":sid,"created":True}
+
+@app.get("/v1/admin/audit")
+def admin_audit(limit:int=200,admin=Depends(require_admin)):
+    with session_scope() as s: rows=s.scalars(select(AuditEvent).order_by(AuditEvent.id.desc()).limit(max(1,min(limit,1000)))).all()
+    return [{"id":x.id,"actor":x.actor,"action":x.action,"subject":x.subject,"detail":x.detail,"created_ts":x.created_ts} for x in rows]
+
+# Step 21B: customer-authenticated IC Markets cTrader account linking (zero-order).
+app.include_router(ctrader_router)
+
+

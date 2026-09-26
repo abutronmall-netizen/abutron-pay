@@ -1,0 +1,24 @@
+Subject: B2B real-time dxFeed Market Indicators API access for Abutron
+
+Hello dxFeed Sales,
+
+We are integrating real-time U.S. market breadth data into Abutron's server-side trading analytics platform. We need production B2B API access to dxFeed Market Indicators, initially for internal analytics/shadow validation and not for public redistribution.
+
+Required composite indicators:
+- $UVOLC    - NYSE Composite Advanced Volume
+- $DVOLC    - NYSE Composite Declined Volume
+- $UVOLC/Q  - NASDAQ Composite Advanced Volume
+- $DVOLC/Q  - NASDAQ Composite Declined Volume
+
+Integration requirements:
+- real-time entitlement for the four indicators above;
+- server-side API access;
+- REST endpoint and bearer token for initial 5-second shadow polling;
+- dxLink/WebSocket entitlement details for a later streaming upgrade;
+- commercial/B2B licensing terms for use inside a trading analytics product;
+- confirmation whether the composite indicator values cover all CTA/UTP participants as documented.
+
+Please provide trial/production endpoint details, authentication credentials/token process, pricing, and licensing requirements.
+
+Regards,
+Abutron

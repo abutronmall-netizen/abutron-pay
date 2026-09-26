@@ -1,0 +1,1 @@
+Get-ScheduledTask 'Abutron-Jarvis-RC1-08' -ErrorAction SilentlyContinue|Stop-ScheduledTask -ErrorAction SilentlyContinue; Get-ScheduledTask 'Abutron-Jarvis-RC1-08' -ErrorAction SilentlyContinue|Unregister-ScheduledTask -Confirm:$false; Write-Host 'Task removed; data retained.'

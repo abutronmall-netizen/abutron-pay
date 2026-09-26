@@ -1,0 +1,45 @@
+{
+  "name": "Abutron-Step23-cTrader-OAuth-PreApproval",
+  "version": "1.0.0",
+  "created_utc": "2026-09-25T19:41:07.673725+00:00",
+  "production_callback": "https://api.abutronfx.online/v1/ctrader/oauth/callback",
+  "oauth_scope": "trading",
+  "safety": {
+    "demo_execution_enabled": false,
+    "live_money_authorized": false,
+    "kill_switch": true,
+    "broker_order_sent": false
+  },
+  "files": [
+    {
+      "path": ".env.step23.template",
+      "sha256": "8698ddee0354167ba38764ebea0f29a11272a8c69afaf890477f3eaabb784ee5",
+      "bytes": 304
+    },
+    {
+      "path": "README.md",
+      "sha256": "c1d020194000428ec1fba9a6df430e037fc00c14caf494fe78a95a0bb097f7a2",
+      "bytes": 1217
+    },
+    {
+      "path": "docs/APPROVAL_DAY_CHECKLIST.md",
+      "sha256": "d715adfdaf7c78e2a5851e551ff6ad4c963f5ebc18e880c3439bd3a37fa7cf61",
+      "bytes": 736
+    },
+    {
+      "path": "scripts/configure_ctrader_credentials.ps1",
+      "sha256": "e6d2f7623c80f97bf3d62e54307db6de9dd801f77c8cdc7e68790b18dc1d4657",
+      "bytes": 3491
+    },
+    {
+      "path": "scripts/step23_postapproval_readiness.ps1",
+      "sha256": "d14516c2133a560cebc5b638ead96bf05a82eabbdd833ccdf9df3414b7ca5133",
+      "bytes": 1309
+    },
+    {
+      "path": "scripts/step23_preapproval_validate.ps1",
+      "sha256": "8457bfd51fb8ac67d2713c20bb9741dfb0d960340bcf6192f20990f35a6be6c3",
+      "bytes": 2649
+    }
+  ]
+}

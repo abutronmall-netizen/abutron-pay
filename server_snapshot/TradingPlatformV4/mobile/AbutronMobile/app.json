@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "Abutron FX",
+    "slug": "abutron-fx-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "abutronfx",
+    "userInterfaceStyle": "dark",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "online.abutronfx.mobile"
+    },
+    "android": {
+      "package": "online.abutronfx.mobile"
+    },
+    "extra": {
+      "apiUrl": "https://api.abutronfx.online",
+      "eas": {
+        "projectId": "531b2e69-832c-4531-bb22-9d85cc857aa6"
+      }
+    }
+  }
+}

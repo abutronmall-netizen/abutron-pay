@@ -1,0 +1,875 @@
+from __future__ import annotations
+
+import argparse
+import shutil
+import tempfile
+import time
+import uuid
+from datetime import datetime, timedelta, timezone
+from pathlib import Path
+import sys
+
+from fastapi import HTTPException
+
+ROOT = Path(r"C:\Abutron\TradingPlatformV4")
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+import MetaTrader5 as mt5
+
+from abutron.models import BotTier, Direction, OrderPlan
+from mt5_bridge.settings import settings as bridge_settings
+from mt5_bridge.store import IdempotencyStore
+import mt5_bridge.app as gateway
+
+
+def emit(key: str, value) -> None:
+    print(f"{key}={value}", flush=True)
+
+
+def require(condition: bool, message: str) -> None:
+    if not condition:
+        raise RuntimeError(message)
+
+
+def raw_symbol(symbol: str) -> str:
+    return gateway.raw_symbol(symbol)
+
+
+def history_since(start_epoch: int):
+    # STEP17_V4_HISTORY_BASELINE_DELTA
+    #
+    # The production MT5 terminal has demonstrated that short history
+    # windows can miss fresh broker records while broader windows expose
+    # them correctly. Step 17 therefore uses a broad read-only broker
+    # history window and proves a new execution by comparing against the
+    # baseline count captured BEFORE the certification order.
+    #
+    # start_epoch remains in the function signature to preserve the
+    # existing Step 17 interface.
+    _ = start_epoch
+
+    now = datetime.now(timezone.utc)
+
+    rows = mt5.history_deals_get(
+        now - timedelta(days=7),
+        now + timedelta(days=1),
+    )
+
+    if rows is None:
+        raise RuntimeError(
+            f"MT5 history_deals_get failed: {mt5.last_error()}"
+        )
+
+    return list(rows)
+
+
+
+def magic_deals_since(start_epoch: int, magic: int, symbol: str):
+    target = symbol.upper()
+    return [
+        d for d in history_since(start_epoch)
+        if int(getattr(d, "magic", 0) or 0) == magic
+        and str(getattr(d, "symbol", "") or "").upper() == target
+    ]
+def wait_for_magic_deals(
+    start_epoch,
+    magic,
+    symbol,
+    minimum_count,
+    seconds=20
+):
+    deadline=time.time()+seconds
+    last=[]
+
+    while time.time()<deadline:
+
+        try:
+            last=magic_deals_since(
+                start_epoch,
+                magic,
+                symbol
+            )
+        except RuntimeError:
+            last=[]
+
+        if len(last)>=minimum_count:
+            return last
+
+        time.sleep(0.5)
+
+    return last
+
+
+
+def all_abutron_positions(magic: int):
+    rows = mt5.positions_get()
+    if rows is None:
+        raise RuntimeError(f"MT5 positions_get failed: {mt5.last_error()}")
+    return [
+        p for p in rows
+        if int(getattr(p, "magic", 0) or 0) == magic
+        or str(getattr(p, "comment", "") or "").upper().startswith("ABUTRON")
+    ]
+
+
+def symbol_positions(symbol: str):
+    rows = mt5.positions_get(symbol=symbol)
+    if rows is None:
+        raise RuntimeError(f"MT5 positions_get({symbol}) failed: {mt5.last_error()}")
+    return list(rows)
+
+
+def symbol_orders(symbol: str):
+    rows = mt5.orders_get(symbol=symbol)
+    if rows is None:
+        err = mt5.last_error()
+        # MT5 commonly returns an empty tuple for no pending orders. None means failure.
+        raise RuntimeError(f"MT5 orders_get({symbol}) failed: {err}")
+    return list(rows)
+
+
+def wait_for_new_position(
+    symbol: str,
+    baseline_tickets: set[int],
+    magic: int,
+    seconds: int = 20,
+):
+    deadline = time.time() + seconds
+
+    while time.time() < deadline:
+        rows = symbol_positions(symbol)
+        candidates = [
+            p for p in rows
+            if int(p.ticket) not in baseline_tickets
+            and (
+                int(getattr(p, "magic", 0) or 0) == magic
+                or str(getattr(p, "comment", "") or "").upper().startswith("ABUTRON")
+            )
+        ]
+
+        if len(candidates) == 1:
+            return candidates[0]
+
+        if len(candidates) > 1:
+            raise RuntimeError(
+                f"Multiple new Abutron positions appeared on {symbol}: "
+                + ",".join(str(int(p.ticket)) for p in candidates)
+            )
+
+        time.sleep(0.5)
+
+    return None
+
+
+def wait_position_absent(ticket: int, seconds: int = 20) -> bool:
+    deadline = time.time() + seconds
+
+    while time.time() < deadline:
+        rows = mt5.positions_get(ticket=int(ticket))
+        if rows is None:
+            raise RuntimeError(f"MT5 positions_get(ticket) failed: {mt5.last_error()}")
+
+        if len(rows) == 0:
+            return True
+
+        time.sleep(0.5)
+
+    return False
+
+
+def emergency_close(ticket: int, magic: int) -> bool:
+
+    fills=[
+        ("IOC",mt5.ORDER_FILLING_IOC),
+        ("FOK",mt5.ORDER_FILLING_FOK),
+        ("RETURN",mt5.ORDER_FILLING_RETURN)
+    ]
+
+    for cycle in range(1,5):
+
+        rows=mt5.positions_get(
+            ticket=int(ticket)
+        )
+
+        if rows is None:
+            emit(
+                "EMERGENCY_POSITION_QUERY_ERROR",
+                mt5.last_error()
+            )
+            return False
+
+        if len(rows)==0:
+            return True
+
+        if len(rows)!=1:
+            emit(
+                "EMERGENCY_POSITION_COUNT",
+                len(rows)
+            )
+            return False
+
+        pos=rows[0]
+
+        owned=(
+            int(
+                getattr(
+                    pos,
+                    "magic",
+                    0
+                ) or 0
+            )
+            == int(magic)
+            or
+            str(
+                getattr(
+                    pos,
+                    "comment",
+                    ""
+                ) or ""
+            )
+            .upper()
+            .startswith("ABUTRON")
+        )
+
+        if not owned:
+            emit(
+                "EMERGENCY_OWNERSHIP_CHECK",
+                "FAILED"
+            )
+            return False
+
+        tick=mt5.symbol_info_tick(
+            pos.symbol
+        )
+
+        if tick is None:
+            emit(
+                "EMERGENCY_TICK",
+                "UNAVAILABLE"
+            )
+            time.sleep(1)
+            continue
+
+        is_buy=(
+            int(pos.type)
+            ==
+            int(mt5.POSITION_TYPE_BUY)
+        )
+
+        selected=None
+
+        for name,fill in fills:
+
+            req={
+                "action":
+                    mt5.TRADE_ACTION_DEAL,
+
+                "position":
+                    int(pos.ticket),
+
+                "symbol":
+                    pos.symbol,
+
+                "volume":
+                    float(pos.volume),
+
+                "type":
+                    mt5.ORDER_TYPE_SELL
+                    if is_buy
+                    else mt5.ORDER_TYPE_BUY,
+
+                "price":
+                    float(
+                        tick.bid
+                        if is_buy
+                        else tick.ask
+                    ),
+
+                "deviation":
+                    50,
+
+                "magic":
+                    int(magic),
+
+                "comment":
+                    "ABUTRON S17 EMERG",
+
+                "type_time":
+                    mt5.ORDER_TIME_GTC,
+
+                "type_filling":
+                    int(fill)
+            }
+
+            chk=mt5.order_check(req)
+
+            if chk is None:
+
+                emit(
+                    f"EMERGENCY_CHECK_{name}_RETCODE",
+                    "NONE"
+                )
+
+                continue
+
+            rc=int(
+                getattr(
+                    chk,
+                    "retcode",
+                    -1
+                )
+            )
+
+            emit(
+                f"EMERGENCY_CHECK_{name}_RETCODE",
+                rc
+            )
+
+            if rc==0:
+                selected=(name,req)
+                break
+
+        if selected is None:
+
+            emit(
+                "EMERGENCY_SUPPORTED_FILLING",
+                "NONE"
+            )
+
+            return False
+
+        name,req=selected
+
+        emit(
+            "EMERGENCY_SELECTED_FILLING",
+            name
+        )
+
+        emit(
+            "EMERGENCY_SEND_CYCLE",
+            cycle
+        )
+
+        res=mt5.order_send(req)
+
+        if res is None:
+
+            emit(
+                "EMERGENCY_SEND_NONE",
+                mt5.last_error()
+            )
+
+            time.sleep(1)
+            continue
+
+        rc=int(
+            getattr(
+                res,
+                "retcode",
+                -1
+            )
+        )
+
+        emit(
+            "EMERGENCY_SEND_RETCODE",
+            rc
+        )
+
+        if rc in (
+            int(
+                mt5.TRADE_RETCODE_DONE
+            ),
+            int(
+                mt5.TRADE_RETCODE_DONE_PARTIAL
+            )
+        ):
+
+            if wait_position_absent(
+                ticket,
+                seconds=15
+            ):
+                return True
+
+        time.sleep(1)
+
+    return wait_position_absent(
+        ticket,
+        seconds=2
+    )
+
+
+
+def make_plan(symbol: str, direction: Direction, key: str) -> OrderPlan:
+    rs = raw_symbol(symbol)
+
+    if not mt5.symbol_select(rs, True):
+        raise RuntimeError(f"Could not select certification symbol: {rs}")
+
+    info = mt5.symbol_info(rs)
+    tick = mt5.symbol_info_tick(rs)
+
+    require(info is not None, f"symbol_info unavailable for {rs}")
+    require(tick is not None, f"symbol_info_tick unavailable for {rs}")
+
+    volume_min = float(info.volume_min)
+    volume_step = float(info.volume_step)
+    volume_max = float(info.volume_max)
+    tick_size = float(info.trade_tick_size or info.point or 0.0)
+    point = float(info.point or 0.0)
+    stops_level = int(info.trade_stops_level or 0)
+
+    require(volume_min > 0.0, "Broker volume_min is not positive.")
+    require(volume_step > 0.0, "Broker volume_step is not positive.")
+    require(volume_min <= volume_max, "Broker volume range is invalid.")
+    require(tick_size > 0.0, "Broker tick size is not positive.")
+
+    # Use broker minimum volume only. This is a transport/lifecycle test, not a
+    # market thesis or a profitability test.
+    volume = volume_min
+
+    distance = max(
+        tick_size * 100.0,
+        point * float(max(stops_level + 50, 100)),
+        1.0,
+    )
+
+    if direction == Direction.BUY:
+        entry = float(tick.ask)
+        sl = entry - distance
+        tp = entry + (2.0 * distance)
+    else:
+        entry = float(tick.bid)
+        sl = entry + distance
+        tp = entry - (2.0 * distance)
+
+    return OrderPlan(
+        symbol=symbol,
+        direction=direction,
+        tier=BotTier.FLIPPER,
+        strategy_profile="step17-controlled-demo",
+        volume=volume,
+        entry=entry,
+        sl=sl,
+        tp=tp,
+        risk_amount=0.01,
+        confidence=100.0,
+        idempotency_key=key,
+        thesis_reason="STEP17_CONTROLLED_DEMO_EXECUTION_NOT_A_MARKET_SIGNAL",
+    )
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--mt5-path", required=True)
+    parser.add_argument("--symbol", default="XAUUSD")
+    parser.add_argument("--direction", choices=("BUY", "SELL"), default="BUY")
+    args = parser.parse_args()
+
+    symbol = args.symbol.upper()
+    direction = Direction.BUY if args.direction.upper() == "BUY" else Direction.SELL
+
+    stamp = f"{int(time.time())}-{uuid.uuid4().hex[:10]}"
+    key = f"STEP17-{stamp}"
+    start_epoch = int(time.time())
+
+    log_dir = ROOT / "logs"
+    log_dir.mkdir(parents=True, exist_ok=True)
+    temp_dir = Path(tempfile.mkdtemp(prefix="abutron-step17-", dir=str(log_dir)))
+    temp_db = temp_dir / "step17_idempotency.sqlite3"
+
+    original_store = gateway.store
+    original_db_path = str(bridge_settings.idempotency_db)
+    original_live = bool(bridge_settings.live_trading)
+    original_management = bool(bridge_settings.management_enabled)
+
+    cert_position_ticket = None
+    certification_error = None
+    emergency_used = False
+    emergency_ok = None
+    opened = False
+    closed_normally = False
+    initialized = False
+
+    try:
+        emit("STEP17_CERTIFICATION_KEY_CREATED", True)
+        emit("STEP17_DIRECTION", direction.value)
+        emit("MARKET_SIGNAL_USED", False)
+
+        require(original_live is False, "Production process baseline live_trading is not false.")
+        require(
+            original_management is False,
+            "Production process baseline management_enabled is not false.",
+        )
+        require(bool(bridge_settings.demo_only) is True, "MT5_DEMO_ONLY must be true.")
+        require(bridge_settings.expected_login is not None, "MT5 expected login is not configured.")
+        require(
+            bool(str(bridge_settings.expected_server or "").strip()),
+            "MT5 expected server is not configured.",
+        )
+
+        if not mt5.initialize(path=args.mt5_path):
+            raise RuntimeError(f"MT5 initialize failed: {mt5.last_error()}")
+        initialized = True
+
+        terminal = mt5.terminal_info()
+        account = mt5.account_info()
+
+        require(terminal is not None, "MT5 terminal_info unavailable.")
+        require(account is not None, "MT5 account_info unavailable.")
+        require(bool(terminal.connected), "MT5 terminal is not connected.")
+
+        connected_login = int(getattr(account, "login", 0) or 0)
+        connected_server = str(getattr(account, "server", "") or "")
+        expected_login = int(bridge_settings.expected_login)
+        expected_server = str(bridge_settings.expected_server)
+
+        require(connected_login == expected_login, "Connected MT5 login mismatch.")
+        require(connected_server == expected_server, "Connected MT5 server mismatch.")
+        require("DEMO" in connected_server.upper(), "Connected MT5 server is not DEMO.")
+
+        gateway._require_demo_if_configured()
+
+        emit("DEMO_ACCOUNT_IDENTITY", "PASS")
+        emit("ACCOUNT_LOGIN_PRINTED", False)
+
+        # Step 16 showed this was False. Step 17 must not bypass it.
+        emit("MT5_TERMINAL_TRADE_ALLOWED", bool(terminal.trade_allowed))
+        require(
+            bool(terminal.trade_allowed),
+            "MT5 terminal trade_allowed=False. "
+            "Step 17 will not bypass or change terminal trading permission.",
+        )
+
+        rs = raw_symbol(symbol)
+
+        require(mt5.symbol_select(rs, True), f"Could not select broker symbol: {rs}")
+
+        baseline_symbol_positions = symbol_positions(rs)
+        baseline_symbol_orders = symbol_orders(rs)
+        baseline_abutron_positions = all_abutron_positions(int(bridge_settings.magic))
+
+        require(
+            len(baseline_symbol_positions) == 0,
+            f"Step 17 requires zero existing positions on {rs}; "
+            f"found={len(baseline_symbol_positions)}",
+        )
+        require(
+            len(baseline_symbol_orders) == 0,
+            f"Step 17 requires zero pending orders on {rs}; "
+            f"found={len(baseline_symbol_orders)}",
+        )
+        require(
+            len(baseline_abutron_positions) == 0,
+            "Step 17 requires zero existing Abutron-owned positions.",
+        )
+
+        baseline_tickets: set[int] = set()
+        baseline_magic_deals = len(
+            magic_deals_since(start_epoch, int(bridge_settings.magic), rs)
+        )
+
+        emit("ZERO_SYMBOL_POSITION_BASELINE", "PASS")
+        emit("ZERO_SYMBOL_PENDING_ORDER_BASELINE", "PASS")
+        emit("ZERO_ABUTRON_POSITION_BASELINE", "PASS")
+
+        # Isolate certification idempotency from production.
+        bridge_settings.idempotency_db = str(temp_db)
+        gateway.settings.idempotency_db = str(temp_db)
+        cert_store = IdempotencyStore()
+        gateway.store = cert_store
+
+        emit("TEMP_IDEMPOTENCY_STORE", "PASS")
+
+        valid_auth = f"Bearer {bridge_settings.api_token}"
+        gateway.auth(valid_auth)
+
+        plan = make_plan(symbol, direction, key)
+        rs2, desired_buy, request, info = gateway._build_order_request(plan)
+
+        require(rs2 == rs, "Resolved symbol changed.")
+        require(abs(float(plan.volume) - float(info.volume_min)) < 1e-12, "Plan is not broker minimum volume.")
+        require(float(request["volume"]) == float(info.volume_min), "Request volume is not broker minimum.")
+        require(int(request["magic"]) == int(bridge_settings.magic), "Magic number mismatch.")
+        require(str(request["comment"]).upper().startswith("ABUTRON"), "Order ownership comment missing.")
+
+        emit("BROKER_MINIMUM_VOLUME_ONLY", "PASS")
+        emit("ORDER_PAYLOAD_PRECHECK", "PASS")
+
+        check = mt5.order_check(request)
+        require(check is not None, f"MT5 order_check failed: {mt5.last_error()}")
+        check_retcode = int(getattr(check, "retcode", -1))
+        emit("BROKER_ORDER_CHECK_RETCODE", check_retcode)
+        require(check_retcode == 0, f"Broker order_check rejected certification request: {check_retcode}")
+
+        emit("BROKER_ORDER_CHECK", "PASS")
+
+        # ------------------------------------------------------------------
+        # THE ONLY EXECUTION WINDOW
+        # Process-local only. Running production Bridge process remains OFF.
+        # ------------------------------------------------------------------
+        bridge_settings.live_trading = True
+        gateway.settings.live_trading = True
+
+        emit("ISOLATED_CERT_EXECUTION_WINDOW", "OPEN")
+
+        result = gateway.order(plan, authorization=valid_auth)
+
+        require(result.get("accepted") is True, f"Gateway did not accept demo execution: {result}")
+        require(int(result.get("retcode", -1)) == int(mt5.TRADE_RETCODE_DONE), f"Unexpected broker retcode: {result}")
+
+        opened = True
+
+        emit("DEMO_ORDER_SEND", "PASS")
+        emit("BROKER_RETCODE_DONE", "PASS")
+
+        new_position = wait_for_new_position(
+            rs,
+            baseline_tickets,
+            int(bridge_settings.magic),
+            seconds=20,
+        )
+        require(new_position is not None, "Broker fill returned but certification position was not found.")
+
+        cert_position_ticket = int(new_position.ticket)
+
+        returned_position_ticket = int(result.get("position_ticket", 0) or 0)
+        if returned_position_ticket:
+            require(
+                returned_position_ticket == cert_position_ticket,
+                "Gateway returned position ticket does not match MT5 position.",
+            )
+
+        require(
+            abs(float(new_position.volume) - float(plan.volume)) < 1e-12,
+            "Filled position volume differs from certification plan.",
+        )
+        require(
+            int(getattr(new_position, "magic", 0) or 0) == int(bridge_settings.magic),
+            "Filled position magic mismatch.",
+        )
+
+        emit("DEMO_POSITION_DISCOVERED", "PASS")
+        emit("POSITION_TICKET_RECONCILIATION", "PASS")
+
+        after_open_deals = wait_for_magic_deals(start_epoch, int(bridge_settings.magic), rs, baseline_magic_deals + 1)
+        require(
+            len(after_open_deals) >= baseline_magic_deals + 1,
+            "Opening broker deal was not found in MT5 history.",
+        )
+
+        returned_deal = int(result.get("deal", 0) or 0)
+        if returned_deal:
+            require(
+                any(int(getattr(d, "ticket", 0) or 0) == returned_deal for d in after_open_deals),
+                "Gateway returned deal ticket was not found in MT5 history.",
+            )
+
+        emit("OPEN_DEAL_HISTORY_RECONCILIATION", "PASS")
+
+        # Real post-fill idempotency: same key must not create another position
+        # or another opening deal.
+        position_count_before_dup = len(symbol_positions(rs))
+        deals_before_dup = len(
+            magic_deals_since(start_epoch, int(bridge_settings.magic), rs)
+        )
+
+        duplicate = gateway.order(plan, authorization=valid_auth)
+
+        require(duplicate.get("duplicate") is True, "Filled order duplicate was not suppressed.")
+        require(
+            len(symbol_positions(rs)) == position_count_before_dup,
+            "Duplicate request changed position count.",
+        )
+        require(
+            len(magic_deals_since(start_epoch, int(bridge_settings.magic), rs))
+            == deals_before_dup,
+            "Duplicate request created an additional broker deal.",
+        )
+
+        emit("REAL_FILL_IDEMPOTENCY_DUPLICATE", "PASS")
+
+        # ------------------------------------------------------------------
+        # Mandatory normal cleanup through the real gateway close function.
+        # This is a safety cleanup, not the full Step 18 management cert.
+        # ------------------------------------------------------------------
+        close_result = gateway.close(cert_position_ticket, authorization=valid_auth)
+
+        require(close_result.get("closed") is True, f"Gateway close failed: {close_result}")
+        require(
+            int(close_result.get("retcode", -1)) == int(mt5.TRADE_RETCODE_DONE),
+            f"Unexpected close retcode: {close_result}",
+        )
+        require(
+            wait_position_absent(cert_position_ticket, seconds=20),
+            "Certification position still exists after gateway close.",
+        )
+
+        closed_normally = True
+
+        emit("MANDATORY_DEMO_CLEANUP_CLOSE", "PASS")
+
+        final_deals = wait_for_magic_deals(start_epoch, int(bridge_settings.magic), rs, baseline_magic_deals + 2)
+        require(
+            len(final_deals) >= baseline_magic_deals + 2,
+            "Open+close broker deal history was not reconciled.",
+        )
+
+        emit("OPEN_CLOSE_HISTORY_RECONCILIATION", "PASS")
+
+        require(len(symbol_positions(rs)) == 0, "Residual XAUUSD position exists after cleanup.")
+        require(len(symbol_orders(rs)) == 0, "Residual XAUUSD pending order exists after cleanup.")
+        require(
+            len(all_abutron_positions(int(bridge_settings.magic))) == 0,
+            "Residual Abutron-owned position exists after cleanup.",
+        )
+
+        emit("ZERO_RESIDUAL_SYMBOL_EXPOSURE", "PASS")
+        emit("ZERO_RESIDUAL_ABUTRON_EXPOSURE", "PASS")
+
+        # Certification temp store must show completed execution result and no
+        # unresolved claim after successful real send.
+        stored = cert_store.get(key)
+        require(stored is not None, "Accepted demo execution result was not persisted in certification store.")
+        require(not bool(cert_store.claim_exists(key)), "Completed demo execution left an unresolved claim.")
+
+        emit("REAL_EXECUTION_RESULT_PERSISTED", "PASS")
+        emit("REAL_EXECUTION_CLAIM_RELEASED", "PASS")
+
+    except BaseException as exc:
+        certification_error = exc
+
+    finally:
+        # If the broker order opened but normal gateway cleanup did not finish,
+        # attempt exact-ticket emergency cleanup before restoring local settings.
+        if opened and not closed_normally and cert_position_ticket:
+            emergency_used = True
+
+            try:
+                # Keep local demo live flag true for cleanup only.
+                bridge_settings.live_trading = True
+                gateway.settings.live_trading = True
+                emergency_ok = emergency_close(
+                    cert_position_ticket,
+                    int(bridge_settings.magic),
+                )
+            except BaseException:
+                emergency_ok = False
+
+            emit("EMERGENCY_CLEANUP_USED", True)
+            emit("EMERGENCY_CLEANUP_SUCCESS", bool(emergency_ok))
+
+        # Restore process-local configuration.
+        try:
+            bridge_settings.live_trading = original_live
+            gateway.settings.live_trading = original_live
+            bridge_settings.management_enabled = original_management
+            gateway.settings.management_enabled = original_management
+        except Exception:
+            pass
+
+        try:
+            gateway.store = original_store
+            bridge_settings.idempotency_db = original_db_path
+            gateway.settings.idempotency_db = original_db_path
+        except Exception:
+            pass
+
+        # Final exposure check while MT5 is still initialized.
+        if initialized:
+            try:
+                rs = raw_symbol(symbol)
+                remaining_symbol_positions = symbol_positions(rs)
+                remaining_abutron_positions = all_abutron_positions(
+                    int(bridge_settings.magic)
+                )
+
+                emit("FINAL_SYMBOL_POSITION_COUNT", len(remaining_symbol_positions))
+                emit("FINAL_ABUTRON_POSITION_COUNT", len(remaining_abutron_positions))
+            except Exception:
+                pass
+
+            try:
+                mt5.shutdown()
+            except Exception:
+                pass
+
+    # If emergency cleanup was required, certification intentionally fails.
+    # Structured stdout diagnostics prevent PowerShell from collapsing the
+    # useful failure into only the first traceback line.
+    if emergency_used:
+        if emergency_ok:
+            emit(
+                "STEP17_FAILURE_TYPE",
+                type(certification_error).__name__
+                if certification_error
+                else "RuntimeError",
+            )
+            emit(
+                "STEP17_FAILURE",
+                "Normal Step 17 lifecycle failed; emergency cleanup removed "
+                "the demo position. Exposure is safe but Step 17 is NOT CERTIFIED.",
+            )
+            return 41
+
+        emit(
+            "STEP17_FAILURE_TYPE",
+            type(certification_error).__name__
+            if certification_error
+            else "RuntimeError",
+        )
+        emit(
+            "STEP17_FAILURE",
+            "Normal Step 17 lifecycle failed and emergency cleanup could not "
+            "confirm closure. Manual demo-account position check is required.",
+        )
+        return 42
+
+    if certification_error is not None:
+        emit(
+            "STEP17_FAILURE_TYPE",
+            type(certification_error).__name__,
+        )
+        emit(
+            "STEP17_FAILURE",
+            str(certification_error),
+        )
+        return 43
+
+    require(
+        str(bridge_settings.idempotency_db) == original_db_path,
+        "Production idempotency DB path was not restored.",
+    )
+    require(gateway.store is original_store, "Production gateway store was not restored.")
+    require(bridge_settings.live_trading is original_live, "Process-local live_trading was not restored.")
+    require(
+        bridge_settings.management_enabled is original_management,
+        "Process-local management setting was not restored.",
+    )
+
+    # No Step17 keys may leak into production idempotency storage.
+    require(original_store.get(key) is None, "Step17 execution key leaked into production executions table.")
+    require(
+        not bool(original_store.claim_exists(key)),
+        "Step17 execution key leaked into production execution_claims table.",
+    )
+
+    emit("PRODUCTION_IDEMPOTENCY_STORE_UNTOUCHED", "PASS")
+    emit("PROCESS_LOCAL_SETTINGS_RESTORED", "PASS")
+
+    shutil.rmtree(temp_dir, ignore_errors=True)
+    emit("TEMP_CERTIFICATION_STORE_REMOVED", "PASS")
+
+    emit("ISOLATED_CERT_EXECUTION_WINDOW", "CLOSED")
+    emit("STEP_17_HELPER", "PASS")
+    emit("REAL_DEMO_BROKER_EXECUTION", "PASS")
+    emit("REAL_DEMO_BROKER_CLOSE_CLEANUP", "PASS")
+    emit("ZERO_RESIDUAL_EXPOSURE", "PASS")
+    emit("MARKET_SIGNAL_USED", False)
+    emit("AUTONOMOUS_WORKER_USED", False)
+
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

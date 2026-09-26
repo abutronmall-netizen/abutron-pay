@@ -1,0 +1,68 @@
+from functools import lru_cache
+from typing import Annotated
+
+from pydantic import field_validator
+from pydantic_settings import BaseSettings, NoDecode, SettingsConfigDict
+
+
+class Settings(BaseSettings):
+    model_config = SettingsConfigDict(
+        env_prefix="ABUTRON_",
+        case_sensitive=False,
+        extra="ignore",
+    )
+
+    env: str = "development"
+    api_host: str = "0.0.0.0"
+    api_port: int = 8080
+
+    database_url: str = "postgresql+asyncpg://abutron:change-me@localhost:5432/abutron"
+    redis_url: str = "redis://localhost:6379/0"
+
+    jwt_secret: str = "development-only-change-me-please-32-chars"
+    jwt_issuer: str = "abutron-platform"
+    access_token_minutes: int = 30
+
+    service_token: str = "development-service-token"
+
+    kronos_engine_url: str = "http://127.0.0.1:8090"
+    kronos_engine_token: str = "development-engine-token"
+    kronos_push_enabled: bool = False
+
+    push_gateway_enabled: bool = False
+    push_gateway_url: str = ""
+    push_gateway_token: str = "development-push-token"
+
+    billing_webhook_secret: str = "development-billing-webhook-secret-change-me"
+
+    mt5_fleet_enabled: bool = False
+    mt5_fleet_agent_url: str = "http://127.0.0.1:8180"
+    mt5_fleet_agent_token: str = ""
+    mt5_credential_key: str = ""
+    mt5_credential_key_version: int = 1
+    mt5_allowed_broker_slugs: Annotated[list[str], NoDecode] = ["ic-markets"]
+
+    auto_create_schema: bool = False
+    cors_origins: Annotated[list[str], NoDecode] = [
+        "http://localhost:3000",
+        "http://localhost:5173",
+    ]
+
+    @field_validator("cors_origins", "mt5_allowed_broker_slugs", mode="before")
+    @classmethod
+    def parse_csv_lists(cls, value):
+        if isinstance(value, str):
+            return [item.strip() for item in value.split(",") if item.strip()]
+        return value
+
+    @field_validator("jwt_secret", "billing_webhook_secret")
+    @classmethod
+    def validate_secret_length(cls, value: str) -> str:
+        if len(value) < 32:
+            raise ValueError("Security secrets must be at least 32 characters")
+        return value
+
+
+@lru_cache
+def get_settings() -> Settings:
+    return Settings()

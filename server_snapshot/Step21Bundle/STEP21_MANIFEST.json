@@ -1,0 +1,37 @@
+{
+  "build": "STEP21_CONTROLLED_DEMO_EXECUTION_CERT_V1_1",
+  "version": "1.1",
+  "files": [
+    {
+      "name": "Abutron-Step21-Controlled-Demo-Execution-Cert-v1.1.ps1",
+      "sha256": "14FF08C8AB390E5C9DB11589010C281C07230051B77B90F56C81B0635CCBA47B",
+      "size_bytes": 16293
+    },
+    {
+      "name": "Install-Abutron-Step21-v1.1.ps1",
+      "sha256": "8EAAF0E5BEA0917073799AAF19B1BC2D7C7CD2330AEDC24EC26A48A79A7E05CB",
+      "size_bytes": 3768
+    },
+    {
+      "name": "README_STEP21.md",
+      "sha256": "51680DA99F5BF9AB8542C19C3D6200B26E63B7C27E896E5DF2F39B6D36207E30",
+      "size_bytes": 2608
+    },
+    {
+      "name": "STEP21_INSTALLATION.md",
+      "sha256": "92F7FA4C17D92A1E39BDF4C0670DC9D961B5BF3F9E2A1CC35AD5A7C0AEF725EC",
+      "size_bytes": 4134
+    }
+  ],
+  "safety": {
+    "live_money_authorized": false,
+    "production_execution_modified": false,
+    "production_live_trading_modified": false,
+    "production_management_modified": false,
+    "demo_requires_explicit_authorization": true
+  },
+  "fixes": [
+    "Use MT5_API_TOKEN for authenticated bridge reads",
+    "Interactive demo login examples avoid PowerShell angle-bracket parser errors"
+  ]
+}

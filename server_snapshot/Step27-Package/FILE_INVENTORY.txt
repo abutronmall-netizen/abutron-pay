@@ -1,0 +1,16 @@
+INSTALL_STEP27.md
+MANIFEST.json
+README.md
+ROADMAP_TRUTH.md
+admin/step27.html
+config/step27.env.example
+scripts/activate_step27.ps1
+scripts/audit_step27.ps1
+scripts/certify_step27.ps1
+scripts/install_step27.ps1
+scripts/patch_api.py
+scripts/rollback_step27.ps1
+src/abutron/step27_api.py
+src/abutron/step27_models.py
+src/abutron/step27_service.py
+tests/test_step27_package.py

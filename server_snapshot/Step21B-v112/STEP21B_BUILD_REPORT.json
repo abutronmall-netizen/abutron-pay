@@ -1,0 +1,12 @@
+{
+  "name": "Abutron Step 21B IC Markets OAuth Discovery",
+  "version": "1.1.2",
+  "result": "LOCAL_STATIC_PASS",
+  "tests": "19 passed",
+  "python_compile": "PASS",
+  "change_scope": "Windows route verification repair only",
+  "broker_order_sent": false,
+  "live_money_authorized": false,
+  "demo_execution_enabled": false,
+  "kill_switch": true
+}

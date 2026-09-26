@@ -1,0 +1,12 @@
+﻿{
+    "version":  "1.0.0",
+    "created_utc":  "2026-09-26T19:20:04.0237929Z",
+    "spotware_client_secret_rotated":  true,
+    "old_spotware_secret_not_in_use":  true,
+    "telegram_token_private_or_rotated":  true,
+    "no_public_source_secrets":  true,
+    "provider_console_or_rescue_verified":  true,
+    "off_host_backup_or_provider_snapshot_created":  true,
+    "whatsapp_meta_deferred":  true,
+    "pass":  true
+}

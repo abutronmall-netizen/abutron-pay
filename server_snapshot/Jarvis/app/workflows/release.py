@@ -1,0 +1,1 @@
+GATES=["lint","typecheck","unit","integration","regression","api_contract","security","performance","load","soak","quant_if_needed","human_review","staging","human_release_approval","post_deploy_verify"]

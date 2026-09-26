@@ -1,0 +1,20 @@
+{
+  "product": "Abutron RC1-09 Telegram + WhatsApp / Meta Alerts",
+  "version": "1.0.0",
+  "mode": "NOTIFY_ONLY",
+  "bind": "127.0.0.1:8789",
+  "actions_enabled": false,
+  "rc1_08_dependency": "CERTIFIED",
+  "live_money_authorized": false,
+  "transports": [
+    "telegram",
+    "whatsapp_cloud_api"
+  ],
+  "security": [
+    "numeric Telegram chat ID",
+    "secret file ACL",
+    "Meta webhook HMAC verification",
+    "Caddy exact-path allowlist",
+    "no inbound commands"
+  ]
+}

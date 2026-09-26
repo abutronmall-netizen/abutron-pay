@@ -1,0 +1,20 @@
+﻿{
+    "step":  "26A",
+    "version":  "1.0.7-runtime-verify",
+    "timestamp":  "2026-09-25T22:33:00.1239301Z",
+    "live_api_pid":  5856,
+    "live_api_parent_pid":  7680,
+    "live_api_executable":  "C:\\Users\\Administrator\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+    "live_openapi":  "PASS",
+    "auth_boundary":  "PASS",
+    "db_contract":  "PASS",
+    "route_contract":  "PASS",
+    "admin_console":  "PASS",
+    "mobile_source":  "PASS",
+    "mobile_trading_mode":  "READ_ONLY",
+    "broker_execution_from_step26a":  false,
+    "execution_enabled":  false,
+    "live_money_authorized":  false,
+    "signed_android_ios_acceptance":  "DEFERRED_TO_STEP26B_RELEASE_GATES",
+    "result":  "PASS"
+}

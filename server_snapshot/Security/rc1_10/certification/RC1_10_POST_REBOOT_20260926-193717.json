@@ -1,0 +1,12 @@
+﻿{
+    "version":  "1.0.0",
+    "result":  "PASS",
+    "certified_utc":  "2026-09-26T19:37:17.9254053Z",
+    "pre_certified_utc":  "2026-09-26T19:29:25.1287149Z",
+    "boot_utc":  "2026-09-26T19:31:17.5000000Z",
+    "active_rdp_reconnect_verified":  true,
+    "clean_reboot_verified":  true,
+    "integrity_verified":  true,
+    "live_money_authorized":  false,
+    "final_overnight_rdp_gate":  "PENDING"
+}

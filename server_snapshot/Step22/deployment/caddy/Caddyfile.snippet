@@ -1,0 +1,14 @@
+api.abutronfx.online {
+    encode zstd gzip
+
+    # Only the browser-facing OAuth endpoints are public. Internal account/order
+    # endpoints remain localhost-only behind the Abutron Core.
+    handle /v1/ctrader/oauth/start* {
+        reverse_proxy 127.0.0.1:8091
+    }
+    handle /v1/ctrader/oauth/callback* {
+        reverse_proxy 127.0.0.1:8091
+    }
+
+    # Existing Abutron Core routes remain on the existing core upstream.
+}

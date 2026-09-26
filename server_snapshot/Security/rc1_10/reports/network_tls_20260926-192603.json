@@ -1,0 +1,149 @@
+﻿{
+    "version":  "1.0.0",
+    "generated_utc":  "2026-09-26T19:26:03.5913888Z",
+    "result":  "PASS",
+    "fail_count":  0,
+    "warn_count":  0,
+    "findings":  [
+                     {
+                         "control":  "FIREWALL_Domain",
+                         "status":  "PASS",
+                         "message":  "Firewall profile is enabled and does not default to inbound Allow.",
+                         "evidence":  {
+                                          "profile":  "Domain",
+                                          "default_inbound":  "Block"
+                                      }
+                     },
+                     {
+                         "control":  "FIREWALL_Private",
+                         "status":  "PASS",
+                         "message":  "Firewall profile is enabled and does not default to inbound Allow.",
+                         "evidence":  {
+                                          "profile":  "Private",
+                                          "default_inbound":  "Block"
+                                      }
+                     },
+                     {
+                         "control":  "FIREWALL_Public",
+                         "status":  "PASS",
+                         "message":  "Firewall profile is enabled and does not default to inbound Allow.",
+                         "evidence":  {
+                                          "profile":  "Public",
+                                          "default_inbound":  "Block"
+                                      }
+                     },
+                     {
+                         "control":  "CADDY_SERVICE",
+                         "status":  "PASS",
+                         "message":  "Caddy service is running.",
+                         "evidence":  {
+                                          "start_type":  "Auto"
+                                      }
+                     },
+                     {
+                         "control":  "CADDY_VALIDATE",
+                         "status":  "PASS",
+                         "message":  "Active Caddy configuration validates.",
+                         "evidence":  null
+                     },
+                     {
+                         "control":  "PUBLIC_HEALTHZ",
+                         "status":  "PASS",
+                         "message":  "Public minimal health endpoint returns 200.",
+                         "evidence":  {
+                                          "uri":  "https://api.abutronfx.online/healthz"
+                                      }
+                     },
+                     {
+                         "control":  "PUBLIC_DENY",
+                         "status":  "PASS",
+                         "message":  "Sensitive public route is default-denied.",
+                         "evidence":  {
+                                          "method":  "POST",
+                                          "path":  "/v1/evaluate",
+                                          "status":  404
+                                      }
+                     },
+                     {
+                         "control":  "PUBLIC_DENY",
+                         "status":  "PASS",
+                         "message":  "Sensitive public route is default-denied.",
+                         "evidence":  {
+                                          "method":  "POST",
+                                          "path":  "/v1/live/XAUUSD",
+                                          "status":  404
+                                      }
+                     },
+                     {
+                         "control":  "PUBLIC_DENY",
+                         "status":  "PASS",
+                         "message":  "Sensitive public route is default-denied.",
+                         "evidence":  {
+                                          "method":  "GET",
+                                          "path":  "/v1/positions",
+                                          "status":  404
+                                      }
+                     },
+                     {
+                         "control":  "PUBLIC_DENY",
+                         "status":  "PASS",
+                         "message":  "Sensitive public route is default-denied.",
+                         "evidence":  {
+                                          "method":  "POST",
+                                          "path":  "/v1/manage",
+                                          "status":  404
+                                      }
+                     },
+                     {
+                         "control":  "PUBLIC_DENY",
+                         "status":  "PASS",
+                         "message":  "Sensitive public route is default-denied.",
+                         "evidence":  {
+                                          "method":  "GET",
+                                          "path":  "/v1/admin/summary",
+                                          "status":  404
+                                      }
+                     },
+                     {
+                         "control":  "PUBLIC_DENY",
+                         "status":  "PASS",
+                         "message":  "Sensitive public route is default-denied.",
+                         "evidence":  {
+                                          "method":  "GET",
+                                          "path":  "/openapi.json",
+                                          "status":  404
+                                      }
+                     },
+                     {
+                         "control":  "PUBLIC_DENY",
+                         "status":  "PASS",
+                         "message":  "Sensitive public route is default-denied.",
+                         "evidence":  {
+                                          "method":  "GET",
+                                          "path":  "/docs",
+                                          "status":  404
+                                      }
+                     },
+                     {
+                         "control":  "PUBLIC_DENY",
+                         "status":  "PASS",
+                         "message":  "Sensitive public route is default-denied.",
+                         "evidence":  {
+                                          "method":  "GET",
+                                          "path":  "/health",
+                                          "status":  404
+                                      }
+                     },
+                     {
+                         "control":  "TLS_CERTIFICATE",
+                         "status":  "PASS",
+                         "message":  "TLS certificate chain/hostname validation succeeded with sufficient lifetime.",
+                         "evidence":  {
+                                          "subject":  "CN=api.abutronfx.online",
+                                          "issuer":  "CN=YE2, O=Let\u0027s Encrypt, C=US",
+                                          "days_remaining":  88,
+                                          "not_after":  "2026-12-24T18:01:39.0000000Z"
+                                      }
+                     }
+                 ]
+}

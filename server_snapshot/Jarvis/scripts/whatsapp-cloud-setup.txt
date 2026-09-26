@@ -1,0 +1,6 @@
+Use Meta official WhatsApp Business Cloud API only.
+Run: hermes whatsapp-cloud
+Configure dedicated business number, webhook HTTPS, strict operator allowlist and home channel.
+Test: hermes send --to whatsapp_cloud "ABUTRON JARVIS TEST"
+Do NOT enable Baileys/WhatsApp-Web in production.
+Voice notes/TTS are supported. Actual WhatsApp calling stays disabled until official calling is provisioned and separately tested.

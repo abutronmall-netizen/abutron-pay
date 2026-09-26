@@ -1,0 +1,152 @@
+from __future__ import annotations
+import time
+from abutron import __version__
+from abutron.config import settings
+from abutron.models import CoreMode,BotTier,MarketBundle,PipelineStage,PipelineResult,EquityRoute,StrategyPolicyModel
+from abutron.symbols import normalize_symbol
+from abutron.profiles import profile_for
+from abutron.features.vector import build_features
+from abutron.kronos_runtime import KronosRuntime
+from abutron.fusion import create_thesis
+from abutron.risk import RiskEngine
+from abutron.capital import make_order_plan
+from abutron.storage.decisions import DecisionStore
+from abutron.gateways.mt5 import MT5Gateway
+from abutron.router import route_with_position_lock
+from abutron.strategies import engine_for
+from sqlalchemy import select
+from abutron.platform_db import session_scope,TradingAccount,License
+
+class TradingService:
+    def __init__(self):
+        self.kronos=KronosRuntime()
+        self.risk=RiskEngine()
+        self.store=DecisionStore()
+        self.gateway=MT5Gateway()
+
+    @staticmethod
+    def _stage(stages,name,status,detail,t0):
+        stages.append(PipelineStage(name=name,status=status,detail=detail,
+                                    duration_ms=round((time.perf_counter()-t0)*1000,3)))
+
+    def evaluate(self,bundle,account,broker,mode=None,current_tier=None):
+        stages=[]
+        t=time.perf_counter()
+        symbol=normalize_symbol(bundle.primary.symbol)
+        bundle.primary.symbol=symbol
+        for s in bundle.contexts.values(): s.symbol=symbol
+        self._stage(stages,"LIVE MARKET DATA","PASS",f"{symbol} {bundle.primary.timeframe} bars={len(bundle.primary.candles)}",t)
+
+        t=time.perf_counter()
+        requested_route=route_with_position_lock(account.equity,current_tier,account.positions_total)
+        tier=requested_route.selected
+        self._stage(stages,"EQUITY ROUTER","PASS" if tier in {BotTier.FLIPPER,BotTier.SCALPER,BotTier.MASTER} else "BLOCK",
+                    f"requested={requested_route.requested.value} selected={tier.value} locked={requested_route.locked}",t)
+
+        min_conf=100.0 if tier in (BotTier.INELIGIBLE,BotTier.MANUAL_REVIEW) else profile_for(tier).min_confidence
+        mode=mode or CoreMode(settings.core_mode.upper())
+
+        t=time.perf_counter()
+        features=build_features(bundle)
+        self._stage(stages,"INSTITUTIONAL + TECHNICAL + REGIME","PASS",f"regime={features.regime}",t)
+
+        t=time.perf_counter()
+        kronos=self.kronos.predict(bundle.primary)
+        self._stage(stages,"KRONOS","PASS",f"direction={kronos.direction.value} score={kronos.score:.4f}",t)
+
+        t=time.perf_counter()
+        thesis=create_thesis(symbol,kronos,features,mode,min_conf)
+        self._stage(stages,"FUSION","PASS",f"score={thesis.score:.4f}",t)
+        self._stage(stages,"CONFIDENCE","PASS" if thesis.confidence>=min_conf else "BLOCK",
+                    f"confidence={thesis.confidence:.2f} threshold={min_conf:.2f}",t)
+        self._stage(stages,"THESIS","PASS" if thesis.valid else "BLOCK",thesis.reason,t)
+        self._stage(stages,"BUY / SELL / HOLD","PASS",thesis.direction.value,t)
+
+        t=time.perf_counter()
+        risk=self.risk.evaluate(thesis,account,broker,bundle,tier=tier)
+        self._stage(stages,"RISK","PASS" if risk.approved else "BLOCK",risk.reason,t)
+
+        t=time.perf_counter()
+        plan=make_order_plan(thesis,features,account,broker,risk,bundle.primary.candles[-1].ts,tier=tier) if tier in {BotTier.FLIPPER,BotTier.SCALPER,BotTier.MASTER} else None
+        self._stage(stages,"CAPITAL","PASS" if plan else "BLOCK",f"risk={getattr(plan,'risk_amount',0):.4f}",t)
+
+        strategy=None
+        if tier in {BotTier.FLIPPER,BotTier.SCALPER,BotTier.MASTER}:
+            t=time.perf_counter()
+            p=engine_for(tier).policy(profile_for(tier),thesis)
+            strategy=StrategyPolicyModel(
+                tier=p.tier,name=p.name,primary_tf=p.primary_tf,context_tfs=list(p.context_tfs),
+                max_positions=p.max_positions,cooldown_seconds=p.cooldown_seconds,
+                burst_positions=p.burst_positions,allow_reentry=p.allow_reentry,
+                min_confidence=p.min_confidence,thesis_direction=p.thesis_direction)
+            self._stage(stages,"FLIPPER / SCALPER / MASTER","PASS",strategy.name,t)
+        else:
+            self._stage(stages,"FLIPPER / SCALPER / MASTER","BLOCK",tier.value,time.perf_counter())
+
+        payload={"kronos":kronos.model_dump(mode="json"),"features":features.model_dump(mode="json"),
+                 "thesis":thesis.model_dump(mode="json"),"risk":risk.model_dump(mode="json"),
+                 "route":{"requested":requested_route.requested.value,"selected":tier.value,"locked":requested_route.locked,
+                          "reason":requested_route.reason},
+                 "strategy":strategy.model_dump(mode="json") if strategy else None,
+                 "plan":plan.model_dump(mode="json") if plan else None,
+                 "stages":[x.model_dump(mode="json") for x in stages]}
+        self.store.add(symbol,mode.value,thesis.direction.value,thesis.confidence,bool(plan),risk.reason,payload)
+        return PipelineResult(
+            version=__version__,symbol=symbol,decision=thesis.direction,mode=mode,
+            route=EquityRoute(requested=requested_route.requested,selected=tier,locked=requested_route.locked,reason=requested_route.reason),
+            strategy=strategy,kronos=kronos,features=features,thesis=thesis,risk=risk,plan=plan,execution=None,stages=stages)
+
+    async def evaluate_live(self,symbol,execute=False):
+        account=await self.gateway.account()
+        if settings.enforce_platform_license:
+            account.license_active=self._platform_license_for_login(account.login)
+        positions=await self.gateway.positions()
+        current_tier=self._infer_current_tier(positions)
+        # Determine data timeframes using the locked/desired tier.
+        route=route_with_position_lock(account.equity,current_tier,account.positions_total)
+        tier=route.selected
+        if tier in (BotTier.INELIGIBLE,BotTier.MANUAL_REVIEW):
+            primary_tf="M5"; ctx_tfs=["M15","H1"]
+        else:
+            p=profile_for(tier); primary_tf=p.primary_tf; ctx_tfs=p.context_tfs
+        primary=await self.gateway.bars(symbol,primary_tf)
+        contexts={tf:await self.gateway.bars(symbol,tf) for tf in ctx_tfs}
+        broker=await self.gateway.broker_context(symbol)
+        result=self.evaluate(MarketBundle(primary=primary,contexts=contexts),account,broker,current_tier=current_tier)
+        if execute and settings.execution_enabled and result.plan:
+            t=time.perf_counter()
+            result.execution=await self.gateway.order(result.plan)
+            result.stages.append(PipelineStage(name="MT5 → BROKER → ORDER EXECUTED",status="PASS" if result.execution.get("accepted") else "BLOCK",
+                                              detail=str(result.execution.get("comment") or result.execution.get("reason") or ""),
+                                              duration_ms=round((time.perf_counter()-t)*1000,3)))
+        else:
+            result.stages.append(PipelineStage(name="MT5 → BROKER → ORDER EXECUTED",status="DRY_RUN",detail="Execution disabled or no plan",duration_ms=0))
+        return result
+
+
+    @staticmethod
+    def _platform_license_for_login(login:str)->bool:
+        if not login:
+            return False
+        try:
+            with session_scope() as s:
+                acct=s.scalar(select(TradingAccount).where(TradingAccount.login==str(login),TradingAccount.active==True))
+                if not acct:
+                    return False
+                lic=s.scalar(select(License).where(License.user_id==acct.user_id,License.status=="active").order_by(License.id.desc()))
+                if not lic:
+                    return False
+                if lic.expires_ts is not None and int(lic.expires_ts)<int(time.time()):
+                    return False
+                return True
+        except Exception:
+            return False
+
+    @staticmethod
+    def _infer_current_tier(positions):
+        tiers=[]
+        for p in positions:
+            c=str(p.get("comment","")).upper()
+            for tier in (BotTier.FLIPPER,BotTier.SCALPER,BotTier.MASTER):
+                if tier.value in c: tiers.append(tier)
+        return tiers[0] if tiers and all(x==tiers[0] for x in tiers) else None

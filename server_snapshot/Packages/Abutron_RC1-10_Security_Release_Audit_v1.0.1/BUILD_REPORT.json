@@ -1,0 +1,38 @@
+{
+  "product": "Abutron RC1-10 Security / Release Audit",
+  "version": "1.0.1",
+  "build_status": "REPAIR_CANDIDATE",
+  "mode": "FAIL_CLOSED_AUDIT",
+  "trading_changes": false,
+  "automatic_network_changes": false,
+  "safe_hardening": [
+    "restrict live .env ACLs to Administrators + SYSTEM"
+  ],
+  "controls": [
+    "secrets and rotation attestation",
+    "DPAPI quarantine of plaintext legacy .env copies",
+    "env ACLs",
+    "firewall profiles",
+    "loopback binding",
+    "public route default-deny",
+    "Caddy validation",
+    "TLS certificate validation",
+    "RDP NLA/listener/session",
+    "unexpected shutdown history",
+    "encrypted local rollback",
+    "SQLite backup/restore quick_check",
+    "integrity HMAC",
+    "scheduled-task integrity",
+    "clean reboot certification",
+    "8-hour RDP stability gate",
+    "normal-RDP stability attestation without manual reset"
+  ],
+  "live_certification": "REQUIRES_VPS_RUN",
+  "next": "RC1-11 Strategy OOS / Forward Performance after final certification",
+  "repairs": [
+    "PowerShell ACL regex escaping",
+    "pre-change ACL backup + rollback",
+    "Windows PowerShell DPAPI assembly loading/probe",
+    "quarantine failure diagnostics"
+  ]
+}

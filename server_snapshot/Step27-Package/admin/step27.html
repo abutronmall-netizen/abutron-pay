@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Abutron Step 27 Operations</title>
+<style>
+:root{color-scheme:dark;background:#07090c;color:#f5f7fa;font-family:Inter,Segoe UI,Arial,sans-serif}
+*{box-sizing:border-box}body{margin:0}.wrap{max-width:1440px;margin:auto;padding:28px}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;gap:12px;flex-wrap:wrap}
+.brand{font-size:22px;font-weight:800}.gold{color:#d8b25c}.muted{color:#9aa4b2}.ok{color:#7fdc91}.warn{color:#f4c66b}.danger{color:#ff8c8c}
+.card{background:#10151c;border:1px solid #222c38;border-radius:16px;padding:18px;margin-bottom:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}.metric{font-size:28px;font-weight:800}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+input,select,textarea,button{background:#0a0f14;color:#fff;border:1px solid #2a3442;border-radius:10px;padding:10px}
+input,textarea,select{width:100%}button{cursor:pointer;background:#d8b25c;color:#090b0e;font-weight:800}button.alt{background:#18212c;color:#fff}
+.hidden{display:none}table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:9px;border-bottom:1px solid #222c38;text-align:left;vertical-align:top}
+.badge{padding:3px 8px;border-radius:999px;background:#18212c;font-size:12px}pre{white-space:pre-wrap;overflow:auto}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}.tab{background:#18212c;color:#fff}.tab.active{background:#d8b25c;color:#090b0e}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media(max-width:900px){.two{grid-template-columns:1fr}}
+</style>
+</head>
+<body><div class="wrap">
+<header><div><div class="brand"><span class="gold">ABUTRON</span> STEP 27 OPERATIONS</div>
+<div class="muted">CRM · Billing/Licensing · Notifications · Customer Operations</div></div>
+<button id="logout" class="alt hidden">Logout</button></header>
+
+<section id="loginCard" class="card">
+<h2>Administrator Login</h2>
+<div class="grid"><label>Email<input id="email" type="email"></label><label>Password<input id="password" type="password"></label></div>
+<p><button id="login">Login</button></p><div id="loginMsg" class="muted"></div>
+</section>
+
+<section id="app" class="hidden">
+<div id="safety" class="card"></div>
+<div class="grid" id="metrics"></div>
+<div class="tabs">
+<button class="tab active" data-tab="crm">CRM</button>
+<button class="tab" data-tab="billing">Billing & Licensing</button>
+<button class="tab" data-tab="notifications">Notifications</button>
+</div>
+
+<section id="crm" class="panel">
+<div class="card"><div class="row" style="justify-content:space-between"><h2>Customers</h2><button class="alt" onclick="load()">Refresh</button></div>
+<div style="overflow:auto"><table><thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Stage</th><th>Assigned</th><th>Action</th></tr></thead><tbody id="customers"></tbody></table></div></div>
+<div class="card hidden" id="customerCard"><h2>Customer Operations</h2><pre id="customerDetail"></pre>
+<div class="two">
+<div><h3>Add CRM note</h3><textarea id="crmNote" rows="4"></textarea><button onclick="addNote()">Save note</button></div>
+<div><h3>Create follow-up task</h3><input id="taskTitle" placeholder="Task title"><select id="taskPriority"><option>normal</option><option>high</option><option>urgent</option><option>low</option></select><button onclick="addTask()">Create task</button></div>
+</div></div>
+</section>
+
+<section id="billing" class="panel hidden">
+<div class="two">
+<div class="card"><h2>Create invoice</h2>
+<input id="invUser" type="number" placeholder="User ID"><input id="invPlan" placeholder="Plan e.g. Android / Master">
+<input id="invAmount" type="number" placeholder="Amount in cents (minor units)"><input id="invCurrency" value="ZAR" placeholder="Currency">
+<button onclick="createInvoice()">Create invoice</button><div id="invoiceMsg" class="muted"></div></div>
+<div class="card"><h2>License grant</h2>
+<input id="grantUser" type="number" placeholder="User ID"><input id="grantInvoice" type="number" placeholder="Paid invoice ID">
+<button onclick="createGrant()">Create pending grant</button><div id="grantMsg" class="muted"></div></div>
+</div>
+<div class="card"><h2>Invoices</h2><div style="overflow:auto"><table><thead><tr><th>ID</th><th>Invoice</th><th>User</th><th>Plan</th><th>Amount</th><th>Status</th><th>Action</th></tr></thead><tbody id="invoices"></tbody></table></div></div>
+</section>
+
+<section id="notifications" class="panel hidden">
+<div class="two">
+<div class="card"><h2>Queue notification</h2>
+<input id="notifyUser" type="number" placeholder="User ID (blank = broadcast)">
+<input id="notifyTitle" placeholder="Title"><textarea id="notifyBody" rows="4" placeholder="Message"></textarea>
+<select id="notifyChannel"><option value="in_app">in_app</option><option value="email">email</option><option value="push">push</option></select>
+<select id="notifyCategory"><option value="service">service</option><option value="billing">billing</option><option value="support">support</option><option value="security">security</option><option value="marketing">marketing</option></select>
+<button onclick="queueNotification()">Queue</button><div id="notifyMsg" class="muted"></div></div>
+<div class="card"><h2>Provider gates</h2><p class="ok">In-app: internal delivery supported</p><p class="warn">Email: provider adapter must be certified</p><p class="warn">Push: provider adapter must be certified</p><p class="muted">A blocked external delivery is intentional fail-closed behavior.</p></div>
+</div>
+<div class="card"><h2>Outbox</h2><div style="overflow:auto"><table><thead><tr><th>ID</th><th>User</th><th>Channel</th><th>Category</th><th>Title</th><th>State</th><th>Action</th></tr></thead><tbody id="outbox"></tbody></table></div></div>
+</section>
+</section>
+</div>
+<script>
+const state={token:"",customerId:null};const $=id=>document.getElementById(id);
+function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}
+async function api(path,opts={}){const h={"Content-Type":"application/json",...(opts.headers||{})};if(state.token)h.Authorization=`Bearer ${state.token}`;const r=await fetch(path,{...opts,headers:h});const t=await r.text();let d={};try{d=t?JSON.parse(t):{}}catch{d={raw:t}}if(!r.ok)throw new Error(d.detail||d.raw||`HTTP ${r.status}`);return d}
+async function login(){try{const x=await api("/v1/auth/login",{method:"POST",body:JSON.stringify({email:$("email").value,password:$("password").value})});if(!["admin","superadmin"].includes(x.role))throw new Error("Administrator role required");state.token=x.access_token;$("loginCard").classList.add("hidden");$("app").classList.remove("hidden");$("logout").classList.remove("hidden");await load()}catch(e){$("loginMsg").textContent=e.message}}
+function metric(l,v){return `<div class="card"><div class="muted">${esc(l)}</div><div class="metric">${esc(v)}</div></div>`}
+async function load(){const [sum,customers,invoices,outbox]=await Promise.all([api("/v1/admin/step27/summary"),api("/v1/admin/crm/customers?limit=500"),api("/v1/admin/billing/invoices?limit=500"),api("/v1/admin/notifications/outbox?limit=500")]);
+$("safety").innerHTML=`<b>Safety:</b> execution=${sum.execution_enabled?"ON":"OFF"} · live money=${sum.live_money_authorized?"AUTHORIZED":"NOT AUTHORIZED"} · payment provider=${sum.payment_provider_certified?"CERTIFIED":"NOT CERTIFIED"} · push=${sum.push_provider_certified?"CERTIFIED":"NOT CERTIFIED"}`;
+$("metrics").innerHTML=[metric("CRM Profiles",sum.crm_profiles),metric("Open Tasks",sum.open_crm_tasks),metric("Invoices",sum.invoices),metric("Unpaid",sum.unpaid_invoices),metric("Paid",sum.paid_invoices),metric("Pending Licenses",sum.pending_license_grants),metric("Queued Notifications",sum.notification_outbox_queued),metric("Blocked External",sum.notification_outbox_blocked)].join("");
+$("customers").innerHTML=customers.map(x=>`<tr><td>${x.user.id}</td><td>${esc(x.user.full_name)}</td><td>${esc(x.user.email)}</td><td>${esc(x.crm.lifecycle_stage)}</td><td>${esc(x.crm.assigned_to)}</td><td><button class="alt" onclick="viewCustomer(${x.user.id})">Open</button></td></tr>`).join("");
+$("invoices").innerHTML=invoices.map(x=>`<tr><td>${x.id}</td><td>${esc(x.invoice_number)}</td><td>${x.user_id}</td><td>${esc(x.plan)}</td><td>${esc(x.currency)} ${(x.amount_minor/100).toFixed(2)}</td><td><span class="badge">${esc(x.status)}</span></td><td>${x.status==="paid"?"Paid":`<button class="alt" onclick="markPaid(${x.id},${x.amount_minor},'${esc(x.currency)}')">Record payment</button>`}</td></tr>`).join("");
+$("outbox").innerHTML=outbox.map(x=>`<tr><td>${x.id}</td><td>${x.user_id??"broadcast"}</td><td>${esc(x.channel)}</td><td>${esc(x.category)}</td><td>${esc(x.title)}</td><td>${esc(x.state)}</td><td><button class="alt" onclick="dispatch(${x.id})">Dispatch</button></td></tr>`).join("")}
+async function viewCustomer(id){state.customerId=id;const x=await api(`/v1/admin/crm/customers/${id}`);$("customerDetail").textContent=JSON.stringify(x,null,2);$("customerCard").classList.remove("hidden")}
+async function addNote(){if(!state.customerId)return;await api(`/v1/admin/crm/customers/${state.customerId}/notes`,{method:"POST",body:JSON.stringify({body:$("crmNote").value})});$("crmNote").value="";await viewCustomer(state.customerId)}
+async function addTask(){if(!state.customerId)return;await api(`/v1/admin/crm/customers/${state.customerId}/tasks`,{method:"POST",body:JSON.stringify({title:$("taskTitle").value,priority:$("taskPriority").value})});$("taskTitle").value="";await viewCustomer(state.customerId);await load()}
+async function createInvoice(){try{const x=await api("/v1/admin/billing/invoices",{method:"POST",body:JSON.stringify({user_id:Number($("invUser").value),plan:$("invPlan").value,amount_minor:Number($("invAmount").value),currency:$("invCurrency").value,status:"issued"})});$("invoiceMsg").textContent=`Created ${x.invoice_number}`;await load()}catch(e){$("invoiceMsg").textContent=e.message}}
+async function markPaid(id,amount,currency){const event=prompt("Payment event/reference ID:");if(!event)return;await api(`/v1/admin/billing/invoices/${id}/record-payment`,{method:"POST",body:JSON.stringify({event_id:event,amount_minor:amount,currency,provider:"manual"})});await load()}
+async function createGrant(){try{const x=await api("/v1/admin/licenses/grants",{method:"POST",body:JSON.stringify({user_id:Number($("grantUser").value),invoice_id:Number($("grantInvoice").value),product:"ABUTRON_V4"})});$("grantMsg").innerHTML=`Grant ${x.id} pending. <button class="alt" onclick="approveGrant(${x.id})">Approve after payment verification</button>`}catch(e){$("grantMsg").textContent=e.message}}
+async function approveGrant(id){const x=await api(`/v1/admin/licenses/grants/${id}/approve`,{method:"POST",body:"{}"});$("grantMsg").textContent=`Approved license ${x.license_id}. Trading execution unchanged.`;await load()}
+async function queueNotification(){try{const uid=$("notifyUser").value?Number($("notifyUser").value):null;const x=await api("/v1/admin/notifications",{method:"POST",body:JSON.stringify({user_id:uid,channels:[$("notifyChannel").value],category:$("notifyCategory").value,title:$("notifyTitle").value,body:$("notifyBody").value})});$("notifyMsg").textContent=`Queued ${x.queued.map(y=>y.id).join(", ")}`;await load()}catch(e){$("notifyMsg").textContent=e.message}}
+async function dispatch(id){await api(`/v1/admin/notifications/outbox/${id}/dispatch`,{method:"POST"});await load()}
+document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));b.classList.add("active");document.querySelectorAll(".panel").forEach(x=>x.classList.add("hidden"));$(b.dataset.tab).classList.remove("hidden")});
+$("login").onclick=login;$("logout").onclick=()=>location.reload();
+</script></body></html>

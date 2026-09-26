@@ -1,0 +1,27 @@
+{
+  "build": "ABUTRON_STEP21A_ICMARKETS_CTRADER_CLOUD_V1_0_1",
+  "date": "2026-09-25",
+  "status": "STATIC_PASS_SERVER_REPAIR_CERTIFICATION_PENDING",
+  "repair_from": "1.0.0",
+  "repair_reason": "v1.0.0 installer omitted .env.example and core_integration from installed target self-test tree",
+  "static_tests": {
+    "passed": 11,
+    "failed": 0
+  },
+  "python_compile": true,
+  "installer_target_tree_regression_test": true,
+  "secret_preservation": "existing installed .env is preserved",
+  "ctrader_sdk_pinned": "0.9.2",
+  "kronos_venv_isolation": true,
+  "broker_order_sent": false,
+  "live_money_authorized": false,
+  "pending": [
+    "Windows VPS v1.0.1 repair/install evidence",
+    "Step21A preapproval check PASS on VPS",
+    "Spotware Open API application approval/client credentials",
+    "IC Markets cTrader DEMO OAuth/account discovery",
+    "XAUUSD symbol and protocol-volume certification",
+    "Step 21B read-only integration",
+    "Step 21C controlled DEMO lifecycle"
+  ]
+}

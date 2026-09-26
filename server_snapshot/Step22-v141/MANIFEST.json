@@ -1,0 +1,342 @@
+{
+  "package": "Abutron-Step22-Production-Perimeter-v1.4.1",
+  "version": "1.4.1",
+  "file_count": 67,
+  "files": [
+    {
+      "path": ".env.example",
+      "size": 1454,
+      "sha256": "33016B18090AB9D3D98B9B9D1B940F0D26CF552A994404EDB3D9DE9E7FC25961"
+    },
+    {
+      "path": "README.md",
+      "size": 499,
+      "sha256": "4D33F62E50C0D814C6481620795E82510B5244238C8916AF02BB007B3D564C41"
+    },
+    {
+      "path": "STEP21C_BUILD_REPORT.json",
+      "size": 852,
+      "sha256": "D85D3415ABC1F5F3ED14BC0F6E89547F75AAAEACFC093E6C66F33E19BDC4A9C3"
+    },
+    {
+      "path": "STEP21D_BUILD_REPORT.json",
+      "size": 762,
+      "sha256": "7E522EEF59ADCABF0381720F0C3FC59D3DF05231CEF89785D5A019DEC2FAA1B2"
+    },
+    {
+      "path": "STEP22_BUILD_REPORT.json",
+      "size": 348,
+      "sha256": "9B32FD9EC36409748EA0214CB24794E375C044C56153BE59D4D286988E1F8CFF"
+    },
+    {
+      "path": "core_integration/ctrader_cloud.py",
+      "size": 4502,
+      "sha256": "AE523EA2434F10F8EF06A357313FA9EBE1188DB056AD44E285D05D72C529C53B"
+    },
+    {
+      "path": "core_integration/ctrader_customer_pipeline.py",
+      "size": 7402,
+      "sha256": "E014FD06FBAB1F33A1EEC0E5B2B43A5A2D737183ACE30A0C49A75D99D3A16DFE"
+    },
+    {
+      "path": "core_integration/ctrader_routes.py",
+      "size": 1606,
+      "sha256": "22956C70EFAB16A4AE0EC5C6511E1866FF96CE008AA3A09EC0575D59249FF686"
+    },
+    {
+      "path": "core_integration/volume.py",
+      "size": 980,
+      "sha256": "B43C4E1EC0441D891007DEF4712EA68E473C23B5C92DAC035DCCEFB6A1D0CD3A"
+    },
+    {
+      "path": "ctrader_gateway/__init__.py",
+      "size": 22,
+      "sha256": "E889B19D1F0400504CB62C84707B048E8109AC4BB351C3855335894DEBA9BE93"
+    },
+    {
+      "path": "ctrader_gateway/app.py",
+      "size": 38342,
+      "sha256": "02AECF13257A3246AEA129E429BB5E1DE704AE03F7C7B53DCD34D766F68D3FA5"
+    },
+    {
+      "path": "ctrader_gateway/config.py",
+      "size": 1965,
+      "sha256": "BF03FE2F9B452CC2F141C843014B7A8A072767396164A66D0E53361B359F4222"
+    },
+    {
+      "path": "ctrader_gateway/crypto.py",
+      "size": 600,
+      "sha256": "EA45746B9BF45FE813936B87B20247060F9F49F8F54EE102745B16305A56DA37"
+    },
+    {
+      "path": "ctrader_gateway/models.py",
+      "size": 2385,
+      "sha256": "1C48DDE2D9CF2D7E8E674AF560F3DCC699644DAE2E7672168CF39B003AB254F7"
+    },
+    {
+      "path": "ctrader_gateway/oauth.py",
+      "size": 3260,
+      "sha256": "B93A730BE0D6E6415206984DA71D68B6DD7BC28C58E7A8F9ECCAFBD48482C700"
+    },
+    {
+      "path": "ctrader_gateway/persistent_worker.py",
+      "size": 10026,
+      "sha256": "404C5BED89A831A1B8F2D86C20F9D1784C03800F6B1642E737C5D2D0CE81D2FF"
+    },
+    {
+      "path": "ctrader_gateway/service.py",
+      "size": 384,
+      "sha256": "872918B2F8BF531D2EE6AC0DCF7BD3735ED196E4A1FF1AB033412898DAF5ABD2"
+    },
+    {
+      "path": "ctrader_gateway/store.py",
+      "size": 8483,
+      "sha256": "43C3F2551660ADD0B6099244FB06ABA6DCD3E4D7BBF6DB4601AED4D1CF08CAF9"
+    },
+    {
+      "path": "ctrader_gateway/worker_manager.py",
+      "size": 5909,
+      "sha256": "DFB3E93B004294F90ED36E7E38B2FA77A86C453FD3DB7A8B8B929236BC67F9CD"
+    },
+    {
+      "path": "deployment/caddy/Caddyfile.snippet",
+      "size": 430,
+      "sha256": "D011FA624770AB6976ED79573B5AFE52B368520599B190CB77F848AF78848D65"
+    },
+    {
+      "path": "deployment/caddy/Caddyfile.step22",
+      "size": 2373,
+      "sha256": "6EAB3DB515E6544EE03CE3DF5A00951AB60ADD495F68F6CC3AC0F36295EA1A08"
+    },
+    {
+      "path": "docs/ARCHITECTURE_DECISION.md",
+      "size": 1486,
+      "sha256": "8404E323DAED3C5172E84034BD19E232606338FD7090BCF36888F6026A3EBAA0"
+    },
+    {
+      "path": "docs/CTRADER_APP_REGISTRATION.md",
+      "size": 1076,
+      "sha256": "743DC76FCA3A6190E7B84A4A036D6BCB739CEBE4CB16F3577B0E79A9C3A5D56D"
+    },
+    {
+      "path": "docs/INSTALLATION_STEP_BY_STEP.md",
+      "size": 3176,
+      "sha256": "20EB42309500178DD677152B3723F686A0FA42A3CE42527B1156596DFD70D9A0"
+    },
+    {
+      "path": "docs/INSTALL_STEP21B.md",
+      "size": 1382,
+      "sha256": "8F9E5109C420E4E557A60220E9B9325588040ED7EA99F024CE521F35AF19238F"
+    },
+    {
+      "path": "docs/INSTALL_STEP21C.md",
+      "size": 500,
+      "sha256": "20432ABA80B380A33A6F5C4515CB8C96117D2463971855ECE09BACDED625F77D"
+    },
+    {
+      "path": "docs/INSTALL_STEP21D.md",
+      "size": 1558,
+      "sha256": "CC60A0EBEEC5E5E4F6C4C4440466D548C1639992048299ADA07EF5A3DD47F395"
+    },
+    {
+      "path": "docs/INSTALL_STEP22.md",
+      "size": 887,
+      "sha256": "687DAE6986E0D1B9987CA162A76A755549FD5BED268E3A4F8A29802B9BE0063D"
+    },
+    {
+      "path": "docs/REPAIR_V1_0_0_TO_V1_0_1.md",
+      "size": 1520,
+      "sha256": "9551254EF7B068DED0DBB494BEBBBAEC5DF004CDF5E6A83BFF037546DE1B6EA7"
+    },
+    {
+      "path": "docs/REPAIR_V1_1_0_TO_V1_1_1.md",
+      "size": 1060,
+      "sha256": "C83A8BD929462D3075DE1DA1F44BC9AA02D0A4DE739AEC970D6AD0F68A6BF97F"
+    },
+    {
+      "path": "docs/REPAIR_V1_1_1_TO_V1_1_2.md",
+      "size": 722,
+      "sha256": "68E854894893C5130CE6081A58BCF8547E26B4FBB79632BDBDFB910D1D9B72A6"
+    },
+    {
+      "path": "docs/REPAIR_V1_4_0_TO_V1_4_1.md",
+      "size": 774,
+      "sha256": "1070CD41B623FD9F37FD6572AF9BB9569AE9B4EFB662A9FFC315E571A7028ACA"
+    },
+    {
+      "path": "docs/ROADMAP_TRUTH_2026-09-25.md",
+      "size": 1847,
+      "sha256": "37648EE879FB97073FA039DEEBB6413C36030F070124A17CED9D47478C8F061D"
+    },
+    {
+      "path": "docs/STEP21C_ARCHITECTURE.md",
+      "size": 836,
+      "sha256": "52010DC53FCE801217CB038CC6251EB3E3B3F521D596B5C0B4B85E0DD1C6B50F"
+    },
+    {
+      "path": "docs/STEP21D_ARCHITECTURE.md",
+      "size": 1348,
+      "sha256": "EDC903C0E662176AAFEA0A10980012D55C6856F356723D7EDDAA84CF99A8C9B9"
+    },
+    {
+      "path": "docs/STEP22_ARCHITECTURE.md",
+      "size": 1443,
+      "sha256": "0561A14B501F1927C6901215F65FE45BC588B034FF86F589F9CA6E52CD0280B1"
+    },
+    {
+      "path": "ops/apply_caddy.ps1",
+      "size": 1384,
+      "sha256": "C61BAE77B7EA65BA94ADABBC130F9359749D883B4D3FBB46E9F209A190FF06B3"
+    },
+    {
+      "path": "ops/backup_sqlite.py",
+      "size": 2974,
+      "sha256": "719A31A6B8DD3DBA04C99906AAD9C15932648BFCBD428280E42D55AB65E2E3BE"
+    },
+    {
+      "path": "ops/record_cert_gate.py",
+      "size": 1210,
+      "sha256": "17BD4C16095BA18DD7BC90908BD2612D9D8F425081EB59B17F9C1E9938852D5E"
+    },
+    {
+      "path": "ops/step22_backup.ps1",
+      "size": 1106,
+      "sha256": "57B3702AC66AB474130C93E1DC6F6AE8AE8C067DDA6FF583CCFF0E2BC76A7AE1"
+    },
+    {
+      "path": "ops/step22_monitor.ps1",
+      "size": 1326,
+      "sha256": "466C101F485A5153ED81133DC2BAAA9567C32D70058B497A0B57D7930BBFB14E"
+    },
+    {
+      "path": "ops/step22_secret_audit.ps1",
+      "size": 1973,
+      "sha256": "57F813EB5FF94117B2402F44CF73CABD6C4523AAC6A8B36BCCC274E48B6211A6"
+    },
+    {
+      "path": "ops/step22_service_inventory.ps1",
+      "size": 1253,
+      "sha256": "5DD2BA44C0C535054CBFE9A74B2BDAAC2916F38CA43D65FE91EA69497BD345DF"
+    },
+    {
+      "path": "ops/verify_backup.py",
+      "size": 1619,
+      "sha256": "E90B0F73BED59058F6906FA9C08E4AB54C4EA17041995F21DE68A410758161AE"
+    },
+    {
+      "path": "requirements.txt",
+      "size": 275,
+      "sha256": "A8EF63A3428D8A6EBB0C9BD2FEB51A6E800F9BC00A9606C2EA9511CEF41775EE"
+    },
+    {
+      "path": "scripts/install_step21b.ps1",
+      "size": 8667,
+      "sha256": "0F21D3B283A60B2A96D5FA8097E5E82784061435B05DBC036F60F88519781531"
+    },
+    {
+      "path": "scripts/install_step21c.ps1",
+      "size": 4899,
+      "sha256": "DC66291BDB9A5130670E170F706F41D7FA9A058840CA99B65074E55944AA0B9F"
+    },
+    {
+      "path": "scripts/install_step21d.ps1",
+      "size": 2956,
+      "sha256": "D69EC9FD7F5DB735221C1A93492E44A55A410C721002F4E0213BA332AB942641"
+    },
+    {
+      "path": "scripts/install_step22.ps1",
+      "size": 3037,
+      "sha256": "FB4596EEA1FB517CF7437EEA2D34BE7ADF6EE256ED9E0BEBED39A496EB76704F"
+    },
+    {
+      "path": "scripts/install_windows.ps1",
+      "size": 4430,
+      "sha256": "D77F9AF24BC481090282839E16EA1D5F99666E210A613F1F1392CB9639F39D56"
+    },
+    {
+      "path": "scripts/preapproval_check.ps1",
+      "size": 1309,
+      "sha256": "44CDEAE0497A3969ED1725DA104A78033C8664EC051CD872646CAD17A3719CA6"
+    },
+    {
+      "path": "scripts/readiness_after_credentials.ps1",
+      "size": 1283,
+      "sha256": "5AF0309ECE81070C0593C6D9B9B610105A8814C434C51EBD162CD8D19FF23664"
+    },
+    {
+      "path": "scripts/start_gateway.ps1",
+      "size": 918,
+      "sha256": "B5F36C37552CC4CA646CE5A919E582998273E85A3652B9845D6E672F4FC06CF7"
+    },
+    {
+      "path": "scripts/step21b_certify.ps1",
+      "size": 3070,
+      "sha256": "E11826468EE70C8D8071D69940BB9115F93F98FABE80567048E1AD9F567A6053"
+    },
+    {
+      "path": "scripts/step21b_precredential.ps1",
+      "size": 1032,
+      "sha256": "1A48B518146B474770D8C5988151E42FE2F627CBB019C9A80FFEB6020E1219D3"
+    },
+    {
+      "path": "scripts/step21c_certify.ps1",
+      "size": 2149,
+      "sha256": "BF3B4DF81539530FE7A4B9489FD28EBE5518DEAEA69FAECD621B44483E5ABE83"
+    },
+    {
+      "path": "scripts/step21c_precheck.ps1",
+      "size": 888,
+      "sha256": "DA91CE94BBD9E6D4297C5B1070FA84F0676D5F6A88766FC1D81D8C2C79233DCA"
+    },
+    {
+      "path": "scripts/step21c_real_demo_cert.py",
+      "size": 1992,
+      "sha256": "DB3DCC8CE7B489A85C67FE6D152A911D3D92F872E3E68BE43AB6B64DB5B55C24"
+    },
+    {
+      "path": "scripts/step21d_certify.ps1",
+      "size": 1209,
+      "sha256": "0E9A36793F0969EBF98DEAAE1F9854A7CF1E2F276B265444CBBD58669047F66C"
+    },
+    {
+      "path": "scripts/step21d_precheck.ps1",
+      "size": 1186,
+      "sha256": "E8934CED21DE8133501BA3F5C2B94CE0B751C2757C546A0B41B8A0A3B9DFA0DB"
+    },
+    {
+      "path": "scripts/step21d_real_recovery_cert.py",
+      "size": 2388,
+      "sha256": "F72D22A31921C559A3D8E569EEFD4D77E5AEEB25DD9683AB42F3CADFB5846703"
+    },
+    {
+      "path": "scripts/step22_precheck.ps1",
+      "size": 1507,
+      "sha256": "9851B0C377EB7F864BD4E164B2C0B13179E7651DAEED5BCBB1EFA68C9CCC7254"
+    },
+    {
+      "path": "scripts/step22_release_candidate.ps1",
+      "size": 2514,
+      "sha256": "284F16C0A365BAD36E2E159F2DD1FA39FBA4B4152CD125C07627ECD455157B58"
+    },
+    {
+      "path": "scripts/stop_gateway.ps1",
+      "size": 427,
+      "sha256": "DBC5BA21EB53B9688C6DCE477C45D1D0EEDC4B07BDE7E3273D12DCF450A10A23"
+    },
+    {
+      "path": "tests/test_static.py",
+      "size": 9656,
+      "sha256": "2E65DB63940E43DE8006CEB3EB45C7F884F2B8DA10701CEF3BBEF65A339EAA58"
+    },
+    {
+      "path": "tests/test_step21d.py",
+      "size": 5152,
+      "sha256": "5BDDDCBFF6791BAD665997FEE2C02B81778683DE188E45D0BEA19CF94ACB8255"
+    },
+    {
+      "path": "tests/test_step22.py",
+      "size": 5757,
+      "sha256": "E86214C50B55EA488CE8537E662FC48EB03F15FE4AEC5EF8F6D6146F3FCF00CB"
+    }
+  ]
+}

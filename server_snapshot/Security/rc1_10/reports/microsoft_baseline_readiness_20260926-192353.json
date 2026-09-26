@@ -1,0 +1,11 @@
+﻿{
+    "version":  "1.0.0",
+    "generated_utc":  "2026-09-26T19:23:53.3925837Z",
+    "os_caption":  "Microsoft Windows Server 2025 Standard",
+    "os_build":  "26100",
+    "osconfig_module_present":  false,
+    "osconfig_module_version":  null,
+    "automatic_baseline_application":  false,
+    "decision":  "ADVISORY_ONLY_DURING_RC_FREEZE",
+    "reason":  "The Microsoft Windows Server 2025 baseline is role-aware and can modify firewall, RDP redirection, SMB and cryptography settings. RC1-10 audits release-critical controls but does not auto-apply the complete baseline on a remote trading server."
+}

@@ -1,0 +1,602 @@
+﻿{
+    "version":  "1.0.0",
+    "created_utc":  "2026-09-26T19:29:17.4113110Z",
+    "entry_count":  119,
+    "entries":  [
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\Jarvis\\.env",
+                        "sha256":  "e3cf9753b2b8ecea7383bb9a8bf04d4ab54f31143d68e654c940fb7824c313c0"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\Jarvis\\rc1_08\\rc1_08\\__init__.py",
+                        "sha256":  "22363820b89a55017d67c2d8f64b1b4df6b522cff7495a1ee16d29fb13eb158b"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\Jarvis\\rc1_08\\rc1_08\\audit.py",
+                        "sha256":  "fa1ee59d85dd9ea95ead84654c9e78272ace4a82c0c6bc7793833846c93afc16"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\Jarvis\\rc1_08\\rc1_08\\collectors.py",
+                        "sha256":  "cbd8c92aefd88be0e6152d23c7a41df3c7d095f409bf433524efa77517be0d86"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\Jarvis\\rc1_08\\rc1_08\\config.py",
+                        "sha256":  "27a7102ff67d8c17522aaf0c7aa2271b23d518137ed23cace9bfc9a118ca8847"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\Jarvis\\rc1_08\\rc1_08\\engine.py",
+                        "sha256":  "b2dd43cff0113df19aca3ed312ef1b91a813ccb6adeeb90518be5bcb4fed61d7"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\Jarvis\\rc1_08\\rc1_08\\hermes.py",
+                        "sha256":  "23aad08ca73cd633b4e3e634beddc8a4a192aa091038c47aa675d79e7d66e022"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\Jarvis\\rc1_08\\rc1_08\\service.py",
+                        "sha256":  "ee451a514a8a61e2b4b13f00bec39ea516501b65e358921a600a696082619bc6"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\Jarvis\\rc1_08\\rc1_08\\store.py",
+                        "sha256":  "65dc1e88b7058854d164f0723c1182c496bdef7619646642cc9859b7c5493c81"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\Jarvis\\rc1_09\\.env",
+                        "sha256":  "7bda892ef77638a82c3c019a48d23d1d64768cc53f8582fe3b604b890d27cfff"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\Jarvis\\rc1_09\\rc1_09\\__init__.py",
+                        "sha256":  "27e8febb48ada44153ea2add9969a2c50a9831a74d9755fdd53c549a888b1cc2"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\Jarvis\\rc1_09\\rc1_09\\__main__.py",
+                        "sha256":  "0ef0cbeebc1d6a4e06d49ff0b10c597ea1db1946bb2821cf6450fabd3e1d92f2"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\Jarvis\\rc1_09\\rc1_09\\cli.py",
+                        "sha256":  "e40482941775ade24177f061711f7325dffe4218763dba0d534bb8f3bf278213"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\Jarvis\\rc1_09\\rc1_09\\db.py",
+                        "sha256":  "f005433234525509dac3d832951081edf49fe72851833f84f851129a2d692d29"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\Jarvis\\rc1_09\\rc1_09\\engine.py",
+                        "sha256":  "e30c6a8d8b1c13f67d27579a7ad97b7b9468b2963eb5e4007b2a233b3d63f51a"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\Jarvis\\rc1_09\\rc1_09\\events.py",
+                        "sha256":  "de302b76365a8dbac899cbe9d390557dcb46193f6f678fa4772e5117b448f880"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\Jarvis\\rc1_09\\rc1_09\\providers.py",
+                        "sha256":  "e723b674d91ae0598b256af55951b9b93b3a1bcce71048085d7ab66cd67547f4"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\Jarvis\\rc1_09\\rc1_09\\service.py",
+                        "sha256":  "1121e3a0ab3753652a353ae466530acfbc00a1ae4e182172c8bdc8b99d4232e4"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\Jarvis\\rc1_09\\rc1_09\\settings.py",
+                        "sha256":  "5e86823a07e72fbdbc4ec925cec983c886db73ae35951d858b29e5f4e8cc1e8a"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\Jarvis\\rc1_09\\rc1_09\\source.py",
+                        "sha256":  "3798d2ae79bc81dee3b5088f1126d4bd68630b27096085cc7e4a128e85c48f0d"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\Jarvis\\rc1_09\\rc1_09\\webhooks.py",
+                        "sha256":  "4dfc43a30e395418d7c29656d4e0a1fa731bc01baafdba52899480881f3c458b"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\Security\\rc1_10\\config\\rc1_10_policy.json",
+                        "sha256":  "10bbf4c3f4f77c4eb557abe4e52da7730c649dff884dd99447196f94053c0eec"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\Security\\rc1_10\\lib\\RC1-10.Common.ps1",
+                        "sha256":  "4d640df2498bb3ad4861efce26ebf378dfc81f83c18a0bda409be4e1673f7b6d"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\Security\\rc1_10\\release_attestation.json",
+                        "sha256":  "043cada7d0928d013c99c472ba2585d20c44e18de0bc847459ed6dad15ee43a4"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\Security\\rc1_10\\scripts\\Apply-RC1-10-SafeHardening.ps1",
+                        "sha256":  "65824bce4df7e0431f2cb7ea030ff692a25a15198dbc881be5050f6b71946ad4"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\Security\\rc1_10\\scripts\\Certify-RC1-10-Final.ps1",
+                        "sha256":  "13e1398181a6f4c55fd565f28834596f448b22747569f66a9eb4068e5445f1a9"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\Security\\rc1_10\\scripts\\Certify-RC1-10-PostReboot.ps1",
+                        "sha256":  "21e0a0dabd7b288cf15e8072775fd6c91b2ec9919410e5a15c070ad08390ddaf"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\Security\\rc1_10\\scripts\\Certify-RC1-10-PreReboot.ps1",
+                        "sha256":  "cca5e26562a86262904d6a02d45264e0812d99a583b8e28789bc4bc17a64da52"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\Security\\rc1_10\\scripts\\Get-RC1-10-Status.ps1",
+                        "sha256":  "6592f3c1e342779e4aa8a4ddcd9053a78867224df46e10ad66b47660fa1d1e5e"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\Security\\rc1_10\\scripts\\Install-RC1-10-v1.0.0.ps1",
+                        "sha256":  "e207389ab1e6de5405d13ef229eb544ba324dedfc884b60cdc7edf7655edc6a6"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\Security\\rc1_10\\scripts\\Invoke-RC1-10-PreflightAudit.ps1",
+                        "sha256":  "fc80e8df207bf8101edf820e434c09d0eb8eaa5e6243a106649e80a83352990f"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\Security\\rc1_10\\scripts\\New-RC1-10-IntegrityBaseline.ps1",
+                        "sha256":  "5ee24ac5996da66d1156da01d01add272f3078ba3700ffcd6b69312772cb8624"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\Security\\rc1_10\\scripts\\Quarantine-RC1-10-LegacySecretCopies.ps1",
+                        "sha256":  "fd717a9de7d93658eec988a1b0925af89c05a350c9010734b150ec5d6aa0ea51"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\Security\\rc1_10\\scripts\\Restore-RC1-10-EnvAcl.ps1",
+                        "sha256":  "c2c29375414e1ae5d380a05e72cabf8c957a3cc8e3ddde010e06ccee1c60139a"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\Security\\rc1_10\\scripts\\Run-All-RC1-10-PreReboot.ps1",
+                        "sha256":  "e25a28358878f53b1b5fdae0ac6cb0230907dac7550c38ce601a9216da46fca7"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\Security\\rc1_10\\scripts\\Set-RC1-10-RdpStabilityAttestation.ps1",
+                        "sha256":  "7723392bb6334102fc8d3687f858cf6e4b610ed51320ec30ef1d79cafccdd7f4"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\Security\\rc1_10\\scripts\\Set-RC1-10-ReleaseAttestation.ps1",
+                        "sha256":  "f62d0f6c370eab69c07490f831597fa7302f4ac70924eb0292efd679719e12fb"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\Security\\rc1_10\\scripts\\Test-RC1-10-BackupRestore.ps1",
+                        "sha256":  "eb3769a4f802c659f8f7fda40d78020fc39e7ecf4641daa73904f35f18834ddb"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\Security\\rc1_10\\scripts\\Test-RC1-10-IntegrityBaseline.ps1",
+                        "sha256":  "d8803865b7709ba76b5762c0fa000b1c967b95411eba220393e2e44e3648b9bf"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\Security\\rc1_10\\scripts\\Test-RC1-10-MicrosoftBaselineReadiness.ps1",
+                        "sha256":  "d6b2347c0920b611b69de5c5dd9fb74dafb8ca7a1d5a51f947ab776dd7da4341"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\Security\\rc1_10\\scripts\\Test-RC1-10-NetworkTLS.ps1",
+                        "sha256":  "5dfbb72fa40cb3b34e30013f74aa5f6ab86baeb65e971a853a9ea3eadb9f1de6"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\Security\\rc1_10\\scripts\\Test-RC1-10-RDP.ps1",
+                        "sha256":  "d4c3d44d10720820914069e8231ffe759667dd453d4172fae5d219acc3c37526"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\Security\\rc1_10\\scripts\\Test-RC1-10-Secrets.ps1",
+                        "sha256":  "42d1cb34cc4b67b450948f16295d96c552761795db643ca74b45b24af6ec40c2"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\.env",
+                        "sha256":  "63c38e31e09f2ceb869a47a23bc68a0755d81aa7f34e00d575bcf6d2c4a9c1f3"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\abutron\\__init__.py",
+                        "sha256":  "53d035764b7c164171e39be15c933e1ac07af50f299b7338644074aa6de0fda3"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\abutron\\api.py",
+                        "sha256":  "0a7b9acd655a56843166ec41f42268d3000df846d74da7779f7a7c3ffcc3fb03"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\abutron\\capital.py",
+                        "sha256":  "9ad76838bbd8ed7f362b71b251cd03cc688266b178d9fd28df8ee85bfe05e8a3"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\abutron\\config.py",
+                        "sha256":  "75031097f04fc03a4c0347a50b500fc6abae3465f4fc99acfd37b4ddf9688210"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\abutron\\ctrader_customer_pipeline.py",
+                        "sha256":  "e014fd06fbab1f33a1eec0e5b2b43a5a2d737183ace30a0c49a75d99d3a16dfe"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\abutron\\ctrader_routes.py",
+                        "sha256":  "22956c70efab16a4ae0ec5c6511e1866ff96ce008aa3a09ec0575d59249ff686"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\abutron\\features\\__init__.py",
+                        "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\abutron\\features\\institutional.py",
+                        "sha256":  "1d6a4559a3736073abbbfd102bf9836f3118f358007296ee0bee3357d01d584b"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\abutron\\features\\regime.py",
+                        "sha256":  "31292d24420487432a3a6948aa26b139d230ca10f3da91b5d7992a08ff5ab071"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\abutron\\features\\technical.py",
+                        "sha256":  "fa54f6afd7585072096e3b90e227ed93fe0811f12c29b51c08226efaa28a3f24"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\abutron\\features\\vector.py",
+                        "sha256":  "9ea5a72ad9e5a6a85d432852ded13906ef65764ee44786a705d0e947881fe62c"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\abutron\\fusion.py",
+                        "sha256":  "6e8ed10202d3e041b561cab74544b0a6bfe4db672c0cc2d0ebae34bc195c386e"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\abutron\\gateways\\__init__.py",
+                        "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\abutron\\gateways\\ctrader_cloud.py",
+                        "sha256":  "ae523ea2434f10f8ef06a357313fa9ebe1188db056ad44e285d05d72c529c53b"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\abutron\\gateways\\ctrader_volume.py",
+                        "sha256":  "b43c4e1ec0441d891007def4712ea68e473c23b5c92dac035dccefb6a1d0cd3a"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\abutron\\gateways\\mt5.py",
+                        "sha256":  "2b7a02961613d0f23f1e6d489f3446c672cf82ec53258b0bf46b1b71b6f265c5"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\abutron\\kronos_runtime.py",
+                        "sha256":  "7bcffd87ede6de6b66df8958aa3bffb9676f5b266586ef1d269d344d4870136b"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\abutron\\models.py",
+                        "sha256":  "46317e4968a1780cd4659609881744f44029caa334661e850c3ef7e15da4cbed"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\abutron\\platform_db.py",
+                        "sha256":  "5afbf0561789890ede04e0005647840858bcaacc6d64d6bc1f81cec3cac26ec4"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\abutron\\profiles.py",
+                        "sha256":  "8fd8a2855a12fdc5fcf2d21b1d0aaf7efd67dc547c860e4ef583ac453618202c"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\abutron\\quant\\__init__.py",
+                        "sha256":  "a32a7fc69992599c1ceb8ea72aee19e845958fd0ee6d3d7d02dc93a106cfd518"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\abutron\\quant\\engine.py",
+                        "sha256":  "692932b065b5b9195486473ceea93a708159ac90521f8004418c3267cddacab9"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\abutron\\quant\\portfolio.py",
+                        "sha256":  "a874cfc8630d563378d62823bc8e2f543f01f5ebd095d36a93fed22ee6c0d2c4"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\abutron\\quant\\strategy_stats.py",
+                        "sha256":  "499a0f81bfe5b46c286ffa91b42ebd8d4d63b7a35195a8f049772b26c09bc4f4"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\abutron\\risk.py",
+                        "sha256":  "fd681254cb1953d4ddd986380b247c8fe4a635e05b9edba1e33ed93a0339595d"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\abutron\\router.py",
+                        "sha256":  "d1a13e142240059c54327f402f5c475f949eafe0b3999a8e54aaf6a0848ae825"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\abutron\\security.py",
+                        "sha256":  "1272d0e2ab1fa1e68b059c55b16e8958cfed45e0e4eaef4252aa3f162096fb91"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\abutron\\service.py",
+                        "sha256":  "a4cab3a3f85456e20ef997e2715e2f37237ba9b0ee9a347fa791c3cf6d7b8157"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\abutron\\step26a_api.py",
+                        "sha256":  "97674d89ac5717023ed8a3f7e69064c8ffbb7d92a14e5b781a6a7e04dd7ebfe2"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\abutron\\step26a_models.py",
+                        "sha256":  "03445721608807c9c97a9055a656bc4c47e4b2c1c56a10b71f138791cb4cda40"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\abutron\\step27_api.py",
+                        "sha256":  "205cc43c3812647a3224ce46200bedfe3849d526033c4d665a1b72a147360715"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\abutron\\step27_models.py",
+                        "sha256":  "35ac1120f65996ec5db5a46e4be69aafb9ef37cec638caff341e947a8ff14d39"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\abutron\\step27_service.py",
+                        "sha256":  "a4afcdc3989049b5406382decd1d94c704454d7bb45938a96ba6743b4f6a0a3d"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\abutron\\storage\\__init__.py",
+                        "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\abutron\\storage\\decisions.py",
+                        "sha256":  "6f3977dee0cafbcdf25dc3dbc42ec67755a05035f0b2db94940499e471c3998d"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\abutron\\strategies\\__init__.py",
+                        "sha256":  "beda5c67a582571185978475f720b3af363fb5c6222ee71df4a9f4979f4954f9"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\abutron\\strategies\\base.py",
+                        "sha256":  "3ff9360b5b92285a3802567629137fc3b3915b7ba7fe0f6165e8d88b8728b7d1"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\abutron\\strategies\\flipper.py",
+                        "sha256":  "5c2f382ec7d8b8f0d273ba5ed7d72f7d2ccfdedb4491ecccb64ba27063eb6403"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\abutron\\strategies\\master.py",
+                        "sha256":  "07d70814d0d86ad7370aa1d78b96f43555a53f26bd968f8c3019db6eff8b19ca"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\abutron\\strategies\\scalper.py",
+                        "sha256":  "51f8580a7c5df7a1b130b392bb757e93633d1f1ea538e66e2008c5633a3e38ee"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\abutron\\symbols.py",
+                        "sha256":  "1ed27bdf2aa27f24c72afa6a5c343e67d5b942a0aba3666d612baacfff012dcd"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\abutron\\worker.py",
+                        "sha256":  "f1dbbba65663fee6aea4bb28943482437aa1c5fed1fc527c1c0d7077af9a10ca"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\ctrader_cloud_gateway\\.env",
+                        "sha256":  "bcead00a0f1f3971fcb0df1a4120a55cbc54480a0e2e373cf9060a8c8bebcda3"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\ctrader_cloud_gateway\\core_integration\\ctrader_cloud.py",
+                        "sha256":  "ae523ea2434f10f8ef06a357313fa9ebe1188db056ad44e285d05d72c529c53b"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\ctrader_cloud_gateway\\core_integration\\ctrader_customer_pipeline.py",
+                        "sha256":  "e014fd06fbab1f33a1eec0e5b2b43a5a2d737183ace30a0c49a75d99d3a16dfe"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\ctrader_cloud_gateway\\core_integration\\ctrader_routes.py",
+                        "sha256":  "22956c70efab16a4ae0ec5c6511e1866ff96ce008aa3a09ec0575d59249ff686"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\ctrader_cloud_gateway\\core_integration\\volume.py",
+                        "sha256":  "b43c4e1ec0441d891007def4712ea68e473c23b5c92dac035dccefb6a1d0cd3a"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\ctrader_cloud_gateway\\ctrader_gateway\\__init__.py",
+                        "sha256":  "e889b19d1f0400504cb62c84707b048e8109ac4bb351c3855335894deba9be93"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\ctrader_cloud_gateway\\ctrader_gateway\\app.py",
+                        "sha256":  "02aecf13257a3246aea129e429bb5e1de704ae03f7c7b53dcd34d766f68d3fa5"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\ctrader_cloud_gateway\\ctrader_gateway\\config.py",
+                        "sha256":  "bf03fe2f9b452cc2f141c843014b7a8a072767396164a66d0e53361b359f4222"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\ctrader_cloud_gateway\\ctrader_gateway\\crypto.py",
+                        "sha256":  "ea45746b9bf45fe813936b87b20247060f9f49f8f54ee102745b16305a56da37"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\ctrader_cloud_gateway\\ctrader_gateway\\models.py",
+                        "sha256":  "1c48dde2d9cf2d7e8e674af560f3dcc699644dae2e7672168cf39b003ab254f7"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\ctrader_cloud_gateway\\ctrader_gateway\\oauth.py",
+                        "sha256":  "b93a730be0d6e6415206984da71d68b6dd7bc28c58e7a8f9eccafbd48482c700"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\ctrader_cloud_gateway\\ctrader_gateway\\persistent_worker.py",
+                        "sha256":  "404c5bed89a831a1b8f2d86c20f9d1784c03800f6b1642e737c5d2d0ce81d2ff"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\ctrader_cloud_gateway\\ctrader_gateway\\service.py",
+                        "sha256":  "872918b2f8bf531d2ee6ac0dcf7bd3735ed196e4a1ff1ab033412898daf5abd2"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\ctrader_cloud_gateway\\ctrader_gateway\\store.py",
+                        "sha256":  "43c3f2551660add0b6099244fb06aba6dcd3e4d7bbf6db4601aed4d1cf08caf9"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\ctrader_cloud_gateway\\ctrader_gateway\\worker_manager.py",
+                        "sha256":  "dfb3e93b004294f90ed36e7e38b2fa77a86c453fd3db7a8b8b929236bc67f9cd"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\ctrader_cloud_gateway\\ops\\backup_sqlite.py",
+                        "sha256":  "719a31a6b8dd3dba04c99906aad9c15932648bfcbd428280e42d55ab65e2e3be"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\ctrader_cloud_gateway\\ops\\record_cert_gate.py",
+                        "sha256":  "17bd4c16095ba18dd7bc90908bd2612d9d8f425081eb59b17f9c1e9938852d5e"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\ctrader_cloud_gateway\\ops\\verify_backup.py",
+                        "sha256":  "e90b0f73bed59058f6906fa9c08e4ab54c4ea17041995f21de68a410758161ae"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\ctrader_cloud_gateway\\scripts\\step21c_real_demo_cert.py",
+                        "sha256":  "db3dcc8ce7b489a85c67fe6d152a911d3d92f872e3e68be43ab6b64db5b55c24"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\ctrader_cloud_gateway\\scripts\\step21d_real_recovery_cert.py",
+                        "sha256":  "f72d22a31921c559a3d8e569eefd4d77e5aeeb25dd9683ab42f3cadfb5846703"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\ctrader_cloud_gateway\\tests\\test_static.py",
+                        "sha256":  "2e65db63940e43de8006ceb3eb45c7f884f2b8da10701cef3bbef65a339eaa58"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\ctrader_cloud_gateway\\tests\\test_step21d.py",
+                        "sha256":  "5bdddcbff6791bad665997fee2c02b81778683de188e45d0bea19cf94acb8255"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\ctrader_cloud_gateway\\tests\\test_step22.py",
+                        "sha256":  "e86214c50b55ea488ce8537e662fc48eb03f15fe4aec5ef8f6d6146f3fcf00cb"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\mt5_bridge\\__init__.py",
+                        "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\mt5_bridge\\app.py",
+                        "sha256":  "7387480c2d9cb4247b6bb591c9a51aeb613e785e08e81ed2819654eb3b86eb00"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\mt5_bridge\\settings.py",
+                        "sha256":  "37a72b7cb17dc703d72aeac8eeddf455aa0876e21a8bb5448bcfba3a3c769412"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\Abutron\\TradingPlatformV4\\mt5_bridge\\store.py",
+                        "sha256":  "017907731d75f96d699466a28eba120cc56f1dfb891c88ca9a23db4081590e99"
+                    },
+                    {
+                        "type":  "FILE",
+                        "name":  "C:\\caddy\\Caddyfile",
+                        "sha256":  "dd7f7d6c9ad2fb2ca971539369f53a7b87669a56e53c69d7de9f9c07a61c93f5"
+                    },
+                    {
+                        "type":  "TASK",
+                        "name":  "Abutron-Core",
+                        "sha256":  "b251fbaf351ed0abfe267e905a9bb5ac77984b7a1ebec84a86b2171f01f7aec9"
+                    },
+                    {
+                        "type":  "TASK",
+                        "name":  "Abutron-Jarvis",
+                        "sha256":  "a0786a15f0338ac6869afd7248570a2089e3bfd81386f9896aa5ecad94ae083e"
+                    },
+                    {
+                        "type":  "TASK",
+                        "name":  "Abutron-Jarvis-RC1-08",
+                        "sha256":  "063e7a46d4a3db4a87d61777fc2fc95c1789a4ca092454b0b0863531e24dbb9f"
+                    },
+                    {
+                        "type":  "TASK",
+                        "name":  "Abutron-Jarvis-RC1-09",
+                        "sha256":  "6fe6fa7759f910f019e3f50c7372afbdc2b835d488ddbe40cd799e4fd700b349"
+                    },
+                    {
+                        "type":  "TASK",
+                        "name":  "Abutron-Prometheus",
+                        "sha256":  "a36dee293d7450a3f1f216a1218eb393a285ef8b99fe951e1a82fde18c492dd9"
+                    }
+                ]
+}

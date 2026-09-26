@@ -1,0 +1,26 @@
+{
+  "product": "Abutron RC1-09 Telegram + WhatsApp / Meta Alerts",
+  "version": "1.0.0",
+  "build_status": "COMPLETE_OFFLINE_CANDIDATE",
+  "deterministic_tests": {
+    "passed": 15,
+    "failed": 0
+  },
+  "python_compile": "PASS",
+  "mode": "NOTIFY_ONLY",
+  "actions_enabled": false,
+  "bind": "127.0.0.1:8789",
+  "live_transport_certification": "REQUIRES_VPS_CREDENTIALS_AND_EXTERNAL_PROVIDER_TEST",
+  "post_reboot_certification": "REQUIRES_VPS_RUN",
+  "safety": [
+    "RC1-08 read-only polling",
+    "no trade actions",
+    "no restart actions",
+    "no approval action endpoints",
+    "numeric Telegram chat ID required",
+    "WhatsApp webhook HMAC validation",
+    "incoming WhatsApp messages ignored",
+    "bounded retries and rate limiting",
+    "SQLite dedupe/delivery audit"
+  ]
+}

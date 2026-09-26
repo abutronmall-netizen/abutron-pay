@@ -1,0 +1,1216 @@
+from __future__ import annotations
+
+import asyncio
+import json
+import logging
+import time
+
+from sqlalchemy import select
+
+from abutron.config import settings
+from abutron.service import TradingService
+from abutron.platform_db import (
+    session_scope,
+    TradingAccount,
+    TradeRecord,
+)
+from mt5_bridge.settings import settings as mt5_settings
+
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s %(message)s",
+)
+
+
+def _payload_dict(raw):
+    if isinstance(raw, dict):
+        return dict(raw)
+
+    if not raw:
+        return {}
+
+    try:
+        value=json.loads(raw)
+
+        if isinstance(value, dict):
+            return value
+
+    except Exception:
+        pass
+
+    return {
+        "legacy_payload": str(raw)
+    }
+
+
+def _find_account(
+    session,
+    login,
+    server="",
+):
+    """
+    Resolve the exact platform account for the connected MT5 account.
+
+    Never fall back to "first active account".
+    """
+    login=str(login or "").strip()
+    server=str(server or "").strip()
+
+    if not login:
+        raise RuntimeError(
+            "TRADING_ACCOUNT_LOGIN_REQUIRED"
+        )
+
+    rows=list(
+        session.scalars(
+            select(TradingAccount)
+            .where(
+                TradingAccount.active == True,
+                TradingAccount.login == login,
+            )
+            .order_by(
+                TradingAccount.id.asc()
+            )
+        ).all()
+    )
+
+    if server:
+        exact=[
+            row
+            for row in rows
+            if str(
+                row.server or ""
+            ).strip().casefold()
+            == server.casefold()
+        ]
+
+        if len(exact) == 1:
+            return exact[0]
+
+        if len(exact) > 1:
+            raise RuntimeError(
+                "TRADING_ACCOUNT_AMBIGUOUS"
+            )
+
+        # Backwards compatibility for one legacy
+        # account that was created before server binding.
+        if (
+            len(rows) == 1
+            and not str(
+                rows[0].server or ""
+            ).strip()
+        ):
+            return rows[0]
+
+        raise RuntimeError(
+            "TRADING_ACCOUNT_NOT_FOUND"
+        )
+
+    if len(rows) == 1:
+        return rows[0]
+
+    if len(rows) > 1:
+        raise RuntimeError(
+            "TRADING_ACCOUNT_AMBIGUOUS"
+        )
+
+    raise RuntimeError(
+        "TRADING_ACCOUNT_NOT_FOUND"
+    )
+
+
+def _is_abutron_deal(deal):
+    magic=int(
+        deal.get(
+            "magic",
+            0,
+        )
+        or 0
+    )
+
+    comment=str(
+        deal.get(
+            "comment",
+            "",
+        )
+        or ""
+    ).upper()
+
+    return (
+        magic == int(mt5_settings.magic)
+        or comment.startswith("ABUTRON")
+    )
+
+
+def _position_id(deal):
+    try:
+        return int(
+            deal.get(
+                "position_id",
+                0,
+            )
+            or 0
+        )
+
+    except Exception:
+        return 0
+
+
+def _deal_ticket(deal):
+    try:
+        return int(
+            deal.get(
+                "ticket",
+                0,
+            )
+            or 0
+        )
+
+    except Exception:
+        return 0
+
+
+def _deal_net(deal):
+    return (
+        float(
+            deal.get(
+                "profit",
+                0,
+            )
+            or 0
+        )
+        + float(
+            deal.get(
+                "commission",
+                0,
+            )
+            or 0
+        )
+        + float(
+            deal.get(
+                "swap",
+                0,
+            )
+            or 0
+        )
+        + float(
+            deal.get(
+                "fee",
+                0,
+            )
+            or 0
+        )
+    )
+
+
+def _compact_deal(deal):
+    return {
+        "ticket":
+            _deal_ticket(deal),
+
+        "position_id":
+            _position_id(deal),
+
+        "entry":
+            int(
+                deal.get(
+                    "entry",
+                    0,
+                )
+                or 0
+            ),
+
+        "type":
+            int(
+                deal.get(
+                    "type",
+                    0,
+                )
+                or 0
+            ),
+
+        "symbol":
+            str(
+                deal.get(
+                    "symbol",
+                    "",
+                )
+                or ""
+            ),
+
+        "volume":
+            float(
+                deal.get(
+                    "volume",
+                    0,
+                )
+                or 0
+            ),
+
+        "price":
+            float(
+                deal.get(
+                    "price",
+                    0,
+                )
+                or 0
+            ),
+
+        "profit":
+            float(
+                deal.get(
+                    "profit",
+                    0,
+                )
+                or 0
+            ),
+
+        "commission":
+            float(
+                deal.get(
+                    "commission",
+                    0,
+                )
+                or 0
+            ),
+
+        "swap":
+            float(
+                deal.get(
+                    "swap",
+                    0,
+                )
+                or 0
+            ),
+
+        "fee":
+            float(
+                deal.get(
+                    "fee",
+                    0,
+                )
+                or 0
+            ),
+
+        "time":
+            int(
+                deal.get(
+                    "time",
+                    0,
+                )
+                or 0
+            ),
+
+        "magic":
+            int(
+                deal.get(
+                    "magic",
+                    0,
+                )
+                or 0
+            ),
+
+        "comment":
+            str(
+                deal.get(
+                    "comment",
+                    "",
+                )
+                or ""
+            ),
+    }
+
+
+def _tier_from_deals(deals):
+    for deal in deals:
+        comment=str(
+            deal.get(
+                "comment",
+                "",
+            )
+            or ""
+        ).upper()
+
+        for tier in (
+            "FLIPPER",
+            "SCALPER",
+            "MASTER",
+        ):
+            if tier in comment:
+                return tier
+
+    return ""
+
+
+def _side_from_open_deals(
+    deals,
+    fallback="",
+):
+    opens=[
+        d
+        for d in deals
+        if int(
+            d.get(
+                "entry",
+                0,
+            )
+            or 0
+        ) == 0
+    ]
+
+    if opens:
+        t=int(
+            opens[0].get(
+                "type",
+                0,
+            )
+            or 0
+        )
+
+        return (
+            "BUY"
+            if t in (0,2,4)
+            else "SELL"
+        )
+
+    if fallback:
+        return fallback
+
+    # If history only contains a closing deal,
+    # infer the original position side as the opposite
+    # side of the closing deal.
+    closes=[
+        d
+        for d in deals
+        if int(
+            d.get(
+                "entry",
+                0,
+            )
+            or 0
+        ) in (1,3)
+    ]
+
+    if closes:
+        t=int(
+            closes[0].get(
+                "type",
+                0,
+            )
+            or 0
+        )
+
+        return (
+            "SELL"
+            if t in (0,2,4)
+            else "BUY"
+        )
+
+    return ""
+
+
+def _find_legacy_execution(
+    session,
+    account_id,
+    position_id,
+    symbol,
+):
+    """
+    Upgrade an older EXECUTED row whose ticket contains an MT5
+    order number instead of the canonical position ticket.
+    """
+    candidates=list(
+        session.scalars(
+            select(TradeRecord)
+            .where(
+                TradeRecord.account_id
+                == account_id,
+
+                TradeRecord.symbol
+                == symbol,
+
+                TradeRecord.state.in_(
+                    (
+                        "EXECUTED",
+                        "OPENED",
+                    )
+                ),
+            )
+            .order_by(
+                TradeRecord.id.desc()
+            )
+            .limit(100)
+        ).all()
+    )
+
+    for row in candidates:
+        payload=_payload_dict(
+            row.payload
+        )
+
+        possible=[]
+
+        execution=payload.get(
+            "execution"
+        )
+
+        if isinstance(
+            execution,
+            dict,
+        ):
+            possible.append(
+                execution
+            )
+
+        execution_result=payload.get(
+            "execution_result"
+        )
+
+        if isinstance(
+            execution_result,
+            dict,
+        ):
+            possible.append(
+                execution_result
+            )
+
+        pipeline=payload.get(
+            "pipeline"
+        )
+
+        if isinstance(
+            pipeline,
+            dict,
+        ):
+            pexec=pipeline.get(
+                "execution"
+            )
+
+            if isinstance(
+                pexec,
+                dict,
+            ):
+                possible.append(
+                    pexec
+                )
+
+        for obj in possible:
+            try:
+                p=int(
+                    obj.get(
+                        "position_ticket",
+                        0,
+                    )
+                    or 0
+                )
+
+            except Exception:
+                p=0
+
+            if p == position_id:
+                row.ticket=str(
+                    position_id
+                )
+
+                return row
+
+    return None
+
+
+def persist_execution(
+    result,
+    account_login,
+    account_server="",
+):
+    """
+    Persist one accepted broker position as one TradeRecord.
+
+    Canonical ticket = MT5 position_ticket.
+    """
+    if (
+        not result.execution
+        or not result.execution.get(
+            "accepted"
+        )
+        or not result.plan
+    ):
+        return None
+
+    position_ticket=int(
+        result.execution.get(
+            "position_ticket",
+            0,
+        )
+        or 0
+    )
+
+    if position_ticket <= 0:
+        raise RuntimeError(
+            "EXECUTION_POSITION_TICKET_MISSING"
+        )
+
+    with session_scope() as s:
+        account=_find_account(
+            s,
+            account_login,
+            account_server,
+        )
+
+        existing=s.scalar(
+            select(TradeRecord)
+            .where(
+                TradeRecord.account_id
+                == account.id,
+
+                TradeRecord.signal_id
+                == result.plan.idempotency_key,
+            )
+            .order_by(
+                TradeRecord.id.asc()
+            )
+        )
+
+        if existing is None:
+            existing=s.scalar(
+                select(TradeRecord)
+                .where(
+                    TradeRecord.account_id
+                    == account.id,
+
+                    TradeRecord.ticket
+                    == str(
+                        position_ticket
+                    ),
+                )
+                .order_by(
+                    TradeRecord.id.asc()
+                )
+            )
+
+        pipeline=(
+            result.model_dump(
+                mode="json"
+            )
+            if hasattr(
+                result,
+                "model_dump",
+            )
+            else {}
+        )
+
+        if existing is None:
+            existing=TradeRecord(
+                account_id=
+                    account.id,
+
+                symbol=
+                    result.symbol,
+
+                side=
+                    result.plan.direction.value,
+
+                tier=
+                    result.route.selected.value,
+
+                state=
+                    "EXECUTED",
+
+                ticket=
+                    str(position_ticket),
+
+                volume=
+                    result.plan.volume,
+
+                entry=
+                    result.plan.entry,
+
+                sl=
+                    result.plan.sl,
+
+                tp=
+                    result.plan.tp,
+
+                signal_id=
+                    result.plan.idempotency_key,
+
+                opened_ts=
+                    int(time.time()),
+
+                payload=
+                    "{}",
+            )
+
+            s.add(existing)
+            s.flush()
+
+        else:
+            existing.ticket=str(
+                position_ticket
+            )
+
+            existing.symbol=
+                result.symbol
+
+            existing.side=
+                result.plan.direction.value
+
+            existing.tier=
+                result.route.selected.value
+
+            existing.volume=
+                result.plan.volume
+
+            existing.entry=
+                result.plan.entry
+
+            existing.sl=
+                result.plan.sl
+
+            existing.tp=
+                result.plan.tp
+
+            if existing.state not in (
+                "OPENED",
+                "CLOSED",
+            ):
+                existing.state="EXECUTED"
+
+        payload=_payload_dict(
+            existing.payload
+        )
+
+        payload["pipeline"]=pipeline
+
+        payload["execution_result"]=dict(
+            result.execution
+        )
+
+        payload["broker_account"]={
+            "login":
+                str(account_login),
+
+            "server":
+                str(
+                    account_server
+                    or ""
+                ),
+        }
+
+        existing.payload=json.dumps(
+            payload,
+            default=str,
+        )
+
+        if (
+            account
+            and not result.route.locked
+        ):
+            account.current_tier=(
+                result.route.selected.value
+            )
+
+        record_id=existing.id
+
+    return record_id
+
+
+def sync_deals(
+    deals,
+    account_login,
+    account_server="",
+):
+    """
+    Reconcile MT5 history into one durable TradeRecord per position.
+
+    Repeated history polling is idempotent because broker deal tickets
+    are stored and merged by unique deal ticket.
+    """
+    if not deals:
+        return 0
+
+    groups={}
+
+    for deal in deals:
+        if not isinstance(
+            deal,
+            dict,
+        ):
+            continue
+
+        if not _is_abutron_deal(
+            deal
+        ):
+            continue
+
+        position_id=_position_id(
+            deal
+        )
+
+        deal_ticket=_deal_ticket(
+            deal
+        )
+
+        if (
+            position_id <= 0
+            or deal_ticket <= 0
+        ):
+            continue
+
+        groups.setdefault(
+            position_id,
+            [],
+        ).append(
+            deal
+        )
+
+    if not groups:
+        return 0
+
+    reconciled=0
+
+    with session_scope() as s:
+        account=_find_account(
+            s,
+            account_login,
+            account_server,
+        )
+
+        for position_id,new_deals in groups.items():
+            symbol=str(
+                new_deals[0].get(
+                    "symbol",
+                    "",
+                )
+                or ""
+            )
+
+            row=s.scalar(
+                select(TradeRecord)
+                .where(
+                    TradeRecord.account_id
+                    == account.id,
+
+                    TradeRecord.ticket
+                    == str(
+                        position_id
+                    ),
+                )
+                .order_by(
+                    TradeRecord.id.asc()
+                )
+            )
+
+            if row is None:
+                row=_find_legacy_execution(
+                    s,
+                    account.id,
+                    position_id,
+                    symbol,
+                )
+
+            if row is None:
+                side=_side_from_open_deals(
+                    new_deals
+                )
+
+                tier=_tier_from_deals(
+                    new_deals
+                )
+
+                first=new_deals[0]
+
+                row=TradeRecord(
+                    account_id=
+                        account.id,
+
+                    symbol=
+                        symbol,
+
+                    side=
+                        side or "BUY",
+
+                    tier=
+                        tier,
+
+                    state=
+                        "OPENED",
+
+                    ticket=
+                        str(position_id),
+
+                    volume=
+                        float(
+                            first.get(
+                                "volume",
+                                0,
+                            )
+                            or 0
+                        ),
+
+                    entry=
+                        float(
+                            first.get(
+                                "price",
+                                0,
+                            )
+                            or 0
+                        ),
+
+                    payload=
+                        "{}",
+                )
+
+                s.add(row)
+                s.flush()
+
+            payload=_payload_dict(
+                row.payload
+            )
+
+            reconciliation=payload.get(
+                "reconciliation"
+            )
+
+            if not isinstance(
+                reconciliation,
+                dict,
+            ):
+                reconciliation={}
+
+            deal_map=reconciliation.get(
+                "deals"
+            )
+
+            if not isinstance(
+                deal_map,
+                dict,
+            ):
+                deal_map={}
+
+            for deal in new_deals:
+                deal_map[
+                    str(
+                        _deal_ticket(
+                            deal
+                        )
+                    )
+                ]=_compact_deal(
+                    deal
+                )
+
+            all_deals=list(
+                deal_map.values()
+            )
+
+            open_deals=[
+                d
+                for d in all_deals
+                if int(
+                    d.get(
+                        "entry",
+                        0,
+                    )
+                    or 0
+                ) == 0
+            ]
+
+            close_deals=[
+                d
+                for d in all_deals
+                if int(
+                    d.get(
+                        "entry",
+                        0,
+                    )
+                    or 0
+                ) in (1,3)
+            ]
+
+            if open_deals:
+                open_volume=sum(
+                    float(
+                        d.get(
+                            "volume",
+                            0,
+                        )
+                        or 0
+                    )
+                    for d in open_deals
+                )
+
+                if open_volume > 0:
+                    row.volume=open_volume
+
+                    row.entry=(
+                        sum(
+                            float(
+                                d.get(
+                                    "price",
+                                    0,
+                                )
+                                or 0
+                            )
+                            * float(
+                                d.get(
+                                    "volume",
+                                    0,
+                                )
+                                or 0
+                            )
+                            for d in open_deals
+                        )
+                        / open_volume
+                    )
+
+                open_times=[
+                    int(
+                        d.get(
+                            "time",
+                            0,
+                        )
+                        or 0
+                    )
+                    for d in open_deals
+                    if int(
+                        d.get(
+                            "time",
+                            0,
+                        )
+                        or 0
+                    ) > 0
+                ]
+
+                if open_times:
+                    row.opened_ts=min(
+                        open_times
+                    )
+
+                row.side=_side_from_open_deals(
+                    all_deals,
+                    row.side,
+                )
+
+            if not row.tier:
+                row.tier=_tier_from_deals(
+                    all_deals
+                )
+
+            row.symbol=(
+                symbol
+                or row.symbol
+            )
+
+            row.ticket=str(
+                position_id
+            )
+
+            row.profit=sum(
+                _deal_net(
+                    d
+                )
+                for d in all_deals
+            )
+
+            opened_volume=(
+                sum(
+                    float(
+                        d.get(
+                            "volume",
+                            0,
+                        )
+                        or 0
+                    )
+                    for d in open_deals
+                )
+            )
+
+            base_volume=(
+                opened_volume
+                if opened_volume > 0
+                else float(
+                    row.volume
+                    or 0
+                )
+            )
+
+            closed_volume=sum(
+                float(
+                    d.get(
+                        "volume",
+                        0,
+                    )
+                    or 0
+                )
+                for d in close_deals
+            )
+
+            fully_closed=(
+                bool(close_deals)
+                and (
+                    base_volume <= 0
+                    or closed_volume
+                    + 1e-9
+                    >= base_volume
+                )
+            )
+
+            if fully_closed:
+                row.state="CLOSED"
+
+                close_times=[
+                    int(
+                        d.get(
+                            "time",
+                            0,
+                        )
+                        or 0
+                    )
+                    for d in close_deals
+                    if int(
+                        d.get(
+                            "time",
+                            0,
+                        )
+                        or 0
+                    ) > 0
+                ]
+
+                if close_times:
+                    row.closed_ts=max(
+                        close_times
+                    )
+
+            elif open_deals or close_deals:
+                row.state="OPENED"
+                row.closed_ts=None
+
+            reconciliation.update(
+                {
+                    "version":
+                        1,
+
+                    "position_id":
+                        position_id,
+
+                    "broker_login":
+                        str(
+                            account_login
+                        ),
+
+                    "broker_server":
+                        str(
+                            account_server
+                            or ""
+                        ),
+
+                    "opened_volume":
+                        opened_volume,
+
+                    "closed_volume":
+                        closed_volume,
+
+                    "deal_count":
+                        len(
+                            deal_map
+                        ),
+
+                    "deals":
+                        deal_map,
+                }
+            )
+
+            payload[
+                "reconciliation"
+            ]=reconciliation
+
+            row.payload=json.dumps(
+                payload,
+                default=str,
+            )
+
+            reconciled+=1
+
+    return reconciled
+
+
+async def main():
+    svc=TradingService()
+
+    logging.info(
+        "ABUTRON v4 worker starting; execution_enabled=%s",
+        settings.execution_enabled,
+    )
+
+    while True:
+        for symbol in settings.symbol_list:
+            try:
+                result=await svc.evaluate_live(
+                    symbol,
+                    execute=True,
+                )
+
+                if (
+                    result.execution
+                    and result.execution.get(
+                        "accepted"
+                    )
+                ):
+                    broker_account=(
+                        await svc.gateway.account()
+                    )
+
+                    persist_execution(
+                        result,
+                        broker_account.login,
+                        broker_account.server,
+                    )
+
+                logging.info(
+                    "%s %s confidence=%.1f risk=%s route=%s execution=%s",
+                    symbol,
+                    result.thesis.direction.value,
+                    result.thesis.confidence,
+                    result.risk.reason,
+                    result.route.selected.value,
+                    result.execution,
+                )
+
+            except Exception:
+                logging.exception(
+                    "Evaluation failed for %s",
+                    symbol,
+                )
+
+        try:
+            await svc.gateway.manage()
+
+            broker_account=(
+                await svc.gateway.account()
+            )
+
+            deals=await svc.gateway.history(
+                days=7
+            )
+
+            sync_deals(
+                deals,
+                broker_account.login,
+                broker_account.server,
+            )
+
+        except Exception:
+            logging.exception(
+                "Trade management/history sync failed"
+            )
+
+        await asyncio.sleep(
+            max(
+                10,
+                settings.worker_interval_seconds,
+            )
+        )
+
+
+if __name__ == "__main__":
+    asyncio.run(main())

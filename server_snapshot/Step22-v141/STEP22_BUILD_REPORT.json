@@ -1,0 +1,12 @@
+{
+  "package": "Abutron-Step22-Production-Perimeter-v1.4.1",
+  "version": "1.4.1",
+  "tests_passed": 66,
+  "python_compile": "PASS",
+  "missing_ctrader_db_behavior": "DEFERRED_NO_DB",
+  "backup_regression": "PASS",
+  "live_money_authorized": false,
+  "broker_order_sent": false,
+  "trading_logic_changed": false,
+  "vps_certification": "PENDING"
+}

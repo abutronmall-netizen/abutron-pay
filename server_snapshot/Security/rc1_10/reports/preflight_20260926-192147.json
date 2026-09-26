@@ -1,0 +1,103 @@
+﻿{
+    "version":  "1.0.0",
+    "generated_utc":  "2026-09-26T19:21:47.0051907Z",
+    "result":  "PASS",
+    "fail_count":  0,
+    "warn_count":  0,
+    "safety":  {
+                   "execution_enabled":  false,
+                   "mt5_live_trading":  false,
+                   "mt5_management_enabled":  false,
+                   "rc1_08_mode":  "OBSERVE_ONLY",
+                   "rc1_09_mode":  "NOTIFY_ONLY",
+                   "telegram_enabled":  true,
+                   "whatsapp_enabled":  false
+               },
+    "tasks":  [
+                  {
+                      "name":  "Abutron-Core",
+                      "state":  "Running"
+                  },
+                  {
+                      "name":  "Abutron-Jarvis",
+                      "state":  "Running"
+                  },
+                  {
+                      "name":  "Abutron-Jarvis-RC1-08",
+                      "state":  "Running"
+                  },
+                  {
+                      "name":  "Abutron-Jarvis-RC1-09",
+                      "state":  "Running"
+                  },
+                  {
+                      "name":  "Abutron-Prometheus",
+                      "state":  "Running"
+                  }
+              ],
+    "findings":  [
+                     {
+                         "control":  "OS",
+                         "status":  "INFO",
+                         "message":  "Operating system captured.",
+                         "evidence":  {
+                                          "caption":  "Microsoft Windows Server 2025 Standard",
+                                          "build":  "26100",
+                                          "version":  "10.0.26100",
+                                          "last_boot":  "2026-09-26T17:10:46.5000000Z"
+                                      }
+                     },
+                     {
+                         "control":  "TASK_Abutron-Core",
+                         "status":  "PASS",
+                         "message":  "Critical scheduled task is Running.",
+                         "evidence":  {
+                                          "state":  "Running"
+                                      }
+                     },
+                     {
+                         "control":  "TASK_Abutron-Jarvis",
+                         "status":  "PASS",
+                         "message":  "Critical scheduled task is Running.",
+                         "evidence":  {
+                                          "state":  "Running"
+                                      }
+                     },
+                     {
+                         "control":  "TASK_Abutron-Jarvis-RC1-08",
+                         "status":  "PASS",
+                         "message":  "Critical scheduled task is Running.",
+                         "evidence":  {
+                                          "state":  "Running"
+                                      }
+                     },
+                     {
+                         "control":  "TASK_Abutron-Jarvis-RC1-09",
+                         "status":  "PASS",
+                         "message":  "Critical scheduled task is Running.",
+                         "evidence":  {
+                                          "state":  "Running"
+                                      }
+                     },
+                     {
+                         "control":  "TASK_Abutron-Prometheus",
+                         "status":  "PASS",
+                         "message":  "Critical scheduled task is Running.",
+                         "evidence":  {
+                                          "state":  "Running"
+                                      }
+                     },
+                     {
+                         "control":  "AUTOADMINLOGON",
+                         "status":  "PASS",
+                         "message":  "AutoAdminLogon is not enabled.",
+                         "evidence":  null
+                     },
+                     {
+                         "control":  "GUEST_ACCOUNT",
+                         "status":  "PASS",
+                         "message":  "Built-in Guest account is disabled.",
+                         "evidence":  null
+                     }
+                 ]
+}

@@ -1,0 +1,23 @@
+{
+  "package": "Abutron-Step22-Production-Perimeter-v1.4.0",
+  "version": "1.4.0",
+  "status": "STATIC_BUILD_PASS_VPS_CERTIFICATION_PENDING",
+  "tests": "64 passed",
+  "python_compile": "PASS",
+  "live_connection_default": false,
+  "live_money_authorized": false,
+  "broker_order_sent": false,
+  "tls_config": "STAGED_NOT_APPLIED",
+  "public_route_policy": "EXPLICIT_METHOD_AND_PATH_ALLOWLIST_DEFAULT_DENY",
+  "backup": "ONLINE_SQLITE_BACKUP_PLUS_HASH_AND_INTEGRITY_CHECK",
+  "monitoring": "STAGED",
+  "release_candidate": "BLOCKED_UNTIL_PUBLIC_TLS_AND_REAL_CTRADER_CERTS",
+  "powershell_native_parse": "NOT_AVAILABLE_IN_BUILD_ENV_VPS_IS_AUTHORITATIVE",
+  "external_pending": [
+    "Spotware client credentials",
+    "STEP21B_REAL_OAUTH_DISCOVERY",
+    "STEP21C_REAL_DEMO_LIFECYCLE",
+    "STEP21D_REAL_NETWORK_RECOVERY",
+    "public TLS apply/validation"
+  ]
+}

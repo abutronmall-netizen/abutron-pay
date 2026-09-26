@@ -1,0 +1,37 @@
+{
+  "name": "Abutron Step 26A Customer/Admin/Mobile",
+  "version": "1.0.1",
+  "scope": {
+    "customer_api": true,
+    "device_lifecycle": true,
+    "notification_read_state": true,
+    "support_tickets": true,
+    "admin_console": true,
+    "android_ios_source": true,
+    "broker_order_execution": false,
+    "payment_provider": false,
+    "push_delivery_provider": false
+  },
+  "safety": {
+    "mobile_trading_mode": "READ_ONLY",
+    "changes_kronos": false,
+    "changes_quant": false,
+    "changes_risk": false,
+    "changes_capital": false,
+    "changes_router": false,
+    "live_money_authorized": false
+  },
+  "mobile_stack": {
+    "expo_sdk": "57",
+    "react_native": "0.86.0",
+    "react": "19.2.3",
+    "secure_store": "57.0.4",
+    "build_config": "EAS",
+    "signed_binaries_in_step26a": false
+  },
+  "repair": {
+    "bom_safe_api_patch": true,
+    "idempotent_partial_install_resume": true,
+    "audit_restores_working_directory": true
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "build": "ABUTRON_STEP21B_ICMARKETS_CTRADER_OAUTH_DISCOVERY_V1_1_1",
+  "date": "2026-09-25",
+  "purpose": "Repair v1.1.0 Windows Core import working-directory defect; OAuth/account discovery remains zero-order",
+  "prerequisite": "Step21A v1.0.1 PASS; v1.1.0 gateway tests passed 16/16 before Core import failure",
+  "broker_order_sent": false,
+  "live_money_authorized": false,
+  "live_connection_enabled": false,
+  "demo_execution_enabled": false,
+  "kill_switch": true,
+  "changes": [
+    "Core import validation from TradingPlatformV4 root",
+    "automatic rollback on install failure",
+    "TradingService MT5 execution-path guard",
+    "idempotent repair of partial v1.1.0 install"
+  ]
+}

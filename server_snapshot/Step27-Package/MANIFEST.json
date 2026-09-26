@@ -1,0 +1,28 @@
+{
+  "name": "Abutron Step 27 CRM Billing Notifications Customer Operations",
+  "version": "1.0.0",
+  "step": "27",
+  "depends_on": {
+    "step26a_certification": "PASS"
+  },
+  "scope": {
+    "crm": true,
+    "billing_core": true,
+    "license_workflow": true,
+    "notification_outbox": true,
+    "customer_operations": true,
+    "admin_console": true,
+    "generic_signed_webhook": true,
+    "external_payment_provider_certified": false,
+    "external_email_provider_certified": false,
+    "external_push_provider_certified": false,
+    "broker_execution": false,
+    "live_money_authority": false
+  },
+  "safety": {
+    "payment_does_not_auto_activate_license": true,
+    "license_does_not_enable_trading": true,
+    "no_mt5_ctrader_execution_refs": true,
+    "external_providers_fail_closed": true
+  }
+}

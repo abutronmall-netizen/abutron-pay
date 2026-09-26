@@ -1,0 +1,23 @@
+{
+  "name": "Abutron Step 21C \u2014 IC Markets cTrader DEMO Lifecycle",
+  "version": "1.2.0",
+  "build_date": "2026-09-25",
+  "local_static_tests": "34/34 PASS",
+  "python_compile": "PASS",
+  "real_broker_execution": "NOT_RUN",
+  "step21b_real_oauth_required": true,
+  "demo_execution_default": false,
+  "live_connection_default": false,
+  "live_money_authorized": false,
+  "kill_switch_default": true,
+  "global_tradingservice_gateway_changed": false,
+  "broker_order_sent_during_build": false,
+  "notable_fixes": [
+    "MARKET orders use relative SL/TP protection",
+    "customer cTrader equity/daily realized P&L injected into Risk/Capital/Router",
+    "live cTrader spot subscription for broker context",
+    "clean account baseline required for certification",
+    "no-worsening stop guard",
+    "broker close P/L persisted to platform DB"
+  ]
+}

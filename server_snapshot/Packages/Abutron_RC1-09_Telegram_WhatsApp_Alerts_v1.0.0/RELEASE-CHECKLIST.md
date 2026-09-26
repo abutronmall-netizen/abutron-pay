@@ -1,0 +1,24 @@
+# RC1-09 release checklist
+
+- [x] Notification-only architecture
+- [x] RC1-08 read-only integration
+- [x] OPEN incident event
+- [x] RECOVERED incident event
+- [x] PENDING approval event
+- [x] deduplication
+- [x] initial recovered incidents do not spam
+- [x] active OPEN incident alerts on first state observation
+- [x] severity filter
+- [x] Telegram numeric chat ID enforcement
+- [x] WhatsApp template/text provider
+- [x] provider acceptance audit
+- [x] retries before provider acceptance
+- [x] burst/rate limiting
+- [x] signed WhatsApp webhook
+- [x] delivery-status audit
+- [x] Windows SYSTEM scheduled task installer
+- [x] reboot certification script
+- [ ] Telegram live credential/send certification on VPS
+- [ ] WhatsApp live credential/send certification on VPS
+- [ ] Meta webhook verification/delivery certification
+- [ ] post-reboot VPS certification

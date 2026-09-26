@@ -1,0 +1,19 @@
+{
+    "version":  "1.0.0",
+    "step":  "23Q",
+    "mode":  "SHADOW",
+    "contract":  {
+                     "quant_import":  true,
+                     "quant_stage":  true,
+                     "quant_payload":  true,
+                     "thesis_unchanged":  true,
+                     "risk_unchanged":  true,
+                     "capital_present":  true,
+                     "execution_guard":  true
+                 },
+    "env_shadow":  true,
+    "live_safety":  true,
+    "forbidden_reference_count":  0,
+    "api_health":  "ok",
+    "result":  "PASS"
+}

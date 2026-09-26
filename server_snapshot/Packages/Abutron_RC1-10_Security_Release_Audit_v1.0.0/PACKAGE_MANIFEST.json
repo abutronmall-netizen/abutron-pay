@@ -1,0 +1,154 @@
+{
+  "product": "Abutron RC1-10 Security / Release Audit",
+  "version": "1.0.0",
+  "generated_utc": "2026-09-26T17:27:55.591087+00:00",
+  "package_tests": {
+    "passed": 11,
+    "failed": 0
+  },
+  "powershell_runtime_test": "NOT_AVAILABLE_IN_BUILD_CONTAINER",
+  "powershell_static_structure_check": "PASS",
+  "file_count_excluding_manifest": 28,
+  "files": [
+    {
+      "path": "BUILD_REPORT.json",
+      "sha256": "7628f67fc8d5a0ee6b2b91cac4aca2904479abf2fb50bfb444d72279d98269fe",
+      "bytes": 1028
+    },
+    {
+      "path": "INSTALLATION.md",
+      "sha256": "d6ec1d539a2425ee39edd5ab2f12a76bda8dd106d9d241f813081ae9a71b1d70",
+      "bytes": 6063
+    },
+    {
+      "path": "README.md",
+      "sha256": "4e57eb85f290eee9ce65afe2da45aed4737e63aeb9417a482943851c29798739",
+      "bytes": 1771
+    },
+    {
+      "path": "config/rc1_10_policy.json",
+      "sha256": "10bbf4c3f4f77c4eb557abe4e52da7730c649dff884dd99447196f94053c0eec",
+      "bytes": 2932
+    },
+    {
+      "path": "docs/SECURITY_REQUIREMENTS.md",
+      "sha256": "b0f8d01c48c4b895e5866a0832b577c8e7a6c65bb393c8a432ad8c7192228dfe",
+      "bytes": 1528
+    },
+    {
+      "path": "docs/TROUBLESHOOTING.md",
+      "sha256": "198c0d968999346be0299555bc0dfa587d18f7133a60537755a5da48869ddcd2",
+      "bytes": 2457
+    },
+    {
+      "path": "lib/RC1-10.Common.ps1",
+      "sha256": "57e78ffc493e7c4f85d1aece512eb494760ba3c8778a0a7bebb972082143bda4",
+      "bytes": 5572
+    },
+    {
+      "path": "scripts/Apply-RC1-10-SafeHardening.ps1",
+      "sha256": "258217288c758728fb72f2e15a753d40f429f3e2258f8c930ec82f0c606a6c41",
+      "bytes": 2846
+    },
+    {
+      "path": "scripts/Certify-RC1-10-Final.ps1",
+      "sha256": "13e1398181a6f4c55fd565f28834596f448b22747569f66a9eb4068e5445f1a9",
+      "bytes": 3399
+    },
+    {
+      "path": "scripts/Certify-RC1-10-PostReboot.ps1",
+      "sha256": "21e0a0dabd7b288cf15e8072775fd6c91b2ec9919410e5a15c070ad08390ddaf",
+      "bytes": 2293
+    },
+    {
+      "path": "scripts/Certify-RC1-10-PreReboot.ps1",
+      "sha256": "cca5e26562a86262904d6a02d45264e0812d99a583b8e28789bc4bc17a64da52",
+      "bytes": 1343
+    },
+    {
+      "path": "scripts/Get-RC1-10-Status.ps1",
+      "sha256": "6592f3c1e342779e4aa8a4ddcd9053a78867224df46e10ad66b47660fa1d1e5e",
+      "bytes": 924
+    },
+    {
+      "path": "scripts/Install-RC1-10-v1.0.0.ps1",
+      "sha256": "e207389ab1e6de5405d13ef229eb544ba324dedfc884b60cdc7edf7655edc6a6",
+      "bytes": 2249
+    },
+    {
+      "path": "scripts/Invoke-RC1-10-PreflightAudit.ps1",
+      "sha256": "fc80e8df207bf8101edf820e434c09d0eb8eaa5e6243a106649e80a83352990f",
+      "bytes": 3858
+    },
+    {
+      "path": "scripts/New-RC1-10-IntegrityBaseline.ps1",
+      "sha256": "5ee24ac5996da66d1156da01d01add272f3078ba3700ffcd6b69312772cb8624",
+      "bytes": 2642
+    },
+    {
+      "path": "scripts/Quarantine-RC1-10-LegacySecretCopies.ps1",
+      "sha256": "ed29554d64f8abeb155ab83acc434311101d2ba56cea714ebcf3794d9490bd4c",
+      "bytes": 2640
+    },
+    {
+      "path": "scripts/Restore-RC1-10-EnvAcl.ps1",
+      "sha256": "c2c29375414e1ae5d380a05e72cabf8c957a3cc8e3ddde010e06ccee1c60139a",
+      "bytes": 801
+    },
+    {
+      "path": "scripts/Run-All-RC1-10-PreReboot.ps1",
+      "sha256": "e25a28358878f53b1b5fdae0ac6cb0230907dac7550c38ce601a9216da46fca7",
+      "bytes": 858
+    },
+    {
+      "path": "scripts/Set-RC1-10-RdpStabilityAttestation.ps1",
+      "sha256": "7723392bb6334102fc8d3687f858cf6e4b610ed51320ec30ef1d79cafccdd7f4",
+      "bytes": 1966
+    },
+    {
+      "path": "scripts/Set-RC1-10-ReleaseAttestation.ps1",
+      "sha256": "f62d0f6c370eab69c07490f831597fa7302f4ac70924eb0292efd679719e12fb",
+      "bytes": 2318
+    },
+    {
+      "path": "scripts/Test-RC1-10-BackupRestore.ps1",
+      "sha256": "eb3769a4f802c659f8f7fda40d78020fc39e7ecf4641daa73904f35f18834ddb",
+      "bytes": 5180
+    },
+    {
+      "path": "scripts/Test-RC1-10-IntegrityBaseline.ps1",
+      "sha256": "d8803865b7709ba76b5762c0fa000b1c967b95411eba220393e2e44e3648b9bf",
+      "bytes": 2499
+    },
+    {
+      "path": "scripts/Test-RC1-10-MicrosoftBaselineReadiness.ps1",
+      "sha256": "d6b2347c0920b611b69de5c5dd9fb74dafb8ca7a1d5a51f947ab776dd7da4341",
+      "bytes": 1124
+    },
+    {
+      "path": "scripts/Test-RC1-10-NetworkTLS.ps1",
+      "sha256": "5dfbb72fa40cb3b34e30013f74aa5f6ab86baeb65e971a853a9ea3eadb9f1de6",
+      "bytes": 6888
+    },
+    {
+      "path": "scripts/Test-RC1-10-RDP.ps1",
+      "sha256": "d4c3d44d10720820914069e8231ffe759667dd453d4172fae5d219acc3c37526",
+      "bytes": 6377
+    },
+    {
+      "path": "scripts/Test-RC1-10-Secrets.ps1",
+      "sha256": "42d1cb34cc4b67b450948f16295d96c552761795db643ca74b45b24af6ec40c2",
+      "bytes": 7875
+    },
+    {
+      "path": "tests/test_package.py",
+      "sha256": "2ebb5a192107e3beb672b45d2eda593452197f72198f76e8b03e2fdff3144d12",
+      "bytes": 3576
+    },
+    {
+      "path": "tests/test_powershell_structure.py",
+      "sha256": "7bc2fb5bf93b46626c8d66b2cd5241a35286d24f788d433a4ec95275847b98d6",
+      "bytes": 2702
+    }
+  ]
+}

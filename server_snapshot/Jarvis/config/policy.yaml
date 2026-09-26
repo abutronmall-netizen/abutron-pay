@@ -1,0 +1,39 @@
+default: DENY
+allow:
+- read_kronos_health
+- read_kronos_readiness
+- read_kronos_metrics
+- read_windows_resources
+- read_windows_services
+- read_windows_events
+- read_processes
+- read_mt5_status
+- read_database_health
+- read_redis_health
+- run_readonly_tests
+- send_incident_message
+- send_voice_note
+- query_hermes_intelligence
+approval:
+- restart_kronos_service
+- restart_mt5
+- restart_redis
+- restart_database
+- deploy_staging
+- deploy_production
+- rollback_production
+- modify_configuration
+- database_repair
+- initiate_whatsapp_call
+deny:
+- change_trading_strategy
+- change_risk_limits
+- change_lot_size
+- change_equity_routing
+- change_client_balance
+- change_broker_credentials
+- place_discretionary_trade
+- withdraw_funds
+- deploy_unreviewed_code
+- arbitrary_powershell
+- arbitrary_shell_production

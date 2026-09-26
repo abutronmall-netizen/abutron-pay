@@ -1,0 +1,22 @@
+{
+  "platform": "ABUTRON TRADING PLATFORM",
+  "version": "4.0.0",
+  "validation_utc": "2026-09-19T18:47:04.745692+00:00",
+  "python_compileall": "PASS",
+  "pytest": "PASS: 9 tests",
+  "api_import": "PASS",
+  "auth_smoke": "PASS",
+  "mobile_json": "PASS",
+  "docker_compose_yaml": "PASS",
+  "not_executed_in_build_environment": [
+    "MetaTrader5 live terminal compile/runtime",
+    "broker demo/live order lifecycle",
+    "Kronos model weight download/inference",
+    "React Native Android signed build",
+    "React Native iOS signed build",
+    "production TLS",
+    "payment provider live webhook",
+    "push notification provider delivery"
+  ],
+  "release_status": "CODE BASELINE VALIDATED; EXTERNAL PRODUCTION GATES PENDING"
+}

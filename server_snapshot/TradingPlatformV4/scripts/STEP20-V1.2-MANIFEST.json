@@ -1,0 +1,20 @@
+{
+  "build_marker": "STEP20_SOAK_ENDURANCE_CERT_V1_2",
+  "repair": "normalize production working directory before BaseSettings/app imports; require PostgreSQL production backend",
+  "helper": {
+    "name": "step20_soak_probe_v1_2.py",
+    "sha256": "F03ACFE2D8529441584B3E68CBF3BC785C3F223182221C8A50289923416748CB"
+  },
+  "runner": {
+    "name": "Abutron-Step20-Soak-Endurance-Cert-v1.2.ps1",
+    "sha256": "721AAB0F7E08EE873708CD7823CA6662F668BAC348B331EBC068A76EEE702C80"
+  },
+  "installer": {
+    "name": "Abutron-Step20-Install-Validate-Preflight-v1.2.ps1",
+    "sha256": "69D1DC1E27BCFD073A00E02BA2A42F0497EB068218E212BD7BFFB1D4408D50EE"
+  },
+  "certification_duration_minutes": 120,
+  "diagnostic_duration_minutes": 15,
+  "live_money_authorized": false,
+  "production_env_modified": false
+}

@@ -1,0 +1,45 @@
+export type Bootstrap = {
+  platform:{
+    name:string;
+    version:string;
+    step:string;
+    execution_enabled:boolean;
+    broker_execution_certified:boolean;
+    mobile_trading_mode:string;
+  };
+  user:{
+    id:number;
+    email:string;
+    full_name:string;
+    phone:string;
+    role:string;
+    active:boolean;
+  };
+  preferences:{
+    notifications_enabled:boolean;
+    preferred_symbol:string;
+  };
+  accounts:Array<{
+    id:number;
+    broker:string;
+    login:string;
+    server:string;
+    symbol:string;
+    current_tier:string;
+    active:boolean;
+    equity:number|null;
+  }>;
+  license:null|{id:number;product:string;status:string;expires_ts:number|null};
+  subscription:null|{id:number;plan:string;status:string;external_ref:string;updated_ts:number};
+  notifications:Array<{
+    id:number;title:string;body:string;channel:string;state:string;created_ts:number;read:boolean;
+  }>;
+  support:{open_count:number};
+  features:Record<string,boolean>;
+};
+
+export type Trade = {
+  id:number;account_id:number|null;symbol:string;side:string;tier:string;state:string;
+  ticket:string;volume:number;entry:number;sl:number;tp:number;profit:number;
+  opened_ts:number|null;closed_ts:number|null;
+};

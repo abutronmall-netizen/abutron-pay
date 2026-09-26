@@ -1,0 +1,5 @@
+ABUTRON RC1-10 v1.0.1 REPAIR
+
+Offline regression tests: 16 PASS / 0 FAIL
+ZIP integrity: PASS after packaging
+Live Windows runtime certification remains required on the VPS.

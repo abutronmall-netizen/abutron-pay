@@ -1,0 +1,21 @@
+{
+  "release": "Abutron Step 21D cTrader Failure/Recovery v1.3.0",
+  "built_date": "2026-09-25",
+  "local_tests": "47 passed",
+  "python_compile": "PASS",
+  "real_broker_execution": "NOT_RUN",
+  "real_oauth_recovery_cert": "PENDING_SPOTWARE_CREDENTIALS",
+  "live_money_authorized": false,
+  "broker_order_sent": false,
+  "features": [
+    "read-only bounded transport restart/retry",
+    "no automatic retry for market-order/close/amend",
+    "disconnect exits worker for fresh authenticated process",
+    "durable UNCERTAIN ledger",
+    "order-history clientOrderId matching",
+    "current exposure recovery classification",
+    "OAuth refresh-token rotation without secret exposure",
+    "DEMO worker restart certification",
+    "rollback-safe installer"
+  ]
+}
