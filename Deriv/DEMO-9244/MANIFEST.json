@@ -1,0 +1,24 @@
+{
+  "account_suffix": "9244",
+  "broker": "Deriv",
+  "conflicting_duplicate_tickets": 0,
+  "deals": 320,
+  "earliest_deal_at_utc": "2026-11-02T18:30:45Z",
+  "environment": "DEMO",
+  "excluded": "Nontrading account events, payments, secrets and unrelated files",
+  "files": [
+    {
+      "file": "deals.csv.gz",
+      "rows": 320,
+      "sha256": "28b5289b3b6679ba0ae26cb6850ba70b08dddb8053d1e6a2d7a6261fede6646f"
+    }
+  ],
+  "history_completeness": "available native exports only; full lifetime coverage unverified",
+  "latest_deal_at_utc": "2026-11-15T20:03:00Z",
+  "latest_native_file_modified_at_utc": "2026-11-15T20:18:31Z",
+  "latest_native_file_sha256": "c93baaf151cee71610efdbeef39a6a1f1d53a7c6766afc4dc977351d56325577",
+  "snapshot_generated_at_utc": "2026-11-15T20:18:31Z",
+  "sources_examined": 7,
+  "sources_readable": 7,
+  "unreadable_rows": 0
+}

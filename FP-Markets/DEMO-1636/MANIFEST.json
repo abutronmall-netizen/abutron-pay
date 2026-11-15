@@ -1,0 +1,32 @@
+{
+  "account_event_rows_excluded": 18,
+  "account_suffix": "1636",
+  "broker": "FP Markets",
+  "broker_time_to_utc_offset_seconds": 7200,
+  "conflicting_duplicate_tickets": 0,
+  "deals": 121,
+  "earliest_deal_at_utc": "2026-11-11T10:09:25Z",
+  "environment": "DEMO",
+  "excluded": "Nontrading account events, payments, balances, credentials, client records and broker identity fingerprints",
+  "files": [
+    {
+      "file": "deals.csv.gz",
+      "rows": 121,
+      "sha256": "af18c1ce1b7e3ceb61edbf2ed2d0e304b4d771d598e3fed1d93fc068abe2b570"
+    },
+    {
+      "file": "positions_snapshot.csv.gz",
+      "rows": 1,
+      "sha256": "509ec323397891e2f20e2105190898afb861a31f4fce8deb7aa9c70a61c1b15c"
+    }
+  ],
+  "history_completeness": "available selected-window native and archived exports; full lifetime coverage unverified",
+  "latest_deal_at_utc": "2026-11-13T15:40:50Z",
+  "latest_native_file_modified_at_utc": "2026-11-15T20:19:17Z",
+  "latest_native_file_sha256": "9c484c2e61d49965dfbe94f33cf0e2acd7d4fc67ee3a0dfa18333b1856c873e3",
+  "open_positions_in_latest_snapshot": 1,
+  "snapshot_generated_at_utc": "2026-11-15T20:19:17Z",
+  "sources_examined": 18,
+  "sources_readable": 18,
+  "unreadable_rows": 0
+}

@@ -1,0 +1,286 @@
+{
+  "accounts": [
+    {
+      "account_suffix": "6207",
+      "broker": "Deriv",
+      "conflicting_duplicate_tickets": 0,
+      "deals": 458,
+      "earliest_deal_at_utc": "2026-10-24T21:10:00Z",
+      "environment": "DEMO",
+      "excluded": "Nontrading account events, payments, secrets and unrelated files",
+      "files": [
+        {
+          "file": "deals.csv.gz",
+          "rows": 458,
+          "sha256": "af7037fae1f4339f7ba91798bb4d08e5350a4eb7acc9a4dacabf35a650d8cd31"
+        }
+      ],
+      "history_completeness": "available native exports only; full lifetime coverage unverified",
+      "latest_deal_at_utc": "2026-11-15T00:11:42Z",
+      "latest_native_file_modified_at_utc": "2026-11-15T20:19:23Z",
+      "latest_native_file_sha256": "e7d6032b1a0a07b970db1ec2a248babeae5764b4418bfad6220bb0af91244b56",
+      "snapshot_generated_at_utc": "2026-11-15T20:19:23Z",
+      "sources_examined": 9,
+      "sources_readable": 9,
+      "unreadable_rows": 0
+    },
+    {
+      "account_suffix": "7593",
+      "broker": "Deriv",
+      "conflicting_duplicate_tickets": 0,
+      "deals": 112,
+      "earliest_deal_at_utc": "2026-11-02T18:31:46Z",
+      "environment": "DEMO",
+      "excluded": "Nontrading account events, payments, secrets and unrelated files",
+      "files": [
+        {
+          "file": "deals.csv.gz",
+          "rows": 112,
+          "sha256": "8e2894eca4a5143c35c699d8812158283191b147b5debc47c7664b44fe2b53c5"
+        }
+      ],
+      "history_completeness": "available native exports only; full lifetime coverage unverified",
+      "latest_deal_at_utc": "2026-11-07T01:26:36Z",
+      "latest_native_file_modified_at_utc": "2026-11-15T20:18:31Z",
+      "latest_native_file_sha256": "79e7209228b19f8242b275580ce9f757a469fdfc1aaf9a7128408590a9aca4a8",
+      "snapshot_generated_at_utc": "2026-11-15T20:18:31Z",
+      "sources_examined": 7,
+      "sources_readable": 7,
+      "unreadable_rows": 0
+    },
+    {
+      "account_suffix": "9244",
+      "broker": "Deriv",
+      "conflicting_duplicate_tickets": 0,
+      "deals": 320,
+      "earliest_deal_at_utc": "2026-11-02T18:30:45Z",
+      "environment": "DEMO",
+      "excluded": "Nontrading account events, payments, secrets and unrelated files",
+      "files": [
+        {
+          "file": "deals.csv.gz",
+          "rows": 320,
+          "sha256": "28b5289b3b6679ba0ae26cb6850ba70b08dddb8053d1e6a2d7a6261fede6646f"
+        }
+      ],
+      "history_completeness": "available native exports only; full lifetime coverage unverified",
+      "latest_deal_at_utc": "2026-11-15T20:03:00Z",
+      "latest_native_file_modified_at_utc": "2026-11-15T20:18:31Z",
+      "latest_native_file_sha256": "c93baaf151cee71610efdbeef39a6a1f1d53a7c6766afc4dc977351d56325577",
+      "snapshot_generated_at_utc": "2026-11-15T20:18:31Z",
+      "sources_examined": 7,
+      "sources_readable": 7,
+      "unreadable_rows": 0
+    },
+    {
+      "account_event_rows_excluded": 40,
+      "account_suffix": "0512",
+      "broker": "FP Markets",
+      "broker_time_to_utc_offset_seconds": 7200,
+      "conflicting_duplicate_tickets": 0,
+      "deals": 602,
+      "earliest_deal_at_utc": "2026-11-05T17:26:23Z",
+      "environment": "DEMO",
+      "excluded": "Nontrading account events, payments, balances, credentials, client records and broker identity fingerprints",
+      "files": [
+        {
+          "file": "deals.csv.gz",
+          "rows": 602,
+          "sha256": "2d943f0a9aef8d1f10ea754445e60b0a63c30da8357747ea39cd6a35bf186eaf"
+        },
+        {
+          "file": "positions_snapshot.csv.gz",
+          "rows": 12,
+          "sha256": "ad3bcc8f4328f5c403a7408150486643ba89838c11bd8827974cc10fdeeb18c0"
+        }
+      ],
+      "history_completeness": "available selected-window native and archived exports; full lifetime coverage unverified",
+      "latest_deal_at_utc": "2026-11-13T21:51:07Z",
+      "latest_native_file_modified_at_utc": "2026-11-15T20:19:03Z",
+      "latest_native_file_sha256": "d0aef4ce8d1ad6e29b25fa8fa9ecbe01aa532ddaf04a342663b3c8cc94f06f8c",
+      "open_positions_in_latest_snapshot": 12,
+      "snapshot_generated_at_utc": "2026-11-15T20:19:03Z",
+      "sources_examined": 20,
+      "sources_readable": 20,
+      "unreadable_rows": 0
+    },
+    {
+      "account_event_rows_excluded": 15,
+      "account_suffix": "1622",
+      "broker": "FP Markets",
+      "broker_time_to_utc_offset_seconds": 7200,
+      "conflicting_duplicate_tickets": 0,
+      "deals": 138,
+      "earliest_deal_at_utc": "2026-11-11T20:16:36Z",
+      "environment": "DEMO",
+      "excluded": "Nontrading account events, payments, balances, credentials, client records and broker identity fingerprints",
+      "files": [
+        {
+          "file": "deals.csv.gz",
+          "rows": 138,
+          "sha256": "7b696aaf3aad2949dfa20b20bdb34bd75c1a10529aaad88f655c6c57b28e82ba"
+        },
+        {
+          "file": "positions_snapshot.csv.gz",
+          "rows": 0,
+          "sha256": "44b767b5e26b18e0b37e8487cb04160b7b3a4d3704dcf7beb690753cabee9b2a"
+        }
+      ],
+      "history_completeness": "available selected-window native and archived exports; full lifetime coverage unverified",
+      "latest_deal_at_utc": "2026-11-13T16:47:04Z",
+      "latest_native_file_modified_at_utc": "2026-11-15T20:19:13Z",
+      "latest_native_file_sha256": "00ef92c08a6ab79644163a8e89d324540191da0ba54c4326f2a4e3d1eef633b7",
+      "open_positions_in_latest_snapshot": 0,
+      "snapshot_generated_at_utc": "2026-11-15T20:19:13Z",
+      "sources_examined": 15,
+      "sources_readable": 15,
+      "unreadable_rows": 0
+    },
+    {
+      "account_event_rows_excluded": 18,
+      "account_suffix": "1636",
+      "broker": "FP Markets",
+      "broker_time_to_utc_offset_seconds": 7200,
+      "conflicting_duplicate_tickets": 0,
+      "deals": 121,
+      "earliest_deal_at_utc": "2026-11-11T10:09:25Z",
+      "environment": "DEMO",
+      "excluded": "Nontrading account events, payments, balances, credentials, client records and broker identity fingerprints",
+      "files": [
+        {
+          "file": "deals.csv.gz",
+          "rows": 121,
+          "sha256": "af18c1ce1b7e3ceb61edbf2ed2d0e304b4d771d598e3fed1d93fc068abe2b570"
+        },
+        {
+          "file": "positions_snapshot.csv.gz",
+          "rows": 1,
+          "sha256": "509ec323397891e2f20e2105190898afb861a31f4fce8deb7aa9c70a61c1b15c"
+        }
+      ],
+      "history_completeness": "available selected-window native and archived exports; full lifetime coverage unverified",
+      "latest_deal_at_utc": "2026-11-13T15:40:50Z",
+      "latest_native_file_modified_at_utc": "2026-11-15T20:19:17Z",
+      "latest_native_file_sha256": "9c484c2e61d49965dfbe94f33cf0e2acd7d4fc67ee3a0dfa18333b1856c873e3",
+      "open_positions_in_latest_snapshot": 1,
+      "snapshot_generated_at_utc": "2026-11-15T20:19:17Z",
+      "sources_examined": 18,
+      "sources_readable": 18,
+      "unreadable_rows": 0
+    },
+    {
+      "account_event_rows_excluded": 3,
+      "account_suffix": "2582",
+      "broker": "FP Markets",
+      "broker_time_to_utc_offset_seconds": 7200,
+      "conflicting_duplicate_tickets": 0,
+      "deals": 12,
+      "earliest_deal_at_utc": "2026-11-13T12:16:09Z",
+      "environment": "DEMO",
+      "excluded": "Nontrading account events, payments, balances, credentials, client records and broker identity fingerprints",
+      "files": [
+        {
+          "file": "deals.csv.gz",
+          "rows": 12,
+          "sha256": "97a3e16b95a57beab59f6b6b1ec882232fee751763df41bf947ed017b06484e6"
+        },
+        {
+          "file": "positions_snapshot.csv.gz",
+          "rows": 0,
+          "sha256": "44b767b5e26b18e0b37e8487cb04160b7b3a4d3704dcf7beb690753cabee9b2a"
+        }
+      ],
+      "history_completeness": "available selected-window native and archived exports; full lifetime coverage unverified",
+      "latest_deal_at_utc": "2026-11-13T13:30:52Z",
+      "latest_native_file_modified_at_utc": "2026-11-15T20:18:37Z",
+      "latest_native_file_sha256": "1363176041e4e759b3e59bde436d1b00fa8016c9ae704ebeca15949cda365fa4",
+      "open_positions_in_latest_snapshot": 0,
+      "snapshot_generated_at_utc": "2026-11-15T20:18:37Z",
+      "sources_examined": 3,
+      "sources_readable": 3,
+      "unreadable_rows": 0
+    },
+    {
+      "account_event_rows_excluded": 0,
+      "account_suffix": "9392",
+      "broker": "FP Markets",
+      "broker_time_to_utc_offset_seconds": 7200,
+      "conflicting_duplicate_tickets": 0,
+      "deals": 0,
+      "earliest_deal_at_utc": null,
+      "environment": "LIVE",
+      "excluded": "Nontrading account events, payments, balances, credentials, client records and broker identity fingerprints",
+      "files": [
+        {
+          "file": "deals.csv.gz",
+          "rows": 0,
+          "sha256": "e4d1e058d0aecf90181bdc2bb28908c7ea380b6aa9491dfbdb5c4e1f422d6d93"
+        },
+        {
+          "file": "positions_snapshot.csv.gz",
+          "rows": 0,
+          "sha256": "44b767b5e26b18e0b37e8487cb04160b7b3a4d3704dcf7beb690753cabee9b2a"
+        }
+      ],
+      "history_completeness": "available selected-window native and archived exports; full lifetime coverage unverified",
+      "latest_deal_at_utc": null,
+      "latest_native_file_modified_at_utc": "2026-11-15T20:19:19Z",
+      "latest_native_file_sha256": "8b38f3bef6a4d55665012465a5a11ffaab48bf87b167e07afff4ef9c3bb609d7",
+      "open_positions_in_latest_snapshot": 0,
+      "snapshot_generated_at_utc": "2026-11-15T20:19:19Z",
+      "sources_examined": 1,
+      "sources_readable": 1,
+      "unreadable_rows": 0
+    },
+    {
+      "account_event_rows_excluded": 3,
+      "account_suffix": "6364",
+      "broker": "FP Markets",
+      "broker_time_to_utc_offset_seconds": 7200,
+      "conflicting_duplicate_tickets": 0,
+      "deals": 0,
+      "earliest_deal_at_utc": null,
+      "environment": "LIVE",
+      "excluded": "Nontrading account events, payments, balances, credentials, client records and broker identity fingerprints",
+      "files": [
+        {
+          "file": "deals.csv.gz",
+          "rows": 0,
+          "sha256": "e4d1e058d0aecf90181bdc2bb28908c7ea380b6aa9491dfbdb5c4e1f422d6d93"
+        },
+        {
+          "file": "positions_snapshot.csv.gz",
+          "rows": 0,
+          "sha256": "44b767b5e26b18e0b37e8487cb04160b7b3a4d3704dcf7beb690753cabee9b2a"
+        }
+      ],
+      "history_completeness": "available selected-window native and archived exports; full lifetime coverage unverified",
+      "latest_deal_at_utc": null,
+      "latest_native_file_modified_at_utc": "2026-11-15T03:09:48Z",
+      "latest_native_file_sha256": "9b3c55fdd36d579f6c568ff65e3ffdb32fcfb4311b68f41c44c1d5ac2bda6d2c",
+      "open_positions_in_latest_snapshot": 0,
+      "snapshot_generated_at_utc": "2026-11-15T03:09:48Z",
+      "sources_examined": 3,
+      "sources_readable": 3,
+      "unreadable_rows": 0
+    }
+  ],
+  "generated_at_utc": "2026-11-15T20:19:30Z",
+  "missing_native_export_accounts": [
+    {
+      "account_suffix": "0178",
+      "broker": "Deriv",
+      "reason": "retired; no recognized native deal export found during current audit"
+    },
+    {
+      "account_suffix": "3492",
+      "broker": "FP Markets",
+      "reason": "retired; no recognized native account-history export found during current audit"
+    }
+  ],
+  "schema": "abutron-broker-native-trade-history-v1",
+  "scope": "Read-only native MT5 export snapshots and historical archived terminal exports. NOT a statement of complete lifetime account history.",
+  "security": "Private GitHub repository branch only; broker prices, volumes, trade cashflow and opaque tickets; no trade execution, credentials, payment transactions, balances, fingerprints or client records.",
+  "total_accounts_with_files": 9,
+  "total_trade_deals": 1763
+}
